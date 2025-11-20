@@ -18,6 +18,7 @@
       tree
       waybar
       swaybg
+      wofi
 
       # utilities
       stow
