@@ -33,11 +33,19 @@
       shellcheck
       typst
 
-      lua-language-server # lua_ls
+
+      # language servers
+      clang-tools # c cpp
+      bash-language-server # bash
+
+      lua-language-server # lua
+
+      tinymist # typst
+      nil # nix
     ];
   };
-
-  programs.firefox.enable = true;
+   
+    programs.firefox.enable = true;
 
   programs.git = {
     enable = true;
