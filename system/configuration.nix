@@ -92,6 +92,7 @@
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
+      NIXOS_NVIM = "1"; # environement variable to tell nvim we are on nixos
     };
 
     variables = {

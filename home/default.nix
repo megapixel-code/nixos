@@ -32,6 +32,8 @@
       jre
       shellcheck
       typst
+
+      lua-language-server # lua_ls
     ];
   };
 
