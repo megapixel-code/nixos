@@ -1,10 +1,15 @@
-{ config, pkgs, inputs, ... }: 
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   home = {
     username = "ivan";
     homeDirectory = "/home/ivan";
-    stateVersion = "25.05";  # Required, static
+    stateVersion = "25.05"; # Required, static
   };
 
   home.packages = with pkgs; [
@@ -33,7 +38,6 @@
       shellcheck
       typst
 
-
       # language servers
       clang-tools # c cpp
       bash-language-server # bash
@@ -42,10 +46,14 @@
 
       tinymist # typst
       nil # nix
+      nixd # nix
+
+      # formatters
+      nixfmt-rfc-style # nix
     ];
   };
-   
-    programs.firefox.enable = true;
+
+  programs.firefox.enable = true;
 
   programs.git = {
     enable = true;
