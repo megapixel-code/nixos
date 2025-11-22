@@ -14,11 +14,6 @@
       (yazi.override {
         _7zz = _7zz-rar; # support for RAR extraction
       })
-      fastfetch
-      tree
-      waybar
-      swaybg
-      wofi
       gimp3
 
       # utilities
@@ -34,6 +29,13 @@
       fzf
       ripgrep
       wget
+
+      bat
+      tree
+      fastfetch
+      waybar
+      swaybg
+      wofi
 
       # languages
       cargo
