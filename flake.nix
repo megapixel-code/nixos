@@ -20,14 +20,13 @@
     inputs@{
       self,
       nixpkgs,
-      nixpkgs-unstable,
       home-manager,
       ...
     }:
     let
       system = "x86_64-linux";
       # pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+      pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
