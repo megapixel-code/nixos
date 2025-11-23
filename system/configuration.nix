@@ -2,24 +2,25 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
-  # home manager config
-  # home-manager = {
-  #   useUserPackages = true;  # Packages install to /etc/profiles
-  #   useGlobalPkgs = true;    # Use global package definitions
-  #   backupFileExtension = "backup"; # backup file instead of overriding it
-  #   users.ivan = import ./home.nix;
-  # };
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # enable flakes feature and the accompanying nix cmd-line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -29,7 +30,7 @@
 
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -68,25 +69,27 @@
     jack.enable = true;
   };
 
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ivan = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     # packages = with pkgs; [
     # ];
   };
 
   environment = {
-     shellAliases = {
-       # removes base aliases added by nix
-       l = null;
-       ls = null;
-       ll = null;
+    shellAliases = {
+      # removes base aliases added by nix
+      l = null;
+      ls = null;
+      ll = null;
     };
 
     sessionVariables = {
@@ -96,7 +99,7 @@
     };
 
     variables = {
-       EDITOR = "nvim";
+      EDITOR = "nvim";
     };
 
   };
@@ -155,4 +158,3 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
 }
-

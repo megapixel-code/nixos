@@ -14,47 +14,47 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # quickshell = {
-    #   # add ?ref=<tag> to track a tag
-    #   url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-
-    #   # THIS IS IMPORTANT
-    #   # Mismatched system dependencies will lead to crashes and other issues.
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, ... }: 
-  let
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      ...
+    }:
+    let
       system = "x86_64-linux";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-  in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      specialArgs = { 
-         inherit inputs;
-         inherit pkgs-unstable;
+    in
+    {
+      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          inherit pkgs-unstable;
+        };
+
+        modules = [
+          ./system/configuration.nix
+          ./pkgs/default.nix
+
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useUserPackages = true; # Packages install to /etc/profiles
+              useGlobalPkgs = true; # Use global package definitions
+              backupFileExtension = "backup"; # backup file instead of overriding it
+
+              users.ivan = import ./home/default.nix; # path of the home
+
+              extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
+            };
+          }
+        ];
       };
-
-      modules = [
-        ./system/configuration.nix
-        ./pkgs/default.nix
-
-        # make home-manager as a module of nixos
-        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-
-          home-manager.users.ivan = import ./home/default.nix;
-
-          home-manager.extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
-        }
-
-      ];
     };
-  };
 }
