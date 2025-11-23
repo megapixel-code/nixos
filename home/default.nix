@@ -8,6 +8,7 @@
 {
   imports = [
     ./formatters.nix
+    ./cursor.nix
   ];
 
   home = {
