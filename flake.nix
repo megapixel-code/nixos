@@ -37,7 +37,6 @@
 
         modules = [
           ./system/configuration.nix
-          ./pkgs/default.nix
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -48,7 +47,7 @@
               useGlobalPkgs = true; # Use global package definitions
               backupFileExtension = "backup"; # backup file instead of overriding it
 
-              users.ivan = import ./home/default.nix; # path of the home
+              users.ivan = import ./home/home.nix; # path of the home
 
               extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
             };

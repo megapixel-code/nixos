@@ -15,6 +15,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./environement.nix
+
+    ./pkgs/packages.nix
   ];
 
   # enable flakes feature and the accompanying nix cmd-line tool
