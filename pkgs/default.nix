@@ -40,6 +40,7 @@
       bat
       tree
       fastfetch
+      htop-vim # interactive process viewer
       waybar
       swaybg
       wofi
