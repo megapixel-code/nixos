@@ -14,6 +14,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./environement.nix
   ];
 
   # enable flakes feature and the accompanying nix cmd-line tool
@@ -47,8 +48,19 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
+  # Enable the X11 windowing system and enable display manager
   # services.xserver.enable = true;
+  # Display manager :
+  programs.regreet.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "mango";
+        user = "ivan"; # autologin
+      };
+    };
+  };
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -82,28 +94,6 @@
     shell = pkgs.zsh;
     # packages = with pkgs; [
     # ];
-  };
-
-  environment = {
-    shellAliases = {
-      # removes base aliases added by nix
-      l = null;
-      ls = null;
-      ll = null;
-    };
-
-    sessionVariables = {
-      WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
-      NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
-      NIXOS_NVIM = "1"; # environement variable to tell nvim we are on nixos
-      MOZ_ENABLE_WAYLAND = "1"; # tell mozilla you are on wayland
-    };
-
-    variables = {
-      EDITOR = "nvim";
-      BROWSER = "firefox";
-    };
-
   };
 
   hardware = {
