@@ -40,6 +40,7 @@
       bat
       tree
       fastfetch
+      cbonsai
       htop-vim # interactive process viewer
       waybar
       swaybg
