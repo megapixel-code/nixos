@@ -45,7 +45,7 @@
       waybar
       swaybg
       wofi # app launcher
-      dunst # notification deamon
+      swaynotificationcenter # notification deamon
 
       # languages
       cargo
