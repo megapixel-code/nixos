@@ -47,6 +47,7 @@
       bash-language-server # bash
 
       lua-language-server # lua
+      pyrefly # python
 
       tinymist # typst
       nil # nix
@@ -61,7 +62,7 @@
 
   programs.git = {
     enable = true;
-    extraConfig = {
+    settings = {
       user.name = "Megapixel-code";
       user.email = "chainemegapixel@gmail.com";
       init.defaultBranch = "main";
