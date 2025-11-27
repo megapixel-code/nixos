@@ -44,7 +44,8 @@
       htop-vim # interactive process viewer
       waybar
       swaybg
-      wofi
+      wofi # app launcher
+      dunst # notification deamon
 
       # languages
       cargo
