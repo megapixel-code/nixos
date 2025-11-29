@@ -53,7 +53,7 @@
   # xdg desktop config
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true;
+    xdgOpenUsePortal = true; # solve youtube flickering
 
     extraPortals = with pkgs; [
       xdg-desktop-portal
