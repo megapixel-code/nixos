@@ -42,9 +42,11 @@
       fastfetch
       cbonsai
       htop-vim # interactive process viewer
+      pscircle # proccess viewer image generator
       waybar
-      swaybg
+      swww # bg daemon: TODO: change later to awww when pkg will be available
       wofi # app launcher
+      inotify-tools
       swaynotificationcenter # notification deamon
 
       # languages
