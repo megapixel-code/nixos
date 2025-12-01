@@ -45,6 +45,7 @@
       # language servers
       lua-language-server # lua
       pyrefly # python
+      jdt-language-server # java
 
       clang-tools # c cpp
       bash-language-server # bash
