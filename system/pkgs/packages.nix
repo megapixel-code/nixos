@@ -36,6 +36,7 @@
       fzf
       ripgrep
       wget
+      grim # screenshoot tool
 
       bat
       tree
