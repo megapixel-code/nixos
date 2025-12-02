@@ -37,6 +37,7 @@
       ripgrep
       wget
       grim # screenshoot tool
+      slurp # select region in wayland
 
       bat
       tree
