@@ -22,10 +22,12 @@
       XDG_CACHE_HOME = "$HOME/.cache";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
+      XDG_PICTURES_DIR = "$HOME/images";
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
+      GRIM_DEFAULT_DIR = "$HOME/images/screenshoots";
 
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
