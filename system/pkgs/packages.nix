@@ -39,6 +39,7 @@
       wget
       grim # screenshoot tool
       slurp # select region in wayland
+      imagemagick # image manipulation tool
       fd # find rewrite, directory searching
       skim # command line fuzy finder
 
