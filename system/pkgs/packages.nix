@@ -23,7 +23,6 @@
       })
       gimp3
       tmux
-      fd
 
       # utilities
       stow
@@ -40,6 +39,8 @@
       wget
       grim # screenshoot tool
       slurp # select region in wayland
+      fd # find rewrite, directory searching
+      skim # command line fuzy finder
 
       bat
       tree
