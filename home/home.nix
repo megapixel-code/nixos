@@ -72,7 +72,17 @@
     ];
   };
 
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+
+    # https://discourse.nixos.org/t/declare-firefox-extensions-and-settings/36265
+    # ---- POLICIES ----
+    # Check about:policies#documentation for options.
+    policies = {
+      DefaultDownloadDirectory = "\${XDG_DOWNLOAD_DIR}"; # Set the default download directory
+      DownloadDirectory = "\${XDG_DOWNLOAD_DIR}"; # Set and lock the download directory
+    };
+  };
 
   programs.git = {
     enable = true;
