@@ -28,30 +28,63 @@
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          inherit pkgs-unstable;
+      nixosConfigurations = {
+        nixos-main = nixpkgs.lib.nixosSystem {
+          modules = [ ./hosts/nixos-main/hardware-configuration.nix ];
+        };
+        nixos-school = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs;
+            inherit pkgs-unstable;
+            inherit home-manager;
+          };
+
+          modules = [
+            ./hosts/nixos-school/hardware-configuration.nix # TODO:
+            ./system/configuration.nix
+
+            # make home-manager as a module of nixos
+            # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useUserPackages = true; # Packages install to /etc/profiles
+                useGlobalPkgs = true; # Use global package definitions
+                backupFileExtension = "backup"; # backup file instead of overriding it
+
+                users.ivan = import ./home/home.nix; # path of the home
+
+                extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
+              };
+            }
+          ];
         };
 
-        modules = [
-          ./system/configuration.nix
+        # "*" = nixpkgs.lib.nixosSystem {
+        #   specialArgs = {
+        #     inherit inputs;
+        #     inherit pkgs-unstable;
+        #   };
 
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useUserPackages = true; # Packages install to /etc/profiles
-              useGlobalPkgs = true; # Use global package definitions
-              backupFileExtension = "backup"; # backup file instead of overriding it
+        #   modules = [
+        #     ./system/configuration.nix
 
-              users.ivan = import ./home/home.nix; # path of the home
+        #     # make home-manager as a module of nixos
+        #     # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager = {
+        #         useUserPackages = true; # Packages install to /etc/profiles
+        #         useGlobalPkgs = true; # Use global package definitions
+        #         backupFileExtension = "backup"; # backup file instead of overriding it
 
-              extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
-            };
-          }
-        ];
+        #         users.ivan = import ./home/home.nix; # path of the home
+
+        #         extraSpecialArgs = { inherit inputs; }; # to pass arguments to home.nix
+        #       };
+        #     }
+        #   ];
+        # };
       };
     };
 }
