@@ -26,15 +26,16 @@
       system = "x86_64-linux";
       # pkgs = nixpkgs.legacyPackages.${system};
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
+      mkSpecialArgs = {
+        inherit inputs;
+        inherit pkgs-unstable;
+        inherit home-manager;
+      };
     in
     {
       nixosConfigurations = {
         nixos-main = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit pkgs-unstable;
-            inherit home-manager;
-          };
+          specialArgs = mkSpecialArgs;
           modules = [
             ./hosts/nixos-main/hardware-configuration.nix
             ./default.nix
@@ -42,11 +43,7 @@
         };
 
         nixos-school = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit pkgs-unstable;
-            inherit home-manager;
-          };
+          specialArgs = mkSpecialArgs;
           modules = [
             ./hosts/nixos-school/hardware-configuration.nix
             ./default.nix
