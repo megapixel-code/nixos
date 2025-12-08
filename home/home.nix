@@ -68,6 +68,10 @@
       nixd # nix
 
       # formatters
+      shfmt # bash
+
+      prettierd # css, and more but just css for now
+      typstyle # typst
       nixfmt-rfc-style # nix
 
       # DAP
