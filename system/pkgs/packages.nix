@@ -44,6 +44,7 @@
       fd # find rewrite, directory searching
       skim # command line fuzy finder
       wlr-randr # manage outputs in wayland
+      brightnessctl # read and control brightness
 
       bat
       tree
