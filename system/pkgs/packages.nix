@@ -41,6 +41,7 @@
       grim # screenshoot tool
       slurp # select region in wayland
       imagemagick # image manipulation tool
+      pdfgrep # grep inside pdfs
       fd # find rewrite, directory searching
       skim # command line fuzy finder
       wlr-randr # manage outputs in wayland
