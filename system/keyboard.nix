@@ -32,7 +32,7 @@
         {
           name = "Escape remap";
           remap = {
-            "C-KEY_RIGHTBRACE" = "Esc";
+            "C-KEY_LEFTBRACE" = "Esc";
           };
         }
       ];
