@@ -13,6 +13,8 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs =
