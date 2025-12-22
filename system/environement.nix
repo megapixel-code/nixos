@@ -24,7 +24,6 @@
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_PICTURES_DIR = "$HOME/images";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
-      XDG_CURRENT_DESKTOP = "mango"; # or dwl ?
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";

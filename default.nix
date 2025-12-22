@@ -11,7 +11,6 @@
   imports = [
     home-manager.nixosModules.home-manager
     ./system/configuration.nix
-    ./system/keyboard.nix
   ];
 
   # make home-manager as a module of nixos

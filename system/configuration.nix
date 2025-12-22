@@ -13,6 +13,8 @@
 {
   imports = [
     ./environement.nix
+    ./xdg-desktop.nix
+    ./keyboard.nix
 
     ./pkgs/packages.nix
   ];
@@ -45,31 +47,6 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
-  # xdg desktop config
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    xdgOpenUsePortal = true;
-
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-wlr
-      xdg-desktop-portal-gtk
-    ];
-
-    config = {
-      mango = {
-        default = [ "gtk" ];
-        # exept thoses
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-
-        # wlr does not have this interface
-        "org.freedesktop.impl.portal.Inhibit" = [ ];
-      };
-    };
-  };
 
   # Display manager :
   programs.regreet.enable = true;
