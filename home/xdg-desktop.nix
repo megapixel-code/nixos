@@ -16,6 +16,7 @@
 
       config = {
         # to find XDG files : got to the {hash} of the new version and find file named xdg-desktop*
+        # .services files are located : /etc/profiles/per-user/...{user}.../share/systemd/user
 
         # pattern :
         # {name} -> "{name}-" -> {name}-portals.conf file
