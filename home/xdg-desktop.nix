@@ -48,16 +48,9 @@
           default_dir=$HOME/downloads
           create_help_file=1
           env=TERMCMD='kitty --title filechooser'
+          env=PATH="$PATH:/run/current-system/sw/bin"
           open_mode=suggested
           save_mode=last
-        '';
-      };
-      # FIXME: temporary solution to lunch termfilechooser. SEE : https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser/issues/56#issue-3754883696
-      "xdg-desktop-portal-termfilechooser/startup.sh" = {
-        force = true;
-        executable = true;
-        text = ''
-          ${pkgs.xdg-desktop-portal-termfilechooser}/libexec/xdg-desktop-portal-termfilechooser -r
         '';
       };
     };
