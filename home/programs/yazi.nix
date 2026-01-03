@@ -38,8 +38,8 @@
       mgr.prepend_keymap = [
         # wl-clipboard plugin
         {
-          on = "<C-y>";
-          run = [ "plugin wl-clipboard" ];
+          on = [ "<C-y>" ];
+          run = "plugin wl-clipboard";
           desc = "yank files in clipboard";
         }
 
@@ -55,18 +55,26 @@
 
         # restore plugin
         {
-          on = [
-            "u"
-          ];
+          on = [ "u" ];
           run = "plugin restore";
           desc = "Restore last deleted files/folders";
         }
 
         #mount plugin
         {
-          on = "M";
+          on = [ "M" ];
           run = "plugin mount";
           desc = "Open the mount plugin";
+        }
+
+        # compress plugin
+        {
+          on = [
+            "c"
+            "o"
+          ];
+          run = "plugin compress";
+          desc = "Archive selected files";
         }
       ];
     };
@@ -80,6 +88,7 @@
       inherit mount;
       inherit chmod;
       inherit restore; # FIXME: not working
+      inherit compress;
     };
 
     extraPackages = with pkgs; [
