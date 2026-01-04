@@ -20,7 +20,7 @@
       # Modmap for single key rebinds
       modmap = [
         {
-          name = "Global";
+          name = "Caps to Ctrl remap";
           remap = {
             "CapsLock" = "Ctrl_L";
           };
