@@ -19,18 +19,21 @@
     sessionVariables = {
       ### follow XDG base dir specification https://wiki.archlinux.org/title/XDG_Base_Directory
       # main
-      HOME = "/home/ivan";
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_CACHE_HOME = "$HOME/.cache";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_PICTURES_DIR = "$HOME/images";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
+      XDG_CONFIG_DIR = "/etc/xdg";
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
-      GRIM_DEFAULT_DIR = "$HOME/images/screenshoots";
+      NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"; # NOTE: look in xdg-desktop.nix
+      XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
+      XCOMPOSECACHE = "$XDG_CONFIG_HOME/X11/xcompose";
+      GRIM_DEFAULT_DIR = "$HOME/images/screenshoots"; # NOTE: look in home.nix > activation
 
       WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
       NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
@@ -46,6 +49,10 @@
       BROWSER = "firefox";
       TERM = "screen-256color";
     };
+  };
 
+  # makes nix follow xdg base dir specification
+  nix.settings = {
+    use-xdg-base-directories = true;
   };
 }
