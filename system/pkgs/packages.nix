@@ -61,6 +61,9 @@
       inotify-tools
       swaynotificationcenter # notification deamon
 
+      # games
+      prismlauncher # minecraft
+
       # languages
       cargo
       typst
