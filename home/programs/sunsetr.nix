@@ -1,0 +1,44 @@
+{
+  ...
+}:
+{
+  xdg = {
+    configFile = {
+      "sunsetr/sunsetr.toml" = {
+        force = true;
+        text = ''
+          # https://github.com/psi4j/sunsetr?tab=readme-ov-file#%EF%B8%8F-configuration
+          #[Backend]
+          backend = "auto"         # Backend to use: "auto", "hyprland", "hyprsunset" or "wayland"
+          transition_mode = "geo"  # Select: "geo", "finish_by", "start_at", "center", "static"
+
+          #[Smoothing]
+          smoothing = true         # Enable smooth transitions during startup and exit
+          startup_duration = 0.5   # Duration of smooth startup in seconds (0.1-60 | 0 = instant)
+          shutdown_duration = 0.5  # Duration of smooth shutdown in seconds (0.1-60 | 0 = instant)
+          adaptive_interval = 10   # Adaptive interval base for smooth transitions (1-1000)ms
+
+          #[Time-based config]
+          night_temp = 3300        # Color temperature during night (1000-20000) Kelvin
+          day_temp = 6500          # Color temperature during day (1000-20000) Kelvin
+          night_gamma = 90         # Gamma percentage for night (10-200%)
+          day_gamma = 100          # Gamma percentage for day (10-200%)
+          update_interval = 60     # Update frequency during transitions in seconds (10-300)
+
+          #[Static config]
+          static_temp = 6500       # Color temperature for static mode (1000-20000) Kelvin
+          static_gamma = 100       # Gamma percentage for static mode (10-200%)
+
+          #[Manual transitions]
+          sunset = "19:00:00"      # Time for manual sunset calculations (HH:MM:SS)
+          sunrise = "06:00:00"     # Time for manual sunrise calculations (HH:MM:SS)
+          transition_duration = 45 # Transition duration in minutes (5-120)
+
+          #[Geolocation]
+          latitude = 48.853410     # Geographic latitude (Paris)
+          longitude = 2.348800     # Geographic longitude (Paris)
+        '';
+      };
+    };
+  };
+}

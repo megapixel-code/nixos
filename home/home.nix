@@ -14,6 +14,7 @@
     ./programs/nvim.nix
     ./programs/yazi.nix
     ./programs/bat.nix
+    ./programs/sunsetr.nix
   ];
 
   home = {
