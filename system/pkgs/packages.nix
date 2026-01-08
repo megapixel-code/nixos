@@ -5,6 +5,10 @@
 }:
 
 {
+  imports = [
+    ./programs/gnupg-agent.nix
+  ];
+
   nixpkgs.config.allowUnfree = true; # required for yazi 7zz
 
   # List packages installed in system profile.

@@ -15,6 +15,7 @@
     ./programs/yazi.nix
     ./programs/bat.nix
     ./programs/sunsetr.nix
+    ./programs/gnupg.nix
   ];
 
   home = {
