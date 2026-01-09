@@ -28,8 +28,10 @@
       XDG_CONFIG_DIR = "/etc/xdg";
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"; # FIXME: not working
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
+      HISTFILE = "$XDG_STATE_HOME/bash/history";
       NPM_CONFIG_USERCONFIG = "$XDG_CONFIG_HOME/npm/npmrc"; # NOTE: look in xdg-desktop.nix
       XCOMPOSEFILE = "$XDG_CONFIG_HOME/X11/xcompose";
       XCOMPOSECACHE = "$XDG_CONFIG_HOME/X11/xcompose";
