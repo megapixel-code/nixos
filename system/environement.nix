@@ -18,8 +18,11 @@
 
     sessionVariables = {
       ### follow XDG base dir specification https://wiki.archlinux.org/title/XDG_Base_Directory
-      # look at home/xdg for cache/config/data/state
       # main
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_CACHE_HOME = "$HOME/.cache";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
       XDG_PICTURES_DIR = "$HOME/images";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
       XDG_CONFIG_DIR = "/etc/xdg";
