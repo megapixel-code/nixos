@@ -46,6 +46,7 @@
       prettierd # css, and more but just css for now
       typstyle # typst
       nixfmt-rfc-style # nix
+      mbake # make formatter and linter
 
       # DAP
       vscode-extensions.vscjava.vscode-java-debug
