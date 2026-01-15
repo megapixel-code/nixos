@@ -40,8 +40,9 @@
       fzf
       ripgrep
       wget
-      pass-wayland # password manager for neomutt
-      lynx # dependency of neomutt, to see html in terminal
+      pass-wayland # password manager
+      # git-crypt # manage secrets                                               TODO: later
+      # lynx # see html in terminal; dependency of neomutt maybe not needed
       grim # screenshoot tool
       slurp # select region in wayland
       imagemagick # image manipulation tool
