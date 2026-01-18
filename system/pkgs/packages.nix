@@ -73,6 +73,7 @@
       # languages
       cargo
       typst
+      lua
     ])
     ++ (with pkgs-unstable; [
       deezer-enhanced
