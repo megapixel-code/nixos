@@ -24,6 +24,7 @@
         _7zz = _7zz-rar; # support for RAR extraction
       })
       gimp3
+      inkscape
       tmux
       davinci-resolve
 
