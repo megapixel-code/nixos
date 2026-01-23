@@ -5,8 +5,15 @@
 {
   programs.yazi = {
     enable = true;
-    # enableZshIntegration = true;
+    # enableZshIntegration = true; # if you have zsh configured in homemanager
     # shellWrapperName = "y";
+
+    extraPackages = with pkgs; [
+      udisks # dependency of mount plugin
+      util-linux # dependency of mount plugin
+      trash-cli # dependency of restore plugin
+      git
+    ];
 
     settings = {
       mgr = {
@@ -163,12 +170,5 @@
       inherit git; # FIXME: not working
       inherit mount; # FIXME: not working
     };
-
-    extraPackages = with pkgs; [
-      udisks # dependency of mount plugin
-      util-linux # dependency of mount plugin
-      trash-cli # dependency of restore plugin
-      git
-    ];
   };
 }

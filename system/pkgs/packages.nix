@@ -21,9 +21,6 @@
       # apps
       kitty
       tmux
-      (yazi.override {
-        _7zz = _7zz-rar; # support for RAR extraction
-      })
       inkscape # pdf / svg
       gimp3
       davinci-resolve
