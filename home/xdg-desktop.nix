@@ -89,7 +89,8 @@
       # list of desktop apps : /nix/var/nix/profiles/system/sw/share/applications/
       defaultApplications = {
         # applications that should be the default choice when opening that MIME type
-        "application/pdf" = [ "org.inkscape.Inkscape.desktop" ];
+        "application/pdf" = [ "org.inkscape.Inkscape.desktop" ]; # .pdf
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "writer.desktop" ]; # .docx
       };
       associations = {
         added = {
