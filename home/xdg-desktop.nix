@@ -90,6 +90,10 @@
       defaultApplications = {
         # applications that should be the default choice when opening that MIME type
         "application/pdf" = [ "org.inkscape.Inkscape.desktop" ]; # .pdf
+        "image/svg+xml" = [
+          "org.inkscape.Inkscape.desktop"
+          "gimp.desktop"
+        ]; # svg
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "writer.desktop" ]; # .docx
       };
       associations = {
