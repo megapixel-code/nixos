@@ -28,6 +28,7 @@
       bluetui # Bluetooth TUI control
       impala # Network TUI control
       libreoffice
+      vlc
 
       # utilities
       stow

@@ -95,6 +95,7 @@
           "gimp.desktop"
         ]; # svg
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [ "writer.desktop" ]; # .docx
+        "video/*" = [ "vlc.desktop" ];
       };
       associations = {
         added = {
