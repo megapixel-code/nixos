@@ -56,6 +56,7 @@
       ntfs3g # read/fix ntfs file systems
       brightnessctl # read and control brightness
       ncpamixer # audio TUI control
+      ffmpeg
 
       bat
       tree
