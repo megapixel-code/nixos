@@ -18,36 +18,31 @@
       fzf
       ripgrep
 
-      # nvim lsp
+      # language servers
       nodejs
       jdk
       jre
-      shellcheck
-      typst
-
-      # language servers
+      jdt-language-server # java
+      shellcheck # bash
       lua-language-server # lua
       pyrefly # python
-      jdt-language-server # java
-      metals # scala
-
       clang-tools # c cpp
       bash-language-server # bash
-
       vscode-json-languageserver # json/jsonc
       vscode-css-languageserver # css
       superhtml # html
       tinymist # typst
+      metals # scala
       nil # nix
       nixd # nix
 
       # formatters
       shfmt # bash
-
       prettierd # css, and more but just css for now
       typstyle # typst
       nixfmt-rfc-style # nix
-      mbake # make formatter and linter
+      mbake # make
+      pasfmt # pascal / delphi
 
       # DAP
       vscode-extensions.vscjava.vscode-java-debug
@@ -56,6 +51,7 @@
       # plugins
       nodejs # Markdown Preview
       yarn # Markdown Preview
+      typst # preview and compile
     ];
   };
 }

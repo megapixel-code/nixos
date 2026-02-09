@@ -78,6 +78,7 @@
       typst
       lua
       scala
+      fpc # free pascal
     ])
     ++ (with pkgs-unstable; [
       deezer-enhanced
