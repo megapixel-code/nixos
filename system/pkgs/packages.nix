@@ -79,6 +79,7 @@
       lua
       scala
       fpc # free pascal
+      python3
     ])
     ++ (with pkgs-unstable; [
       deezer-enhanced
