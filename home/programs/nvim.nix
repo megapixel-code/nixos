@@ -23,18 +23,19 @@
       jdk
       jre
       jdt-language-server # java
-      shellcheck # bash
       lua-language-server # lua
       pyrefly # python
       clang-tools # c cpp
       bash-language-server # bash
-      vscode-json-languageserver # json/jsonc
-      vscode-css-languageserver # css
-      superhtml # html
-      tinymist # typst
       metals # scala
       nil # nix
       nixd # nix
+
+      tinymist # typst
+      neocmakelsp # cmake
+      superhtml # html
+      vscode-json-languageserver # json/jsonc
+      vscode-css-languageserver # css
 
       # formatters
       shfmt # bash
@@ -43,6 +44,7 @@
       nixfmt-rfc-style # nix
       mbake # make
       pasfmt # pascal / delphi
+      shellcheck # bash
 
       # DAP
       vscode-extensions.vscjava.vscode-java-debug
