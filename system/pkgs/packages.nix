@@ -57,6 +57,7 @@
       brightnessctl # read and control brightness
       ncpamixer # audio TUI control
       ffmpeg
+      bear # used to create compilation db for clang
 
       bat
       tree
