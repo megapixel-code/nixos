@@ -7,7 +7,7 @@ insert_final_newline=true
 trim_trailing_whitespace=true
 
 [*.lua]
-continuation_indent=3
+continuation_indent = 3
 # continuation_indent.before_block = 4
 # continuation_indent.in_expr = 4
 # continuation_indent.in_table = 4
@@ -66,3 +66,4 @@ break_before_braces = false
 ignore_space_after_colon = false
 remove_call_expression_list_finish_comma = false
 end_statement_with_semicolon = always
+quote_style = double

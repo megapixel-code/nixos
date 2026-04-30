@@ -74,6 +74,7 @@
         ignore_space_after_colon = "false";
         remove_call_expression_list_finish_comma = "false";
         end_statement_with_semicolon = "always";
+        quote_style = "double";
       };
     };
   };
