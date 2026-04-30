@@ -52,6 +52,14 @@ return {
    -- OR localy:
    dir = "~/documents/projects/color-skimer.nvim",
 
+   init = function()
+      local color_skimer = require( "color-skimer" );
+      vim.keymap.set( "n", "<leader>sc", "<cmd>ColorSkimerToggle<CR>", {
+         desc =
+         "Search Colorschemes",
+      } );
+      vim.keymap.set( "n", "<leader>cs", color_skimer.set_random_colorscheme, { desc = "Set random colorscheme" } );
+   end,
    --- @module "color-skimer"
    --- @type color_skimer_config
    opts = {

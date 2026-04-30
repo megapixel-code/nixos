@@ -1,5 +1,24 @@
 return {
    "aserowy/tmux.nvim",
+
+   init = function()
+      local tmux = require( "tmux" );
+
+      vim.keymap.set( "n", "<C-space>h", tmux.move_left,     { desc = "Move left" } );
+      vim.keymap.set( "n", "<C-space>j", tmux.move_bottom,   { desc = "Move bottom" } );
+      vim.keymap.set( "n", "<C-space>k", tmux.move_top,      { desc = "Move top" } );
+      vim.keymap.set( "n", "<C-space>l", tmux.move_right,    { desc = "Move right" } );
+
+      vim.keymap.set( "n", "<M-h>",      tmux.resize_left,   { desc = "Resize left" } );
+      vim.keymap.set( "n", "<M-j>",      tmux.resize_bottom, { desc = "Resize bottom" } );
+      vim.keymap.set( "n", "<M-k>",      tmux.resize_top,    { desc = "Resize top" } );
+      vim.keymap.set( "n", "<M-l>",      tmux.resize_right,  { desc = "Resize right" } );
+
+      vim.keymap.set( "n", "<C-M-h>",    tmux.swap_left,     { desc = "Swap left" } );
+      vim.keymap.set( "n", "<C-M-j>",    tmux.swap_bottom,   { desc = "Swap bottom" } );
+      vim.keymap.set( "n", "<C-M-k>",    tmux.swap_top,      { desc = "Swap top" } );
+      vim.keymap.set( "n", "<C-M-l>",    tmux.swap_right,    { desc = "Swap right" } );
+   end,
    opts = {
       copy_sync = {
          -- enables copy sync. by default, all registers are synchronized.

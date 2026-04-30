@@ -33,44 +33,7 @@ vim.keymap.set( "n", "<leader>j", "<cmd>cnext<CR>", { desc = "next element in th
 vim.keymap.set( "n", "<leader>k", "<cmd>cprev<CR>", { desc = "previous element in the quickfix list" } );
 
 
--- [terminal movement]
-local tmux = require( "tmux" );
-
-vim.keymap.set( "n", "<C-space>h", tmux.move_left,     { desc = "Move left" } );
-vim.keymap.set( "n", "<C-space>j", tmux.move_bottom,   { desc = "Move bottom" } );
-vim.keymap.set( "n", "<C-space>k", tmux.move_top,      { desc = "Move top" } );
-vim.keymap.set( "n", "<C-space>l", tmux.move_right,    { desc = "Move right" } );
-
-vim.keymap.set( "n", "<M-h>",      tmux.resize_left,   { desc = "Resize left" } );
-vim.keymap.set( "n", "<M-j>",      tmux.resize_bottom, { desc = "Resize bottom" } );
-vim.keymap.set( "n", "<M-k>",      tmux.resize_top,    { desc = "Resize top" } );
-vim.keymap.set( "n", "<M-l>",      tmux.resize_right,  { desc = "Resize right" } );
-
-vim.keymap.set( "n", "<C-M-h>",    tmux.swap_left,     { desc = "Swap left" } );
-vim.keymap.set( "n", "<C-M-j>",    tmux.swap_bottom,   { desc = "Swap bottom" } );
-vim.keymap.set( "n", "<C-M-k>",    tmux.swap_top,      { desc = "Swap top" } );
-vim.keymap.set( "n", "<C-M-l>",    tmux.swap_right,    { desc = "Swap right" } );
-
-
 -- ~~~ [[ Plugins Keymaps ]] ~~~
-
--- [luasnip]
-local luasnip = require( "luasnip" );
--- disable tab and s-tab keymap that would otherwise expand the snippet
-vim.keymap.set( { "i", "s" }, "<Tab>",   "<Tab>" );
-vim.keymap.set( { "i", "s" }, "<S-Tab>", "<S-Tab>" );
-vim.keymap.set( { "i", "s" }, "<c-j>", function()
-                   if luasnip.expand_or_jumpable() then
-                      luasnip.expand_or_jump();
-                   end;
-                end, { silent = true, desc = "go to next snippet jump" } );
-
-vim.keymap.set( { "i", "s" }, "<c-k>", function()
-                   if luasnip.jumpable( -1 ) then
-                      luasnip.jump( -1 );
-                   end;
-                end, { silent = true, desc = "go to previous snippet jump" } );
-
 
 -- [typst/markdown]
 -- NOTE: more info :h expand
@@ -106,99 +69,19 @@ vim.keymap.set( "n", "<leader>tp", "", {
          vim.cmd( "MarkdownPreview" );
       end;
    end,
-   desc = "Preview md or typ file",
+   desc = "toggle preview",
 } );
-
-
--- [todo-comments]
-local todo_keywords = {
-   "FIX",
-   "FIXME",
-   "BUG",
-   "FIXIT",
-   "ISSUE",
-   "WARN",
-   "WARNING",
-   "XXX",
-   "OPTIMIZE",
-   "TODO",
-};
-vim.keymap.set( "n", "<leader>st",
-                "<cmd>TodoTelescope keywords=" .. table.concat( todo_keywords, "," ) .. "<CR>",
-                {
-                   desc = "Search TODOS",
-                } );
-
-
--- [color-skimer]
-local color_skimer = require( "color-skimer" );
-vim.keymap.set( "n", "<leader>sc", "<cmd>ColorSkimerToggle<CR>", {
-   desc =
-   "Search Colorschemes",
-} );
-vim.keymap.set( "n", "<leader>cs", color_skimer.set_random_colorscheme, { desc = "Set random colorscheme" } );
-
-
--- [telescope]
-local telescope_builtins = require( "telescope.builtin" );
-local telescope_config = require( "config.telescope" );
-vim.keymap.set( "n", "<leader>sf", telescope_builtins.find_files,    { desc = "Search Files" } );
-vim.keymap.set( "n", "<leader>sh", telescope_builtins.help_tags,     { desc = "Search Help" } );
-vim.keymap.set( "n", "<leader>sm", telescope_builtins.marks,         { desc = "Search Marks" } );
-vim.keymap.set( "n", "<leader>ss", telescope_builtins.spell_suggest, { desc = "Search Spelling" } );
-vim.keymap.set( "n", "<leader>sn", function()
-                   telescope_builtins.find_files( {
-                      cwd = vim.fn.stdpath( "config" ),
-                   } );
-                end, { desc = "Search Neovim" } );
-vim.keymap.set( "n", "<leader>sp", function()
-                   telescope_builtins.find_files( {
-                      cwd = vim.fs.joinpath( vim.fn.stdpath( "data" ), "lazy" ),
-                   } );
-                end, { desc = "Search Plugins" } );
-vim.keymap.set( "n", "<leader>sg", telescope_config.multigrep, { desc = "Search Grep" } );
-
-
--- [gitsigns]
-vim.keymap.set( "n", "<leader>gd", "<cmd>Gitsigns diffthis<CR>",                  { desc = "toggle Git Diff" } );
-vim.keymap.set( "n", "<leader>gh", "<cmd>Gitsigns toggle_linehl<CR>",             { desc = "toggle Git Highlights" } );
-vim.keymap.set( "n", "<leader>gb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "toggle Git line Blame" } );
--- TODO: git Preview hunk, go to next hunk in the git *project*, etc...
-
--- [ccc]
-vim.keymap.set(
-   "n",
-   "<leader>cr",
-   "<cmd>CccHighlighterDisable<CR><cmd>CccHighlighterEnable<CR>",
-   { desc = "Refresh CCC plugin" }
-);
-vim.keymap.set( "n", "<leader>cc", ":CccPick<CR>", { desc = "Pick color" } );
-
-
--- [yazi]
-vim.keymap.set( "n", "<leader>yy", "<cmd>Yazi<cr>",        { desc = "open Yazi at the current file" } );
-vim.keymap.set( "n", "<leader>ys", "<cmd>Yazi toggle<cr>", { desc = "Resume the last yazi session" } );
-vim.keymap.set( "n", "<leader>yc", function()
-                   require( "yazi" ).yazi( { change_neovim_cwd_on_close = true } );
-                end, { desc = "Yazi Change CWD" } );
 
 
 -- [cellular automaton]
 local enable_cellular_automaton = function()
+   local cellular_automaton = require( "cellular-automaton" );
    local exclude_animations = {
       "scramble",
    };
 
-   local cellular_automaton = require( "cellular-automaton" );
-
-   local buftype = vim.api.nvim_get_option_value( "buftype", { buf = 0 } );
-   local filetype = vim.api.nvim_get_option_value( "filetype", { buf = 0 } );
-   if (buftype == "nofile" and filetype == "") then
-      return;
-   end;
-
    local cellular_automaton_animations = {};
-   local animations                    = cellular_automaton.animations;
+   local animations = cellular_automaton.animations;
    for animation_name, _ in pairs( animations ) do
       if (not vim.list_contains( exclude_animations, animation_name )) then
          table.insert( cellular_automaton_animations, animation_name );

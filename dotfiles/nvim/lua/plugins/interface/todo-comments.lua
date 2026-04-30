@@ -1,6 +1,26 @@
 return {
    "folke/todo-comments.nvim",
    dependencies = { "nvim-lua/plenary.nvim" },
+
+   init = function()
+      local todo_keywords = {
+         "FIX",
+         "FIXME",
+         "BUG",
+         "FIXIT",
+         "ISSUE",
+         "WARN",
+         "WARNING",
+         "XXX",
+         "OPTIMIZE",
+         "TODO",
+      };
+      vim.keymap.set( "n", "<leader>st",
+                      "<cmd>TodoTelescope keywords=" .. table.concat( todo_keywords, "," ) .. "<CR>",
+                      {
+                         desc = "Search TODOS",
+                      } );
+   end,
    opts = {
       -- FIX : test
       -- FIXME: test

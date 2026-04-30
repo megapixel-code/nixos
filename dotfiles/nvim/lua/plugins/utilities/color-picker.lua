@@ -1,8 +1,18 @@
 return {
    "uga-rosa/ccc.nvim",
+
+   init = function()
+      vim.keymap.set(
+         "n",
+         "<leader>rc",
+         "<cmd>CccHighlighterDisable<CR><cmd>CccHighlighterEnable<CR>",
+         { desc = "Refresh CCC plugin" }
+      );
+      vim.keymap.set( "n", "<leader>cc", ":CccPick<CR>", { desc = "Pick color" } );
+   end,
+
    config = function()
       local ccc = require( "ccc" );
-
       ccc.setup( {
          highlighter = {
             auto_enable = true, -- start the highlighter on file open
@@ -31,7 +41,7 @@ return {
             ccc.picker.css_oklch,
          },
       } );
-      -- set the hex to uppercase
+
       ccc.output.hex.setup( { uppercase = true } );
       ccc.output.hex_short.setup( { uppercase = true } );
    end,
