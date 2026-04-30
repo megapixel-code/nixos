@@ -12,6 +12,7 @@
     keyMode = "vi";
     newSession = true;
     prefix = "C-SPACE";
+    shell = "${pkgs.zsh}/bin/zsh";
     terminal = "\${TERM}";
 
     plugins = with pkgs; [
