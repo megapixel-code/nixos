@@ -71,26 +71,3 @@ vim.keymap.set( "n", "<leader>tp", "", {
    end,
    desc = "toggle preview",
 } );
-
-
--- [cellular automaton]
-local enable_cellular_automaton = function()
-   local cellular_automaton = require( "cellular-automaton" );
-   local exclude_animations = {
-      "scramble",
-   };
-
-   local cellular_automaton_animations = {};
-   local animations = cellular_automaton.animations;
-   for animation_name, _ in pairs( animations ) do
-      if (not vim.list_contains( exclude_animations, animation_name )) then
-         table.insert( cellular_automaton_animations, animation_name );
-      end;
-   end;
-
-   math.randomseed( os.time() );
-   local random_nb = math.random( 1, #cellular_automaton_animations );
-   cellular_automaton.start_animation( cellular_automaton_animations[random_nb] );
-end;
-
-vim.keymap.set( "n", "<leader><BS>", enable_cellular_automaton, { desc = "lol" } );
