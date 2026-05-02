@@ -101,8 +101,15 @@ return {
       },
       post_preview = {
          ["*"] = function()
+            -- fold col and line same color as the rest
             vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "SignColumn" } );
             vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } );
+
+            -- lsp is never underlined
+            local lsp_hl_value = { underline = false, bold = true, standout = true };
+            vim.api.nvim_set_hl( 0, "LspReferenceText",  lsp_hl_value );
+            vim.api.nvim_set_hl( 0, "LspReferenceRead",  lsp_hl_value );
+            vim.api.nvim_set_hl( 0, "LspReferenceWrite", lsp_hl_value );
          end,
       },
 
