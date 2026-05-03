@@ -16,7 +16,7 @@ return {
 
       vim.keymap.set( { "n", "x" }, "<c-q>",         multicursors.toggleCursor );
       vim.keymap.set( { "n", "x" }, "gq",            multicursors.restoreCursors );
-      vim.keymap.set( "x",          "S",             multicursors.splitCursors );
+      vim.keymap.set( "x",          "<c-s>",         multicursors.splitCursors );
 
       -- Mappings defined in a keymap layer only apply when there are
       -- multiple cursors. This lets you have overlapping mappings.
