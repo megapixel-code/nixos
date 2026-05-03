@@ -60,6 +60,7 @@ return {
       } );
       vim.keymap.set( "n", "<leader>cs", color_skimer.set_random_colorscheme, { desc = "Set random colorscheme" } );
    end,
+
    --- @module "color-skimer"
    --- @type color_skimer_config
    opts = {
@@ -86,6 +87,11 @@ return {
          "forest_stream",
          "crimson_moonlight",
          "mfd-dark",
+         "ef-winter",
+         "ef-deuteranopia-dark",
+
+         "ef-summer",
+         "ef-elea-light",
 
          -- [PROBATION]
       },
@@ -110,6 +116,10 @@ return {
             vim.api.nvim_set_hl( 0, "LspReferenceText",  lsp_hl_value );
             vim.api.nvim_set_hl( 0, "LspReferenceRead",  lsp_hl_value );
             vim.api.nvim_set_hl( 0, "LspReferenceWrite", lsp_hl_value );
+
+            -- line number on tscontext
+            vim.api.nvim_set_hl( 0, "TreesitterContextLineNumber", { link = "TreesitterContext" } );
+            vim.api.nvim_set_hl( 0, "TreesitterContextSeparator",  { link = "TreesitterContext" } );
          end,
       },
 
