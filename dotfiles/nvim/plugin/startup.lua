@@ -165,9 +165,11 @@ local drawings = {
 };
 
 local function refactor_drawing( drawing )
-   local drawing_heigt = #drawing;
+   local drawing_cp = vim.deepcopy( drawing );
+
+   local drawing_heigt = #drawing_cp;
    local drawing_width = 0;
-   for _, cur_str in ipairs( drawing ) do
+   for _, cur_str in ipairs( drawing_cp ) do
       drawing_width = math.max( drawing_width, vim.fn.strdisplaywidth( cur_str ) );
    end;
 
@@ -176,16 +178,16 @@ local function refactor_drawing( drawing )
 
    local padding_string = string.rep( " ", padding_left );
 
-   for i, line in ipairs( drawing ) do
+   for i, line in ipairs( drawing_cp ) do
       for _ = 1, padding_left do
-         drawing[i] = padding_string .. line;
+         drawing_cp[i] = padding_string .. line;
       end;
    end;
    for _ = 1, padding_top do
-      table.insert( drawing, 1, "" );
+      table.insert( drawing_cp, 1, "" );
    end;
 
-   return drawing;
+   return drawing_cp;
 end;
 
 
@@ -193,16 +195,28 @@ end;
 local function random_drawing()
    math.randomseed( os.time() );
    local selected_drawing = drawings[math.random( #drawings )];
-   return refactor_drawing( selected_drawing );
+   return selected_drawing;
 end;
 
 
 
-local function set_options( buf, win )
+local function draw_screen( buf, drawing )
+   local correct_drawing = refactor_drawing( drawing );
+
+   vim.api.nvim_set_option_value( "modifiable", true, { buf = buf } );
+   vim.api.nvim_buf_set_lines( buf, 0, -1, false, correct_drawing );
+   vim.api.nvim_set_option_value( "modifiable", false, { buf = buf } );
+
+   local namespace = vim.api.nvim_create_namespace( "" );
+   vim.hl.range( buf, namespace, "String", { 1, 1 }, { 100 * 100, 100 * 100 } );
+end;
+
+
+
+local function set_options( buf, win, drawing )
    local opts = {
       buf = {
          { "modifiable", false },
-         { "bufhidden",  "wipe" },
          { "buftype",    "nofile" },
          { "filetype",   "vimdoc" }, -- to have ts parsing
          { "swapfile",   false },
@@ -224,17 +238,13 @@ local function set_options( buf, win )
    for _, opt in ipairs( opts.win ) do
       vim.api.nvim_set_option_value( opt[1], opt[2], { win = win, scope = "local" } );
    end;
-end;
 
-
-
-local function draw_screen( buf, drawing )
-   vim.api.nvim_set_option_value( "modifiable", true, { buf = buf } );
-   vim.api.nvim_buf_set_lines( buf, 0, 1, false, drawing );
-   vim.api.nvim_set_option_value( "modifiable", false, { buf = buf } );
-
-   local namespace = vim.api.nvim_create_namespace( "" );
-   vim.hl.range( buf, namespace, "String", { 1, 1 }, { 100 * 100, 100 * 100 } );
+   vim.api.nvim_create_autocmd( "WinResized", {
+      buf = buf,
+      callback = function()
+         draw_screen( buf, drawing );
+      end,
+   } );
 end;
 
 
@@ -244,11 +254,11 @@ vim.api.nvim_create_autocmd( "VimEnter", {
       if vim.fn.argc() == 0 then
          local buf = vim.api.nvim_create_buf( false, true );
          local win = vim.api.nvim_get_current_win();
+         local drawing = random_drawing();
 
          vim.api.nvim_win_set_buf( 0, buf );
-         set_options( buf, win );
+         set_options( buf, win,     drawing );
 
-         local drawing = random_drawing();
          draw_screen( buf, drawing );
       end;
    end,
