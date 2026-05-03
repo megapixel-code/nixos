@@ -55,12 +55,12 @@
       bind-key 'l' if-shell "$is_vim" 'send-keys C-SPACE l' { if -F '#{pane_at_right}' ''' 'select-pane -R' }
       bind-key 'n' if-shell "$is_vim" 'send-keys C-SPACE n' { if -F '#{window_end_flag}' ''' 'select-window -n' }
       bind-key 'p' if-shell "$is_vim" 'send-keys C-SPACE p' { if 'test #{window_index} -gt #{base-index}' 'select-window -p' }
-      bind-key -T copy-mode-vi 'h' if -F '#{pane_at_left}' ''' 'select-pane -L'
-      bind-key -T copy-mode-vi 'j' if -F '#{pane_at_bottom}' ''' 'select-pane -D'
-      bind-key -T copy-mode-vi 'k' if -F '#{pane_at_top}' ''' 'select-pane -U'
-      bind-key -T copy-mode-vi 'l' if -F '#{pane_at_right}' ''' 'select-pane -R'
-      bind-key -T copy-mode-vi 'n' if -F '#{window_end_flag}' ''' 'select-window -n'
-      bind-key -T copy-mode-vi 'p' if 'test #{window_index} -gt #{base-index}' 'select-window -p'
+      bind-key -T copy-mode-vi 'c-h' if -F '#{pane_at_left}' ''' 'select-pane -L'
+      bind-key -T copy-mode-vi 'c-j' if -F '#{pane_at_bottom}' ''' 'select-pane -D'
+      bind-key -T copy-mode-vi 'c-k' if -F '#{pane_at_top}' ''' 'select-pane -U'
+      bind-key -T copy-mode-vi 'c-l' if -F '#{pane_at_right}' ''' 'select-pane -R'
+      bind-key -T copy-mode-vi 'c-n' if -F '#{window_end_flag}' ''' 'select-window -n'
+      bind-key -T copy-mode-vi 'c-p' if 'test #{window_index} -gt #{base-index}' 'select-window -p'
 
       bind -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'resize-pane -L 1'
       bind -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'resize-pane -D 1'
