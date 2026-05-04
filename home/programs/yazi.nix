@@ -102,6 +102,10 @@
             text = "";
           }
           {
+            name = "projects";
+            text = "󰊢";
+          }
+          {
             name = "public";
             text = "";
           }
