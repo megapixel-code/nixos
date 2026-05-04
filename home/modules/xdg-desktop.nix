@@ -29,6 +29,7 @@
       publicShare = "${config.home.homeDirectory}/public";
       templates = "${config.home.homeDirectory}/templates";
       videos = "${config.home.homeDirectory}/videos";
+      projects = "${config.home.homeDirectory}/projects";
     };
 
     # -- [[ Files inside cache/config/data/state ]] --
