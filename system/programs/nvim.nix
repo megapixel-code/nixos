@@ -7,7 +7,7 @@
 }:
 {
   options = {
-    extraPackages = lib.mkOption {
+    nvim.extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       default = [ ];
     };
@@ -20,7 +20,7 @@
           "--suffix"
           "PATH"
           ":"
-          (lib.makeBinPath config.extraPackages)
+          (lib.makeBinPath config.nvim.extraPackages)
         ];
       in
       [
@@ -30,7 +30,7 @@
         })
       ];
 
-    extraPackages = with pkgs; [
+    nvim.extraPackages = with pkgs; [
       git
       gnumake
       cmake
