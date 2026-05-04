@@ -112,7 +112,7 @@ return {
             vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } );
 
             -- lsp is never underlined
-            local lsp_hl_value = { underline = false, bold = true, standout = true };
+            local lsp_hl_value = { link = "Visual" };
             vim.api.nvim_set_hl( 0, "LspReferenceText",  lsp_hl_value );
             vim.api.nvim_set_hl( 0, "LspReferenceRead",  lsp_hl_value );
             vim.api.nvim_set_hl( 0, "LspReferenceWrite", lsp_hl_value );
