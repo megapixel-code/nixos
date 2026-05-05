@@ -12,6 +12,23 @@ image_filter = 'lanczos3'
 tab_size = 3
 wrap = 'no'
 
+[opener]
+firefox = [
+   {run = "firefox %s1", orphan = true, desc = "Firefox", for = "linux"},
+]
+inkscape = [
+   {run = "inkscape %s1", orphan = true, desc = "Inkscape", for = "linux"},
+]
+gimp = [
+   {run = "gimp %s1", orphan = true, desc = "Gimp", for = "linux"},
+]
+
+[open]
+rules = [
+   { mime = "application/pdf", use = ["firefox", "inkscape"] },
+   { mime = "image/*", use = ["gimp", "inkscape"] }
+]
+
 [plugin]
 prepend_fetchers = [
    {id = 'git', run = 'git', url = '*'},
