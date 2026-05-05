@@ -65,7 +65,9 @@
         mkdir -p "$formaters_dir"
 
         for e in "''${configfiles[@]}"; do
-        	ln -sfn "$e" "$configfiles_dir"
+        	bn="$(basename "$e")"
+        	mkdir -p "$configfiles_dir$bn"
+        	ln -sfn "$e"* "$configfiles_dir$bn"
         done
         for e in "''${fonts_files[@]}"; do
         	ln -sfn "$dotfiles_dir$e" "$font_dir"

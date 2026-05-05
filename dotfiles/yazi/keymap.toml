@@ -1,0 +1,29 @@
+[mgr]
+[[mgr.prepend_keymap]]
+desc = 'yank files in clipboard'
+on = ['<C-y>']
+run = 'plugin wl-clipboard'
+
+[[mgr.prepend_keymap]]
+desc = 'Chmod on selected files'
+on = ['c', 'm']
+run = 'plugin chmod'
+
+[[mgr.prepend_keymap]]
+desc = 'Restore last deleted files/folders'
+on = ['u']
+run = 'plugin restore'
+
+[[mgr.prepend_keymap]]
+desc = 'Open the mount plugin'
+on = ['M']
+run = 'plugin mount'
+
+[[mgr.prepend_keymap]]
+desc = 'Archive selected files'
+on = ['c', 'o']
+run = 'plugin compress'
+
+[[mgr.prepend_keymap]]
+on = '<C-n>'
+run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm"

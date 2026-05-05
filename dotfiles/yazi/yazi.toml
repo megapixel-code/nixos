@@ -1,0 +1,25 @@
+[mgr]
+ratio = [10, 25, 16]
+scrolloff = 5
+show_hidden = true
+show_symlink = true
+sort_by = 'natural'
+sort_dir_first = true
+sort_sensitive = true
+
+[plugin]
+[[plugin.prepend_fetchers]]
+id = 'git'
+run = 'git'
+url = '*'
+
+[[plugin.prepend_fetchers]]
+id = 'git'
+run = 'git'
+url = '*/'
+
+[preview]
+image_filter = 'lanczos3'
+tab_size = 3
+wrap = 'no'
+
