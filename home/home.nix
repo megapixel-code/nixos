@@ -45,6 +45,8 @@
       '';
 
       symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        shopt -s dotglob # needed for "$e"*
+
         dotfiles_dir="/etc/nixos/dotfiles/"
 
         configfiles_dir="${config.xdg.configHome}/"
