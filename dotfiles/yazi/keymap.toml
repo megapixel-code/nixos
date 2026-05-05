@@ -1,9 +1,9 @@
 [mgr]
 prepend_keymap = [
-   {desc = 'yank files in clipboard', on = ['<C-y>'], run = 'plugin wl-clipboard'},
-   {desc = 'Chmod on selected files', on = ['c', 'm'], run = 'plugin chmod'},
-   {desc = 'Restore last deleted files/folders', on = ['u'], run = 'plugin restore'},
-   {desc = 'Open the mount plugin', on = ['M'], run = 'plugin mount'},
-   {desc = 'Archive selected files', on = ['c', 'o'], run = 'plugin compress'},
-   {desc = 'Drag and drop file', on = '<C-n>', run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm"},
+  { desc = "yank files in clipboard", on = ["<C-y>"], run = "plugin wl-clipboard" },
+  { desc = "Chmod on selected files", on = ["c", "m"], run = "plugin chmod" },
+  { desc = "Restore last deleted files/folders", on = ["u"], run = "plugin restore" },
+  { desc = "Open the mount plugin", on = ["M"], run = "plugin mount" },
+  { desc = "Archive selected files", on = ["c", "o"], run = "plugin compress" },
+  { desc = "Drag and drop file", on = "<C-n>", run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm" },
 ]

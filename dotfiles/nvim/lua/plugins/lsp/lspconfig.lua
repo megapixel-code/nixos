@@ -111,6 +111,12 @@ return {
                   capabilities = capabilities,
                },
             },
+            {
+               name = "tombi",
+               args = {
+                  capabilities = capabilities,
+               },
+            },
          };
 
          for _, server in ipairs( M ) do

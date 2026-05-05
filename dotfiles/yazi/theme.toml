@@ -1,23 +1,22 @@
 [icon]
 dirs = [
-   {name = '.config', text = ''},
-   {name = '.git', text = ''},
-   {name = '.github', text = ''},
-   {name = 'desktop', text = ''},
-   {name = 'documents', text = ''},
-   {name = 'downloads', text = ''},
-   {name = 'music', text = ''},
-   {name = 'pictures', text = ''},
-   {name = 'projects', text = '󰊢'},
-   {name = 'public', text = ''},
-   {name = 'templates', text = ''},
-   {name = 'videos', text = ''},
+  { name = ".config", text = "" },
+  { name = ".git", text = "" },
+  { name = ".github", text = "" },
+  { name = "desktop", text = "" },
+  { name = "documents", text = "" },
+  { name = "downloads", text = "" },
+  { name = "music", text = "" },
+  { name = "pictures", text = "" },
+  { name = "projects", text = "󰊢" },
+  { name = "public", text = "" },
+  { name = "templates", text = "" },
+  { name = "videos", text = "" },
 ]
 
 prepend_conds = [
-   {fg = 'blue', if = 'dir', text = ''},
+  { fg = "blue", if = "dir", text = "" },
 ]
 
 [indicator]
-padding = {close = '█', open = '█'}
-
+padding = { close = "█", open = "█" }

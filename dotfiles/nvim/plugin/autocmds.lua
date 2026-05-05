@@ -83,7 +83,7 @@ vim.api.nvim_create_autocmd( "BufRead", {
 
 -- [[ document-higligting ]]
 local hover_highlight_group = vim.api.nvim_create_augroup( "hover-highlight", { clear = false } );
-local no_highlight_table = { "json", "jsonc", "cmake", "yaml" };
+local no_highlight_table = { "json", "jsonc", "cmake", "yaml", "toml" };
 
 vim.api.nvim_create_autocmd( { "CursorHold", "CursorHoldI" }, {
    group = hover_highlight_group,

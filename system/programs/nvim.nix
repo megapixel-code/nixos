@@ -63,6 +63,7 @@
       vscode-css-languageserver # css
       vscode-json-languageserver # json/jsonc
       yaml-language-server # yaml
+      tombi # toml lsp/formatter/linter
 
       # formatters
       shfmt # bash
