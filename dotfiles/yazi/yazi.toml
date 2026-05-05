@@ -14,19 +14,23 @@ wrap = 'no'
 
 [opener]
 firefox = [
-   {run = "firefox %s1", orphan = true, desc = "Firefox", for = "linux"},
+   {run = "firefox %s", orphan = true, desc = "Firefox", for = "linux"},
 ]
 inkscape = [
-   {run = "inkscape %s1", orphan = true, desc = "Inkscape", for = "linux"},
+   {run = "inkscape %s", orphan = true, desc = "Inkscape", for = "linux"},
 ]
 gimp = [
-   {run = "gimp %s1", orphan = true, desc = "Gimp", for = "linux"},
+   {run = "gimp %s", orphan = true, desc = "Gimp", for = "linux"},
+]
+nvim = [
+   {run = "$EDITOR %s", block = true, desc = "Nvim", for = "linux"},
 ]
 
 [open]
 rules = [
    { mime = "application/pdf", use = ["firefox", "inkscape"] },
-   { mime = "image/*", use = ["gimp", "inkscape"] }
+   { mime = "image/*", use = ["gimp", "inkscape"] },
+   { mime = "*", use = "nvim" }
 ]
 
 [plugin]
