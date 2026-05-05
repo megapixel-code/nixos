@@ -1,59 +1,23 @@
 [icon]
-[[icon.dirs]]
-name = '.config'
-text = ''
+dirs = [
+   {name = '.config', text = ''},
+   {name = '.git', text = ''},
+   {name = '.github', text = ''},
+   {name = 'desktop', text = ''},
+   {name = 'documents', text = ''},
+   {name = 'downloads', text = ''},
+   {name = 'music', text = ''},
+   {name = 'pictures', text = ''},
+   {name = 'projects', text = '󰊢'},
+   {name = 'public', text = ''},
+   {name = 'templates', text = ''},
+   {name = 'videos', text = ''},
+]
 
-[[icon.dirs]]
-name = '.git'
-text = ''
-
-[[icon.dirs]]
-name = '.github'
-text = ''
-
-[[icon.dirs]]
-name = 'desktop'
-text = ''
-
-[[icon.dirs]]
-name = 'documents'
-text = ''
-
-[[icon.dirs]]
-name = 'downloads'
-text = ''
-
-[[icon.dirs]]
-name = 'music'
-text = ''
-
-[[icon.dirs]]
-name = 'pictures'
-text = ''
-
-[[icon.dirs]]
-name = 'projects'
-text = '󰊢'
-
-[[icon.dirs]]
-name = 'public'
-text = ''
-
-[[icon.dirs]]
-name = 'templates'
-text = ''
-
-[[icon.dirs]]
-name = 'videos'
-text = ''
-
-[[icon.prepend_conds]]
-fg = 'blue'
-if = 'dir'
-text = ''
+prepend_conds = [
+   {fg = 'blue', if = 'dir', text = ''},
+]
 
 [indicator]
-[indicator.padding]
-close = '█'
-open = '█'
+padding = {close = '█', open = '█'}
 
