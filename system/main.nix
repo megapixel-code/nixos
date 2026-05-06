@@ -121,6 +121,9 @@
 
       services.upower.enable = true;
 
+      # enable the service to allow mounting filesystems
+      services.udisks2.enable = true;
+
       # hardware accelerated graphics drivers. (hardware rendering, video encode/decode acceleration, etc)
       hardware.graphics = {
         enable = true;

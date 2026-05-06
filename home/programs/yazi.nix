@@ -22,7 +22,7 @@
       inherit full-border;
       inherit yatline;
       inherit git;
-      inherit mount; # FIXME: not working
+      inherit mount;
     };
   };
 }
