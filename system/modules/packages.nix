@@ -55,14 +55,7 @@ let
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.editors.enable [
       inkscape # pdf/svg editor
       gimp3
-      (my_lib.makeWrapper {
-        package = pkgs.davinci-resolve;
-        package_exec = "davinci-resolve";
-        script = ''
-          HOME=$XDG_DATA_HOME/DaVinciResolve
-          mkdir -p $HOME
-        '';
-      })
+      kdePackages.kdenlive # video editor
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
       (my_lib.makeWrapper {
