@@ -19,7 +19,7 @@ return {
       vim.keymap.set( "n", "<leader>ss", telescope_builtins.spell_suggest, { desc = "Search Spelling" } );
       vim.keymap.set( "n", "<leader>sn", function()
                          telescope_builtins.find_files( {
-                            cwd = vim.fn.stdpath( "config" ),
+                            cwd = "/etc/nixos/dotfiles/nvim/",
                          } );
                       end, { desc = "Search Neovim" } );
       vim.keymap.set( "n", "<leader>sp", function()
