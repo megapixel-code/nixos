@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# obs
-# FIXME: remove line after https://github.com/mangowm/mango/releases/tag/0.12.4 ?
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots &> /dev/null
-
 # notify
 swaync &> /dev/null &
 
