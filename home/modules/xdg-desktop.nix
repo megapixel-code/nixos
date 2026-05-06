@@ -107,46 +107,5 @@
         };
       };
     };
-
-    # NOTE: for categories: https://specifications.freedesktop.org/menu/latest/category-registry.html
-    desktopEntries = {
-    };
-
-    mimeApps = {
-      enable = true;
-      # in xdg_config_home/mimeapps.list
-      # how to get MIME type : https://docs.w3cub.com/http/basics_of_http/mime_types/complete_list_of_mime_types.html
-      # list of desktop apps :
-      # ll /etc/profiles/per-user/ivan/share/applications /run/current-system/sw/share/applications
-      defaultApplications = {
-        # applications that should be the default choice when opening that MIME type
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
-          # .docx
-          "writer.desktop"
-        ];
-        "application/pdf" = [
-          # .pdf
-          "firefox.desktop"
-          "org.inkscape.Inkscape.desktop"
-        ];
-        "image/svg+xml" = [
-          # svg
-          "org.inkscape.Inkscape.desktop"
-          "gimp.desktop"
-        ];
-        "video/*" = [
-          # videos
-          "vlc.desktop"
-        ];
-      };
-      associations = {
-        added = {
-          # applications that support opening that MIME type
-        };
-        removed = {
-          # applications that does not support opening that MIME type
-        };
-      };
-    };
   };
 }
