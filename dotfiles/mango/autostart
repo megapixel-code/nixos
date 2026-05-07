@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
+# remove trash files older than 100 days
+find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
+
 # notify
 swaync &> /dev/null &
-
-# bar
-"$XDG_CONFIG_HOME/scripts/toggle_waybar" &> /dev/null &
 
 # blue light filter
 sunsetr &> /dev/null &
 
-# deezer
-# deezer-enhanced &>/dev/null  &
+# bar
+"$XDG_CONFIG_HOME/scripts/toggle_waybar" &> /dev/null &
 
 # wallpaper
 "$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
@@ -17,5 +17,13 @@ sunsetr &> /dev/null &
 # start tmux
 "$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> /dev/null &
 
-# remove trash files older than 100 days
-find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
+if [[ $(hostname) == "nixos-main" ]]; then
+	mmsg -s -o "HDMI-A-1"
+	mmsg -s -t 9
+	deezer-desktop &> /dev/null &
+	firefox &> /dev/null &
+elif [[ $(hostname) == "nixos-school" ]]; then
+	mmsg -s -o "eDP-1"
+	mmsg -s -t 9
+	firefox &> /dev/null &
+fi
