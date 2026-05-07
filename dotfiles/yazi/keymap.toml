@@ -6,4 +6,10 @@ prepend_keymap = [
   { desc = "Open the mount plugin", on = ["M"], run = "plugin mount" },
   { desc = "Archive selected files", on = ["c", "o"], run = "plugin compress" },
   { desc = "Drag and drop file", on = "<C-n>", run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm" },
+  { desc = "Sudo paste", on = ["R", "p"], run = "plugin sudo -- paste" },
+  { desc = "Sudo rename", on = ["R", "r"], run = "plugin sudo -- rename" },
+  { desc = "Sudo create", on = ["R", "a"], run = "plugin sudo -- create" },
+  { desc = "Sudo remove to trash", on = ["R", "d"], run = "plugin sudo -- remove" },
+  { desc = "Sudo remove permanently", on = ["R", "D"], run = "plugin sudo -- remove --permanently" },
+  { desc = "Sudo chmod", on = ["R", "c", "m"], run = "plugin sudo -- chmod" },
 ]

@@ -12,6 +12,7 @@
       trash-cli # dependency of restore plugin
       git
       dragon-drop # drag and drop
+      nushell # sudo
     ];
 
     plugins = with pkgs.yaziPlugins; {
@@ -23,6 +24,7 @@
       inherit yatline;
       inherit git;
       inherit mount;
+      inherit sudo;
     };
   };
 }
