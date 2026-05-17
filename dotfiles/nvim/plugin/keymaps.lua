@@ -1,9 +1,16 @@
 -- ~~~ [[ Basic Keymaps ]] ~~~
 
 -- [Source file]
-vim.keymap.set( "n", "<leader>o",  "<cmd>update<CR><cmd>source<CR>", { desc = "Rel[O]ad file" } );
+vim.keymap.set( "n", "<leader>o", "<cmd>update<CR><cmd>source<CR>", { desc = "Rel[O]ad file" } );
+
+
 -- [Restart editor]
-vim.keymap.set( "n", "<leader>rr", "<cmd>restart<CR>",               { desc = "restart the editor" } );
+vim.keymap.set( "n", "<leader>rr", "<cmd>restart<CR>", { desc = "restart the editor" } );
+
+
+-- [Visual mode]
+vim.keymap.set( "v", "J", ":m '>+1<CR>gv=gv", { desc = "move selected down" } );
+vim.keymap.set( "v", "K", ":m '<-2<CR>gv=gv", { desc = "move selected up" } );
 
 
 -- [Toggle settings]
