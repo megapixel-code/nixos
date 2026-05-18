@@ -107,19 +107,26 @@ return {
       },
       post_preview = {
          ["*"] = function()
-            -- fold col and line same color as the rest
-            vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "SignColumn" } );
-            vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } );
+            -- gutter always looks the same
+            local gutter_hl = { link = "LineNr" };
+            vim.api.nvim_set_hl( 0, "CursorLineNr",   gutter_hl );
+            vim.api.nvim_set_hl( 0, "CursorLineNr",   { bold = true } );
+            vim.api.nvim_set_hl( 0, "FoldColumn",     gutter_hl );
+            vim.api.nvim_set_hl( 0, "CursorLineFold", gutter_hl );
 
-            -- lsp is never underlined
-            local lsp_hl_value = { link = "Visual" };
-            vim.api.nvim_set_hl( 0, "LspReferenceText",  lsp_hl_value );
-            vim.api.nvim_set_hl( 0, "LspReferenceRead",  lsp_hl_value );
-            vim.api.nvim_set_hl( 0, "LspReferenceWrite", lsp_hl_value );
+            -- lsp should never be underlined
+            local lsp_hover_hl = { link = "Visual" };
+            vim.api.nvim_set_hl( 0, "LspReferenceText",  lsp_hover_hl );
+            vim.api.nvim_set_hl( 0, "LspReferenceRead",  lsp_hover_hl );
+            vim.api.nvim_set_hl( 0, "LspReferenceWrite", lsp_hover_hl );
 
             -- line number on tscontext
-            vim.api.nvim_set_hl( 0, "TreesitterContextLineNumber", { link = "TreesitterContext" } );
-            vim.api.nvim_set_hl( 0, "TreesitterContextSeparator",  { link = "TreesitterContext" } );
+            local tscontext_hl = { link = "NormalFloat" };
+            vim.api.nvim_set_hl( 0, "TreesitterContext",                 tscontext_hl );
+            vim.api.nvim_set_hl( 0, "TreesitterContextLineNumber",       tscontext_hl );
+            vim.api.nvim_set_hl( 0, "TreesitterContextSeparator",        tscontext_hl );
+            vim.api.nvim_set_hl( 0, "TreesitterContextBottom",           tscontext_hl );
+            vim.api.nvim_set_hl( 0, "TreesitterContextLineNumberBottom", tscontext_hl );
          end,
       },
 
