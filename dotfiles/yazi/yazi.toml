@@ -34,15 +34,28 @@ libreoffice = [
 nvim = [
   { run = "$EDITOR %s", block = true, desc = "NeoVim" },
 ]
+extract = [
+  { run = "ya pub extract --list %s", desc = "Extract here" },
+]
+download = [
+  { run = "ya emit download --open %S", desc = "Download and open" },
+  { run = "ya emit download %S", desc = "Download" },
+]
 
 [open]
 # how to get MIME type : https://mimetype.io/all-types
 rules = [
+  { mime = "text/*", use = "nvim" },
   { mime = "image/*", use = ["gimp", "inkscape"] },
   { mime = "video/*", use = ["vlc", "kdenlive"] },
+  { mime = "audio/*", use = ["vlc", "kdenlive"] },
+  { mime = "application/json", use = "nvim" },
   { mime = "application/pdf", use = ["firefox", "inkscape"] },
+  { mime = "application/{zip}", use = "extract" },
   { mime = "application/*", use = "libreoffice" },
-  { mime = "*", use = "nvim" }
+  { mime = "vfs/{absent,stale}", use = "download" },  # Virtual file system
+  { url = "*", use = "nvim" },
+  { url = "*/", use = "nvim" },
 ]
 
 [plugin]
