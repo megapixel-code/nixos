@@ -14,34 +14,34 @@ wrap = "no"
 
 [opener]
 firefox = [
-  { run = "firefox %s", orphan = true, desc = "Firefox", for = "linux" },
+  { run = "firefox %s", orphan = true, desc = "Firefox" },
 ]
 inkscape = [
-  { run = "inkscape %s", orphan = true, desc = "Inkscape", for = "linux" },
+  { run = "inkscape %s", orphan = true, desc = "Inkscape" },
 ]
 gimp = [
-  { run = "gimp %s", orphan = true, desc = "Gimp", for = "linux" },
+  { run = "gimp %s", orphan = true, desc = "Gimp" },
 ]
 kdenlive = [
-  { run = "kdenlive %s", orphan = true, desc = "Kdenlive", for = "linux" },
+  { run = "kdenlive %s", orphan = true, desc = "Kdenlive" },
 ]
 vlc = [
-  { run = "vlc %s", orphan = true, desc = "Vlc", for = "linux" },
+  { run = "vlc %s", orphan = true, desc = "Vlc" },
 ]
 libreoffice = [
-  { run = "libreoffice %s", orphan = true, desc = "Libreoffice", for = "linux" },
+  { run = "libreoffice %s", orphan = true, desc = "Libreoffice" },
 ]
 nvim = [
-  { run = "$EDITOR %s", block = true, desc = "Nvim", for = "linux" },
+  { run = "$EDITOR %s", block = true, desc = "NeoVim" },
 ]
 
 [open]
 # how to get MIME type : https://mimetype.io/all-types
 rules = [
-  { url = "*.docx", use = "libreoffice" },
-  { mime = "application/pdf", use = ["firefox", "inkscape"] },
   { mime = "image/*", use = ["gimp", "inkscape"] },
   { mime = "video/*", use = ["vlc", "kdenlive"] },
+  { mime = "application/pdf", use = ["firefox", "inkscape"] },
+  { mime = "application/*", use = "libreoffice" },
   { mime = "*", use = "nvim" }
 ]
 
