@@ -276,7 +276,7 @@
           Near :${var_placeholder."mails/vfemail_${nb}/mail"}-local:
           Patterns *
           Create Both
-          Remove Both
+          Expunge Both
           SyncState *
         '';
         one_mbsync_script = nb: ''
