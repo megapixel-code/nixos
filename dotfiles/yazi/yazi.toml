@@ -60,6 +60,6 @@ rules = [
 
 [plugin]
 prepend_fetchers = [
-  { id = "git", run = "git", url = "*" },
-  { id = "git", run = "git", url = "*/" },
+  { group = "git", run = "git", url = "*" },
+  { group = "git", run = "git", url = "*/" },
 ]
