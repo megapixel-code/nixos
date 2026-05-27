@@ -45,38 +45,7 @@
       '';
 
       symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        shopt -s dotglob # needed for "$e"*
-
-        dotfiles_dir="/etc/nixos/dotfiles/"
-
-        configfiles_dir="${config.xdg.configHome}/"
-        font_dir="${config.xdg.dataHome}/fonts/"
-        formaters_dir="${config.home.homeDirectory}/"
-
-        readarray -t configfiles <<< "$(ls -d "$dotfiles_dir"*/)"
-        fonts_files=(
-        	W95FA.otf
-        )
-        formaters_files=(
-        	.clang-format
-        	.prettierrc.json
-        )
-
-        mkdir -p "$configfiles_dir"
-        mkdir -p "$font_dir"
-        mkdir -p "$formaters_dir"
-
-        for e in "''${configfiles[@]}"; do
-        	bn="$(basename "$e")"
-        	mkdir -p "$configfiles_dir$bn"
-        	ln -sfn "$e"* "$configfiles_dir$bn"
-        done
-        for e in "''${fonts_files[@]}"; do
-        	ln -sfn "$dotfiles_dir$e" "$font_dir"
-        done
-        for e in "''${formaters_files[@]}"; do
-        	ln -sfn "$dotfiles_dir$e" "$formaters_dir"
-        done
+        run /etc/nixos/dotfiles/scripts/dotfiles_symlink
       '';
     };
   };

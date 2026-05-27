@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+shopt -s dotglob # needed for "$e"*
+
+dotfiles_dir="/etc/nixos/dotfiles/"
+
+configfiles_dir="$XDG_CONFIG_HOME/"
+font_dir="$XDG_DATA_HOME/fonts/"
+formaters_dir="$HOME/"
+
+readarray -t configfiles <<< "$(ls -d "$dotfiles_dir"*/)"
+fonts_files=(
+	W95FA.otf
+)
+formaters_files=(
+	.clang-format
+	.prettierrc.json
+)
+
+mkdir -p "$configfiles_dir"
+mkdir -p "$font_dir"
+mkdir -p "$formaters_dir"
+
+for e in "${configfiles[@]}"; do
+	bn="$(basename "$e")"
+	mkdir -p "$configfiles_dir$bn"
+	ln -sfn "$e"* "$configfiles_dir$bn"
+done
+for e in "${fonts_files[@]}"; do
+	ln -sfn "$dotfiles_dir$e" "$font_dir"
+done
+for e in "${formaters_files[@]}"; do
+	ln -sfn "$dotfiles_dir$e" "$formaters_dir"
+done
