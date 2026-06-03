@@ -89,9 +89,11 @@ return {
          "mfd-dark",
          "ef-winter",
          "ef-deuteranopia-dark",
+         "modus_vivendi",
 
          "ef-summer",
          "ef-elea-light",
+         "modus_operandi",
 
          -- [PROBATION]
       },
@@ -108,11 +110,14 @@ return {
       post_preview = {
          ["*"] = function()
             -- gutter always looks the same
-            local gutter_hl = { link = "LineNr" };
-            vim.api.nvim_set_hl( 0, "CursorLineNr",   gutter_hl );
+            vim.api.nvim_set_hl( 0, "CursorLineNr",   { link = "LineNr" } );
             vim.api.nvim_set_hl( 0, "CursorLineNr",   { bold = true } );
-            vim.api.nvim_set_hl( 0, "FoldColumn",     gutter_hl );
-            vim.api.nvim_set_hl( 0, "CursorLineFold", gutter_hl );
+
+            vim.api.nvim_set_hl( 0, "FoldColumn",     { link = "LineNr" } );
+            vim.api.nvim_set_hl( 0, "SignColumn",     { link = "LineNr" } );
+
+            vim.api.nvim_set_hl( 0, "CursorLineFold", { link = "CursorLineNr" } );
+            vim.api.nvim_set_hl( 0, "CursorLineSign", { link = "CursorLineNr" } );
 
             -- lsp should never be underlined
             local lsp_hover_hl = { link = "Visual" };
