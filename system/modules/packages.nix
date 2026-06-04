@@ -51,6 +51,7 @@ let
       obs-studio
       libreoffice
       vlc
+      zathura
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.editors.enable [
       inkscape # pdf/svg editor

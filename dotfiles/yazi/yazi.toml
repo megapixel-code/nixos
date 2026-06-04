@@ -31,6 +31,9 @@ vlc = [
 libreoffice = [
   { run = "libreoffice %s", orphan = true, desc = "Libreoffice" },
 ]
+zathura = [
+  { run = "zathura %s", orphan = true, desc = "Zathura" },
+]
 nvim = [
   { run = "$EDITOR %s", block = true, desc = "NeoVim" },
 ]
@@ -50,7 +53,7 @@ rules = [
   { mime = "video/*", use = ["vlc", "kdenlive"] },
   { mime = "audio/*", use = ["vlc", "kdenlive"] },
   { mime = "application/json", use = "nvim" },
-  { mime = "application/pdf", use = ["firefox", "inkscape"] },
+  { mime = "application/pdf", use = ["zathura", "firefox", "inkscape"] },
   { mime = "application/{zip}", use = "extract" },
   { mime = "application/*", use = "libreoffice" },
   { mime = "vfs/{absent,stale}", use = "download" },  # Virtual file system
