@@ -44,10 +44,10 @@
       ripgrep
 
       # language servers
-      nodejs
       jdk
       jre
       jdt-language-server # java
+      nodejs
       lua-language-server # lua
       pyrefly # python
       clang-tools # c cpp
