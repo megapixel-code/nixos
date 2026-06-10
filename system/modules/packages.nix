@@ -50,8 +50,9 @@ let
       deezer-desktop
       obs-studio
       libreoffice
-      vlc
-      zathura
+      vlc # audio video reader
+      zathura # pdf reader
+      comaps # maps
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.editors.enable [
       inkscape # pdf/svg editor
