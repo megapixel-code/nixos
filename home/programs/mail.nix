@@ -268,7 +268,6 @@
           MaildirStore ${var_placeholder."mails/vfemail_${nb}/mail"}-local
           Path ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/
           INBOX ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/INBOX
-          Trash ${config.my.aerc.isync.maildir.path}/${var_placeholder."mails/vfemail_${nb}/mail"}/Trash
           SubFolders Verbatim
 
           Channel ${var_placeholder."mails/vfemail_${nb}/mail"}
