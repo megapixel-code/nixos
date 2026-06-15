@@ -71,7 +71,8 @@ vim.keymap.set( "n", "<leader>tp", "", {
    callback = function()
       local ft = vim.o.filetype;
       if ft == "typst" then
-         vim.cmd( "TypstPreview" );
+         vim.api.nvim_exec2( "silent !bash zathura --fork " ..
+                             vim.fn.stdpath( "cache" ) .. "lsp/typst_preview.pdf & > /dev/null", { output = false } );
       elseif ft == "markdown" then
          vim.cmd( "MarkdownPreview" );
       end;

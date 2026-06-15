@@ -78,7 +78,11 @@ return {
                name = "tinymist",
                args = {
                   capabilities = capabilities,
-                  settings = { formatterMode = "typstyle" },
+                  settings = {
+                     formatterMode = "typstyle",
+                     exportPdf = "onType",
+                     outputPath = vim.fn.stdpath( "cache" ) .. "lsp/typst_preview",
+                  },
                },
             },
             { -- Nix lsp
