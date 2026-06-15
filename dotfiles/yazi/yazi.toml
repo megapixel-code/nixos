@@ -25,6 +25,9 @@ gimp = [
 kdenlive = [
   { run = "kdenlive %s", orphan = true, desc = "Kdenlive" },
 ]
+vimiv = [
+  { run = "vimiv %s", orphan = true, desc = "Vimiv" },
+]
 vlc = [
   { run = "vlc %s", orphan = true, desc = "Vlc" },
 ]
@@ -49,7 +52,7 @@ download = [
 # how to get MIME type : https://mimetype.io/all-types
 rules = [
   { mime = "text/*", use = "nvim" },
-  { mime = "image/*", use = ["gimp", "inkscape"] },
+  { mime = "image/*", use = ["vimiv", "gimp", "inkscape"] },
   { mime = "video/*", use = ["vlc", "kdenlive"] },
   { mime = "audio/*", use = ["vlc", "kdenlive"] },
   { mime = "application/json", use = "nvim" },

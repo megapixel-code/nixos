@@ -118,6 +118,9 @@
         "application/*" = [
           "base.desktop"
         ];
+        "image/*" = [
+          "vimiv.desktop"
+        ];
         "video/*" = [
           "vlc.desktop"
         ];

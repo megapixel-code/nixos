@@ -51,6 +51,7 @@ let
       obs-studio
       libreoffice
       vlc # audio video reader
+      vimiv-qt # image viewer
       zathura # pdf reader
       comaps # maps
     ])
