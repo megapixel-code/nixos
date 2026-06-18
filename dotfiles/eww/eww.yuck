@@ -1,0 +1,50 @@
+(defpoll time
+   :interval "1s"
+   :initial "--:--:--"
+   `date "+%d %B %Y | %H:%M:%S"`)
+
+(defwidget w_time []
+   (box :class "container time"
+   "${time}"))
+
+(defwindow primary_monitor
+   :monitor '["<primary>", "DP-1", 1]'
+   :geometry (geometry :x "0px"
+                       :y "0px"
+                       :width "100%"
+                       :height "30px"
+                       :anchor "bottom center")
+   :exclusive true
+   :stacking "fg"
+   :namespace "bar"
+
+   (box :class "main"
+      (box :halign "start"
+      )
+      (box :halign "center"
+         (w_time)
+      )
+      (box :halign "end"
+      )
+   ))
+
+(defwindow secondary_monitor
+   :monitor '["HDMI-A-1", "PHL 345B1C", 0]'
+   :geometry (geometry :x "0px"
+                       :y "0px"
+                       :width "100%"
+                       :height "30px"
+                       :anchor "bottom center")
+   :exclusive true
+   :stacking "fg"
+   :namespace "bar"
+
+   (box :class "main"
+      (box :halign "start"
+      )
+      (box :halign "center"
+      )
+      (box :halign "end"
+         (w_time)
+      )
+   ))

@@ -1,0 +1,35 @@
+$primary: #C2C2C2;
+$primary-light: #F9F9F9;
+$primary-dark: #000000;
+
+* {
+   font-family: W95FA;
+   font-size: 14px;
+   color: $primary-dark;
+
+   padding: 0;
+   margin: 0;
+   min-height: 0;
+}
+
+.main {
+   background-color: $primary;
+   border-top: 2px solid $primary-light;
+}
+
+.container {
+   background-color: $primary;
+   margin-top: 4px;
+   margin-bottom: 4px;
+
+   padding-left: 4px;
+   padding-right: 4px;
+   padding-bottom: 2px;
+   padding-top: 4px;
+
+   border: 2px solid;
+   border-top-color: $primary-dark;
+   border-left-color: $primary-dark;
+   border-bottom-color: $primary-light;
+   border-right-color: $primary-light;
+}
