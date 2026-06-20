@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <strings.h>
 
 FILE *f;
@@ -10,7 +11,7 @@ typedef struct {
    char monitor_name[10];
    int  active_tags[10];
    int  selected_tags[10];
-   char keymode;
+   char keymode[10];
 } monitor_info;
 
 typedef struct {
@@ -54,24 +55,71 @@ int same_str(char *buff, char *str)
    return 1;
 }
 
-void get_monitor_info(monitor_info_list monitor_info_list,
-                      char             *monitor_name,
-                      monitor_info     *monitor_info)
+void get_monitor_info(monitor_info_list *monitor_info_list,
+                      char              *monitor_name,
+                      monitor_info      *monitor_info)
+{
+   for ( int i = 0; i < monitor_info_list->size; i++ ) {
+      if ( same_str(monitor_info_list->monitor_info[i].monitor_name,
+                    monitor_name) ) {
+         monitor_info = monitor_info_list->monitor_info + i;
+         return;
+      }
+   }
+
+   monitor_info_list->size++;
+   monitor_info_list->monitor_info = realloc(
+      monitor_info_list->monitor_info,
+      sizeof(*monitor_info_list->monitor_info) * monitor_info_list->size);
+
+   for ( int i = 0; i < 10; i++ ) {
+      monitor_info_list->monitor_info[monitor_info_list->size - 1]
+         .active_tags[i] = 0;
+      monitor_info_list->monitor_info[monitor_info_list->size - 1]
+         .selected_tags[i] = 0;
+   }
+
+   strcpy(
+      monitor_info_list->monitor_info[monitor_info_list->size - 1].monitor_name,
+      monitor_name);
+   strcpy(monitor_info_list->monitor_info[monitor_info_list->size - 1].keymode,
+          "normal");
+   return;
+}
+
+void display_monitor_info(monitor_info_list monitor_info_list)
 {
    for ( int i = 0; i < monitor_info_list.size; i++ ) {
-      if ( same_str(monitor_info_list.monitor_info[i].monitor_name,
-                    monitor_name) ) {
+      printf("monitor_name :\t%s",
+             monitor_info_list.monitor_info[i].monitor_name);
+
+      printf("\nselected_tags :\t");
+      for ( int j = 0; j < 10; j++ ) {
+         printf("%d ", monitor_info_list.monitor_info[i].selected_tags[j]);
       }
+
+      printf("\nactive_tags :\t");
+      for ( int j = 0; j < 10; j++ ) {
+         printf("%d ", monitor_info_list.monitor_info[i].active_tags[j]);
+      }
+
+      printf("\nkeymode:\t%s", monitor_info_list.monitor_info[i].keymode);
+      printf("\n");
    }
 }
 
 void parser()
 {
-   char  *buffer      = NULL;
-   size_t buffer_size = 0;
-   size_t index, j;
+   char             *buffer      = NULL;
+   size_t            buffer_size = 0;
+   size_t            index;
+   monitor_info_list monitor_info_list = { .size = 0, .monitor_info = NULL };
+   monitor_info      monitor_info;
 
-   size_t next;
+   // get_monitor_info(&monitor_info_list, "test", &monitor_info);
+   // display_monitor_info(monitor_info_list);
+   // get_monitor_info(&monitor_info_list, "balls", &monitor_info);
+   // display_monitor_info(monitor_info_list);
 
    while ( 1 ) {
       getline(&buffer, &buffer_size, f);
