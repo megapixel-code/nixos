@@ -29,6 +29,7 @@ let
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
       mangowc
       waybar
+      eww
       sunsetr
       brightnessctl
       slurp # select region in wayland

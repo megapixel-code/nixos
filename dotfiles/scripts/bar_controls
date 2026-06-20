@@ -1,0 +1,36 @@
+status_file="$XDG_CACHE_HOME/toggle.eww"
+
+open() {
+	eww daemon
+	eww open primary_monitor
+	eww open secondary_monitor
+	mkdir -p "$(dirname "$status_file")"
+	touch "$status_file"
+}
+
+close() {
+	eww kill
+	rm -f "$status_file"
+}
+
+reload() {
+	eww reload
+}
+
+toggle() {
+	if [[ -e $status_file ]]; then
+		close
+	else
+		open
+	fi
+}
+
+if [[ $1 == "open" ]]; then
+	open
+elif [[ $1 == "close" ]]; then
+	close
+elif [[ $1 == "reload" ]]; then
+	reload
+elif [[ $1 == "toggle" ]]; then
+	toggle
+fi
