@@ -55,6 +55,27 @@ int same_str(char *buff, char *str)
    return 1;
 }
 
+int fill_tags(int encoded_val, int *tags)
+{
+   int changed = 0;
+
+   for ( int i = 0; i < 9; i++ ) {
+      if ( (encoded_val >> i) % 2 == 1 ) {
+         if ( tags[i + 1] != 1 ) {
+            changed = 1;
+         }
+         tags[i + 1] = 1;
+      } else {
+         if ( tags[i + 1] != 0 ) {
+            changed = 1;
+         }
+         tags[i + 1] = 0;
+      }
+   }
+
+   return changed;
+}
+
 monitor_info *get_monitor_info(monitor_info_list *monitor_info_list,
                                char              *monitor_name)
 {
@@ -87,23 +108,54 @@ monitor_info *get_monitor_info(monitor_info_list *monitor_info_list,
 
 void display_monitor_info(monitor_info_list monitor_info_list)
 {
+   // example:
+   // {
+   //    "hdmi" : {
+   //       "tags": [
+   //          {
+   //             "class": "active selected",
+   //             "name" : "0"
+   //          },
+   //          ...
+   //       ],
+   //       "keymode": "default"
+   //    },
+   //    "dp1" : ...
+   // }
+   int need_space;
+   printf("{ ");
    for ( int i = 0; i < monitor_info_list.size; i++ ) {
-      printf("monitor_name :\t%s",
+      printf("\"%s\": { \"tags\": [ ",
              monitor_info_list.monitor_info[i].monitor_name);
-
-      printf("\nselected_tags :\t");
       for ( int j = 0; j < 10; j++ ) {
-         printf("%d ", monitor_info_list.monitor_info[i].selected_tags[j]);
+         printf("{ \"class\": \"");
+         need_space = 0;
+         if ( monitor_info_list.monitor_info[i].active_tags[j] == 1 ) {
+            printf("active_tag");
+            need_space = 1;
+         }
+         if ( monitor_info_list.monitor_info[i].selected_tags[j] == 1 ) {
+            if ( need_space ) {
+               printf(" ");
+            }
+            printf("selected_tag");
+         }
+         printf("\", \"name\": \"%d\" }", j);
+         if ( j != 9 ) {
+            printf(", ");
+         } else {
+            printf(" ");
+         }
       }
-
-      printf("\nactive_tags :\t");
-      for ( int j = 0; j < 10; j++ ) {
-         printf("%d ", monitor_info_list.monitor_info[i].active_tags[j]);
+      printf("], \"keymode\": \"%s\" }",
+             monitor_info_list.monitor_info[i].keymode);
+      if ( i < monitor_info_list.size - 1 ) {
+         printf(", ");
+      } else {
+         printf(" ");
       }
-
-      printf("\nkeymode:\t%s", monitor_info_list.monitor_info[i].keymode);
-      printf("\n");
    }
+   printf("}\n");
 }
 
 void parser()
@@ -114,13 +166,13 @@ void parser()
    monitor_info_list monitor_info_list = { .size = 0, .monitor_info = NULL };
    monitor_info     *monitor_info;
 
-   // get_monitor_info(&monitor_info_list, "test", &monitor_info);
-   // display_monitor_info(monitor_info_list);
-   // get_monitor_info(&monitor_info_list, "balls", &monitor_info);
-   // display_monitor_info(monitor_info_list);
+   // active_tags selected_tags
+   int tags[2];
+   int changed;
 
    while ( 1 ) {
       getline(&buffer, &buffer_size, f);
+      changed = 0;
 
       char *monitor = buffer;
       // skip the monitor to go check directly the second part
@@ -141,15 +193,17 @@ void parser()
          buffer[index] = '\0';
 
          monitor_info = get_monitor_info(&monitor_info_list, monitor);
-         strcpy(monitor_info->keymode, keymode);
+         if ( !same_str(monitor_info->keymode, keymode) ) {
+            strcpy(monitor_info->keymode, keymode);
+            changed = 1;
+         }
       } else if ( same_str(buffer + index, "tags") ) {
          index         = next_whitespace_index(buffer, index);
          buffer[index] = '\0';
          index++;
 
-         // active_tags selected_tags
-         int   tags[2];
          char *tags_str;
+         int   tmp_tags_value;
          for ( int j = 0; j < 2; j++ ) {
             tags_str      = buffer + index;
             index         = next_whitespace_index(buffer, index);
@@ -161,36 +215,29 @@ void parser()
 
          monitor_info = get_monitor_info(&monitor_info_list, monitor);
 
-         // TODO: refactor this shit
          if ( tags[1] == 511 ) {
             // on tag 0
             monitor_info->active_tags[0]   = 1;
             monitor_info->selected_tags[0] = 1;
             for ( int i = 1; i < 10; i++ ) {
+               if ( monitor_info->selected_tags[i] != 0 ) {
+                  changed = 1;
+               }
                monitor_info->selected_tags[i] = 0;
             }
          } else {
             monitor_info->active_tags[0]   = 0;
             monitor_info->selected_tags[0] = 0;
-            for ( int i = 0; i < 9; i++ ) {
-               if ( (tags[1] >> i) == 1 ) {
-                  monitor_info->selected_tags[i + 1] = 1;
-               } else {
-                  monitor_info->selected_tags[i + 1] = 0;
-               }
-            }
+            changed =
+               fill_tags(tags[1], monitor_info->selected_tags) || changed;
          }
-
-         for ( int i = 0; i < 9; i++ ) {
-            if ( (tags[0] >> i) % 2 == 1 ) {
-               monitor_info->active_tags[i + 1] = 1;
-            } else {
-               monitor_info->active_tags[i + 1] = 0;
-            }
-         }
+         changed = fill_tags(tags[0], monitor_info->active_tags) || changed;
 
          // removes the next "tags" section
          getline(&buffer, &buffer_size, f);
+      }
+
+      if ( changed ) {
          display_monitor_info(monitor_info_list);
       }
    }
