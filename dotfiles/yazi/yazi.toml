@@ -57,7 +57,7 @@ rules = [
   { mime = "audio/*", use = ["vlc", "kdenlive"] },
   { mime = "application/json", use = "nvim" },
   { mime = "application/pdf", use = ["zathura", "firefox", "inkscape"] },
-  { mime = "application/{zip}", use = "extract" },
+  { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = "extract" },
   { mime = "application/*", use = "libreoffice" },
   { mime = "vfs/{absent,stale}", use = "download" },  # Virtual file system
   { url = "*", use = "nvim" },
