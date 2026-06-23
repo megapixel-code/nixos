@@ -31,6 +31,7 @@ return {
             "gitcommit",
             "editorconfig",
             "query",
+            "qmljs",
          };
          require( "nvim-treesitter" ).install( ensure_installed );
 
