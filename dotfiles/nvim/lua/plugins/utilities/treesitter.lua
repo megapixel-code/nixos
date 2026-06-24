@@ -22,15 +22,18 @@ return {
             "css",
             "javascript",
 
-            "cmake",
+            "json",
             "yaml",
+            "qmljs",
+
+            "cmake",
             "typst",
             "markdown",
             "markdown_inline",
             "gitcommit",
             "editorconfig",
             "query",
-            "qmljs",
+            "vimdoc",
          };
          require( "nvim-treesitter" ).install( ensure_installed );
 
