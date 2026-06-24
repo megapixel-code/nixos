@@ -218,7 +218,7 @@ local function set_options( buf, win, drawing )
       buf = {
          { "modifiable", false },
          { "buftype",    "nofile" },
-         { "filetype",   "vimdoc" }, -- to have ts parsing
+         { "filetype",   "" },
          { "swapfile",   false },
       },
       win = {
