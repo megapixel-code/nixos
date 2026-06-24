@@ -5,7 +5,6 @@ return {
       build = ":TSUpdate",
 
       init = function()
-         -- TODO: notification with figlet when no parser for filetype
          local ensure_installed = {
             "c",
             "bash",

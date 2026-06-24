@@ -66,6 +66,30 @@ vim.api.nvim_create_autocmd( "BufWinEnter", {
 } );
 
 
+-- [[ notification when no treesitter parser for buffer ]]
+local treesitter_parsers = require( "nvim-treesitter" ).get_installed();
+vim.api.nvim_create_autocmd( "BufEnter", {
+   desc = "notification with fidget when no parser for filetype",
+   callback = function()
+      local ft = vim.bo.filetype;
+      if (ft == "") then
+         return;
+      end;
+
+      local parser_filetypes;
+      for _, parser in ipairs( treesitter_parsers ) do
+         parser_filetypes = vim.treesitter.language.get_filetypes( parser );
+         for _, parser_filetype in ipairs( parser_filetypes ) do
+            if (parser_filetype == ft) then
+               return;
+            end;
+         end;
+      end;
+
+      require( "fidget" ).notify( "no parser for " .. ft, nil, nil );
+   end,
+} );
+
 -- [[ resize splits when window size changes ]]
 vim.api.nvim_create_autocmd( "VimResized", {
    command = "wincmd =",
