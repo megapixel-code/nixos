@@ -20,6 +20,7 @@ return {
 
             "html",
             "css",
+            "scss",
             "javascript",
 
             "json",
@@ -31,6 +32,7 @@ return {
             "markdown",
             "markdown_inline",
             "gitcommit",
+            "gitignore",
             "editorconfig",
             "query",
             "vimdoc",
