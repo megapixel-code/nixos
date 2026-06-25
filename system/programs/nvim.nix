@@ -53,6 +53,7 @@
       clang-tools # c cpp
       bash-language-server # bash
       # pascal-language-server # pascal TODO:
+      # qml-language-server # TODO: https://github.com/NixOS/nixpkgs/pull/515608
       metals # scala
       nil # nix
       nixd # nix
