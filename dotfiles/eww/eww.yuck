@@ -15,9 +15,9 @@
 (defwidget w_workspaces [monitor]
    (box :class "workspaces container"
       (for wsp in {workspaces[monitor].tags}
-         (box :class "${wsp.class}" 
+         (box :class "${wsp.class}"
             (button :class "tag_button"
-                    :onclick "echo balls"
+                    :onclick "mmsg -s -t ${wsp.name}"
                "${wsp.name}"
             )
          )
