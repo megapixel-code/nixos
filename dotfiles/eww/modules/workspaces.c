@@ -106,7 +106,7 @@ monitor_info *get_monitor_info(monitor_info_list *monitor_info_list,
    return monitor_info_list->monitor_info + (monitor_info_list->size - 1);
 }
 
-void display_monitor_info(monitor_info_list monitor_info_list)
+void display_monitor_info_json(monitor_info_list monitor_info_list)
 {
    // example:
    // {
@@ -122,33 +122,34 @@ void display_monitor_info(monitor_info_list monitor_info_list)
    //    },
    //    "dp1" : ...
    // }
-   int need_space;
+   int first_tag;
    printf("{ ");
    for ( int i = 0; i < monitor_info_list.size; i++ ) {
       printf("\"%s\": { \"tags\": [ ",
              monitor_info_list.monitor_info[i].monitor_name);
+
+      first_tag = 1;
       for ( int j = 0; j < 10; j++ ) {
-         printf("{ \"class\": \"");
-         need_space = 0;
-         if ( monitor_info_list.monitor_info[i].active_tags[j] == 1 ) {
-            printf("active_tag");
-            need_space = 1;
+         if ( monitor_info_list.monitor_info[i].selected_tags[j] == 0 &&
+              monitor_info_list.monitor_info[i].active_tags[j] == 0 ) {
+            continue;
          }
+
+         if ( !first_tag ) {
+            printf(", ");
+         }
+         first_tag = 0;
+         printf("{ \"class\": \"");
          if ( monitor_info_list.monitor_info[i].selected_tags[j] == 1 ) {
-            if ( need_space ) {
-               printf(" ");
-            }
             printf("selected_tag");
+         } else if ( monitor_info_list.monitor_info[i].active_tags[j] == 1 ) {
+            printf("active_tag");
          }
          printf("\", \"name\": \"%d\" }", j);
-         if ( j != 9 ) {
-            printf(", ");
-         } else {
-            printf(" ");
-         }
       }
       printf("], \"keymode\": \"%s\" }",
              monitor_info_list.monitor_info[i].keymode);
+
       if ( i < monitor_info_list.size - 1 ) {
          printf(", ");
       } else {
@@ -156,6 +157,7 @@ void display_monitor_info(monitor_info_list monitor_info_list)
       }
    }
    printf("}\n");
+   fflush(stdout);
 }
 
 void parser()
@@ -238,7 +240,7 @@ void parser()
       }
 
       if ( changed ) {
-         display_monitor_info(monitor_info_list);
+         display_monitor_info_json(monitor_info_list);
       }
    }
 }

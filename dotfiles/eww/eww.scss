@@ -23,12 +23,40 @@ $primary-dark: #000000;
 
    padding-left: 4px;
    padding-right: 4px;
-   padding-bottom: 2px;
-   padding-top: 4px;
+   padding-bottom: 0px;
+   padding-top: 2px;
 
    border: 2px solid;
    border-top-color: $primary-dark;
    border-left-color: $primary-dark;
    border-bottom-color: $primary-light;
    border-right-color: $primary-light;
+}
+
+.workspaces {
+   padding: 0;
+}
+
+.active_tag {
+   background-color: $primary;
+
+   border: 0px solid;
+}
+
+.selected_tag {
+   border: 2px solid;
+   border-radius: 0px;
+   border-top-color: $primary-light;
+   border-left-color: $primary-light;
+   border-bottom-color: $primary-dark;
+   border-right-color: $primary-dark;
+}
+
+.tag_button {
+   padding-top: 2px;
+   border: 0px;
+   box-shadow: none;
+   text-shadow: none;
+   background: none;
+   transition: none;
 }

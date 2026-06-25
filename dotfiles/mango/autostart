@@ -9,7 +9,7 @@ swaync &> /dev/null &
 sunsetr &> /dev/null &
 
 # bar
-"$XDG_CONFIG_HOME/scripts/toggle_waybar" &> /dev/null &
+"$XDG_CONFIG_HOME/scripts/bar_controls" open &> /dev/null &
 
 # wallpaper
 "$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &

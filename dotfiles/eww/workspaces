@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cc -o out workspaces.c
-./out

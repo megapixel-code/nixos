@@ -1,14 +1,32 @@
 (defpoll time
    :interval "1s"
    :initial "--:--:--"
-   `date "+%d %B %Y | %H:%M:%S"`)
+   `date "+%d %B %Y | %H:%M:%S"`
+)
 
 (defwidget w_time []
    (box :class "container time"
-   "${time}"))
+      "${time}"
+   )
+)
+
+(deflisten workspaces :initial '{ "lol": ""}' "modules/workspaces")
+
+(defwidget w_workspaces [monitor]
+   (box :class "workspaces container"
+      (for wsp in {workspaces[monitor].tags}
+         (box :class "${wsp.class}" 
+            (button :class "tag_button"
+                    :onclick "echo balls"
+               "${wsp.name}"
+            )
+         )
+      )
+   )
+)
 
 (defwindow primary_monitor
-   :monitor '["<primary>", "DP-1", 1]'
+   :monitor "DP-1"
    :geometry (geometry :x "0px"
                        :y "0px"
                        :width "100%"
@@ -20,16 +38,18 @@
 
    (box :class "main"
       (box :halign "start"
+         (w_workspaces :monitor "DP-1")
       )
       (box :halign "center"
          (w_time)
       )
       (box :halign "end"
       )
-   ))
+   )
+)
 
 (defwindow secondary_monitor
-   :monitor '["HDMI-A-1", "PHL 345B1C", 0]'
+   :monitor "HDMI-A-1"
    :geometry (geometry :x "0px"
                        :y "0px"
                        :width "100%"
@@ -41,10 +61,12 @@
 
    (box :class "main"
       (box :halign "start"
+         (w_workspaces :monitor "HDMI-A-1")
       )
       (box :halign "center"
       )
       (box :halign "end"
          (w_time)
       )
-   ))
+   )
+)
