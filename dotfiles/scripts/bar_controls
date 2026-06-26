@@ -2,8 +2,9 @@ status_file="$XDG_CACHE_HOME/toggle.eww"
 
 open() {
 	eww daemon
-	eww open primary_monitor
-	eww open secondary_monitor
+	eww open DP-1
+	eww open eDP-1
+	eww open HDMI-A-1
 	mkdir -p "$(dirname "$status_file")"
 	touch "$status_file"
 }
