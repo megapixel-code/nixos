@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cc -o out/time modules/time.c
-./out/time "$1"
+./out/time

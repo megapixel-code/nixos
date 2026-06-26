@@ -1,8 +1,7 @@
-(deflisten full_time :initial "--:--:--" "./modules/time full")
-(deflisten partial_time :initial "--:--:--" "./modules/time partial")
+(deflisten time :initial "--:--:--" "./modules/time")
 (defwidget w_time [full]
    (box :class "container time"
-      {full ? "${full_time}" : "${partial_time}"}
+      {full ? "${time.full}" : "${time.partial}"}
    )
 )
 
@@ -19,6 +18,11 @@
       )
    )
 )
+
+; bluetooth
+; wifi
+; volume
+; battery
 
 (defwidget w_primary [monitor]
    (box :class "main"
