@@ -5,7 +5,7 @@
    )
 )
 
-(deflisten workspaces :initial '{ "lol": ""}' "modules/workspaces")
+(deflisten workspaces "modules/workspaces")
 (defwidget w_workspaces [monitor]
    (box :class "workspaces container"
       (for wsp in {workspaces[monitor].tags}
