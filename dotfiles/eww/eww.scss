@@ -17,6 +17,14 @@ $primary-dark: #000000;
    border-top: 2px solid $primary-light;
 }
 
+.empty {
+   background: transparent;
+   outline-color: transparent;
+   border-color: transparent;
+   color: transparent;
+   box-shadow: none;
+}
+
 .container {
    background-color: $primary;
    margin: 4px;
