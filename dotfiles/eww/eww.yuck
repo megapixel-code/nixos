@@ -11,6 +11,7 @@
       (for wsp in {workspaces[monitor].tags}
          (box :class "${wsp.class}"
             (button :class "tag_button"
+                    :active true
                     :onclick "mmsg -s -t ${wsp.name}"
                "${wsp.name}"
             )
@@ -33,10 +34,20 @@
    )
 )
 
+(deflisten volume "./modules/volume")
+(defwidget w_volume []
+   (eventbox :timeout "50ms"
+             :onscroll "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume {}"
+             :onrightclick "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume mute"
+      (box :class "volume container"
+       "${volume}"
+      )
+   )
+)
+
 ; bluetooth
-; wifi
-; volume
 ; battery
+; notifications
 
 (defwidget w_primary [monitor]
    (box :class "main"
@@ -44,23 +55,24 @@
          (w_workspaces :monitor "${monitor}")
          (w_keymode)
       )
-      (box :halign "center"
+      (box :space-evenly false :halign "center"
          (w_time :full true)
       )
-      (box :halign "end"
+      (box :space-evenly false :halign "end"
          (w_network)
+         (w_volume)
       )
    )
 )
 (defwidget w_secondary [monitor]
    (box :class "main"
-      (box :halign "start"
+      (box :space-evenly false :halign "start"
          (w_workspaces :monitor "${monitor}")
          (w_keymode)
       )
-      (box :halign "center"
+      (box :space-evenly false :halign "center"
       )
-      (box :halign "end"
+      (box :space-evenly false :halign "end"
          (w_time :full false)
       )
    )
