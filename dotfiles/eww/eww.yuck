@@ -1,11 +1,11 @@
 (deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "./modules/time")
 (defwidget w_time [full]
-   (box :class "container time"
+   (box :class "time container"
       {full ? "${time.full}" : "${time.partial}"}
    )
 )
 
-(deflisten workspaces "modules/workspaces")
+(deflisten workspaces "./modules/workspaces")
 (defwidget w_workspaces [monitor]
    (box :class "workspaces container"
       (for wsp in {workspaces[monitor].tags}
@@ -21,8 +21,15 @@
 
 (deflisten keymode "mmsg watch keymode")
 (defwidget w_keymode []
-   (box :class {keymode["keymode"]=="resize" ? "container keymode" : "empty"}
+   (box :class {keymode["keymode"]=="resize" ? "keymode container" : "empty"}
       {keymode["keymode"]=="resize" ? "R" : ""}
+   )
+)
+
+(deflisten network "./modules/network")
+(defwidget w_network []
+   (box :class "network container"
+      "${network}"
    )
 )
 
@@ -41,6 +48,7 @@
          (w_time :full true)
       )
       (box :halign "end"
+         (w_network)
       )
    )
 )
