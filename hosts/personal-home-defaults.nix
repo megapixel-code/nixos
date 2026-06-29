@@ -6,7 +6,7 @@
   my = {
     module-mango.enable = lib.mkDefault true;
 
-    custom-cursor.enable = lib.mkDefault true;
+    module-cursor.enable = lib.mkDefault true;
     module-bluetooth.enable = lib.mkDefault true;
     module-audio.enable = lib.mkDefault true;
     module-printing.enable = lib.mkDefault true;

@@ -11,7 +11,7 @@ let
   cursorSize = 18;
 in
 {
-  config = lib.mkIf config.my.custom-cursor.enable {
+  config = lib.mkIf config.my.module-cursor.enable {
     home.pointerCursor = {
       package = cursorPackage;
       name = cursorName;

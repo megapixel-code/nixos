@@ -13,14 +13,14 @@
     my = {
       module-mango.enable = lib.mkEnableOption "enable mangowc";
 
-      custom-cursor.enable = lib.mkEnableOption "enable custom_cursor";
+      module-cursor.enable = lib.mkEnableOption "enable custom cursor";
       module-bluetooth.enable = lib.mkEnableOption "enable bluetooth";
       module-audio.enable = lib.mkEnableOption "enable audio";
       module-printing.enable = lib.mkEnableOption "enable printing";
 
       networking = {
         personal.enable = lib.mkEnableOption "enable networking for personal computers";
-        servers.enable = lib.mkEnableOption "enable networking for my servers";
+        servers.enable = lib.mkEnableOption "enable networking for servers";
       };
       pkgs = {
         apps.enable = lib.mkEnableOption "enable apps";
