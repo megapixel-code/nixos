@@ -12,7 +12,10 @@ int main(int argc, char **argv)
 
    while ( 1 ) {
       gettimeofday(&tv, NULL);
-      usleep(1000000 - tv.tv_usec);
+      usleep(1000000 -    // one second -
+             tv.tv_usec + // the time we aleready passed the second +
+             2500);       // a offset to have time and timeinfo get the
+                          // correct second information
 
       time(&rawtime);
       timeinfo = localtime(&rawtime);
