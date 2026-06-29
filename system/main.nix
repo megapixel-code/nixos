@@ -58,7 +58,13 @@
 
     (lib.mkIf config.home-manager.users.${user}.my.module-printing.enable {
       services = {
-        printing.enable = true;
+        printing = {
+          enable = true;
+          drivers = with pkgs; [
+            gutenprint
+            hplip
+          ];
+        };
         avahi = {
           enable = true;
           nssmdns4 = true;
