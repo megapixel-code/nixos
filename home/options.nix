@@ -18,6 +18,8 @@
       module-audio.enable = lib.mkEnableOption "enable audio";
       module-printing.enable = lib.mkEnableOption "enable printing";
 
+      module-home-lab.enable = lib.mkEnableOption "enable home-lab";
+
       networking = {
         personal.enable = lib.mkEnableOption "enable networking for personal computers";
         servers.enable = lib.mkEnableOption "enable networking for servers";
