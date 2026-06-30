@@ -20,6 +20,7 @@ return {
 
             "html",
             "css",
+            "yuck",
             "scss",
             "javascript",
 
