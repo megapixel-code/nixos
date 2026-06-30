@@ -1,8 +1,12 @@
-# TODO: separate server and personal key
 keys:
-  - &primary age1qq99sar3g0n2zpd5tvk96qm8s359u9s8ueq3jglv5lswtwdqls4stxm62x
+   - &home-lab age14yw5u8xmz8mflthepzk9fc7nh9mf2aar3yus0zd5ap9pjnawsuuqedyvfe
+   - &primary age1qq99sar3g0n2zpd5tvk96qm8s359u9s8ueq3jglv5lswtwdqls4stxm62x
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
-    key_groups:
-      - age:
-        - *primary
+   - path_regex: secrets/primary.yaml$
+     key_groups:
+        - age:
+             - *primary
+   - path_regex: secrets/home-lab.yaml$
+     key_groups:
+        - age:
+             - *home-lab
