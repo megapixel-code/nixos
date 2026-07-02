@@ -90,9 +90,11 @@ int main()
       i                  = next_char_index(buffer_status, '\n');
       buffer_status[i]   = '\0';
 
-      printf("%d; bat", inotify_buffer.wd);
+      printf("bat");
       if ( same_str(buffer_status, "Charging") ) {
          printf(" (charging) : ");
+      } else if ( same_str(buffer_status, "Not charging") ) {
+         printf(" (plugged) : ");
       } else {
          printf(": ");
       }
