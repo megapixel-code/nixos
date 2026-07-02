@@ -96,7 +96,7 @@ int main()
       } else {
          printf(": ");
       }
-      printf("%s\n", buffer_capacity);
+      printf("%s%%\n", buffer_capacity);
       fflush(stdout);
    }
 }
