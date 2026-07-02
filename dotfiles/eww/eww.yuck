@@ -45,8 +45,14 @@
    )
 )
 
+(deflisten battery "./modules/battery")
+(defwidget w_battery []
+   (box :class {battery != "" ? "battery container" : "empty"}
+      "${battery}"
+   )
+)
+
 ; bluetooth
-; battery
 ; notifications
 
 (defwidget w_primary [monitor]
@@ -61,6 +67,7 @@
       (box :space-evenly false :halign "end"
          (w_network)
          (w_volume)
+         (w_battery)
       )
    )
 )
