@@ -27,7 +27,7 @@ let
       scala
     ]
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
-      mangowc
+      mango
       eww
       sunsetr
       brightnessctl
