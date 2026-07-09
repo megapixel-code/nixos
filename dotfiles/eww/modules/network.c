@@ -84,14 +84,14 @@ void display_device_info(list_device_info list_device_info)
    fflush(stdout);
 }
 
-char *get_next_str(char *buffer, int *index)
+char *get_next_str_char(char *buffer, int *index, char c)
 {
    while ( buffer[*index] == ' ' ) {
       (*index)++;
    }
    char *output = buffer + *index;
 
-   while ( buffer[*index] != ' ' && buffer[*index] != '\n' ) {
+   while ( buffer[*index] != c && buffer[*index] != '\n' ) {
       (*index)++;
    }
    buffer[*index] = '\0';
@@ -131,15 +131,15 @@ void parser(list_device_info *list_device_info)
 
    while ( getline(&buffer, &buffer_size, f) != -1 ) {
       index  = 0;
-      device = get_next_str(buffer, &index);
+      device = get_next_str_char(buffer, &index, ' ');
 
       if ( same_str(device, "lo") || same_str(device, "DEVICE") ) {
          continue;
       }
 
-      type       = get_next_str(buffer, &index);
-      state      = get_next_str(buffer, &index);
-      connection = get_next_str(buffer, &index);
+      type       = get_next_str_char(buffer, &index, ' ');
+      state      = get_next_str_char(buffer, &index, ' ');
+      connection = get_next_str_char(buffer, &index, '\n');
 
       device_info *device_info = get_device_info(list_device_info, device);
 
