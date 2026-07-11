@@ -1,9 +1,8 @@
 (deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "./modules/time")
 (defwidget w_time [full]
    (box :class "time container"
-      {full ? "${time.full}" : "${time.partial}"}
-   )
-)
+      {full ? "${time.full}" : "${time.partial}"}))
+
 
 (deflisten workspaces "./modules/workspaces")
 (defwidget w_workspaces [monitor]
@@ -13,26 +12,20 @@
             (button :class "tag_button"
                     :active true
                     :onclick "mmsg -s -t ${wsp.name}"
-               "${wsp.name}"
-            )
-         )
-      )
-   )
-)
+               "${wsp.name}")))))
+
 
 (deflisten keymode "mmsg watch keymode")
 (defwidget w_keymode []
    (box :class {keymode["keymode"]=="resize" ? "keymode container" : "empty"}
-      {keymode["keymode"]=="resize" ? "R" : ""}
-   )
-)
+      {keymode["keymode"]=="resize" ? "R" : ""}))
+
 
 (deflisten network "./modules/network")
 (defwidget w_network []
    (box :class "network container"
-      "${network}"
-   )
-)
+      "${network}"))
+
 
 (deflisten volume "./modules/volume")
 (defwidget w_volume []
@@ -40,17 +33,13 @@
              :onscroll "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume {}"
              :onrightclick "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume mute"
       (box :class "volume container"
-       "${volume}"
-      )
-   )
-)
+       "${volume}")))
+
 
 (deflisten battery "./modules/battery")
 (defwidget w_battery []
    (box :class {battery != "" ? "battery container" : "empty"}
-      "${battery}"
-   )
-)
+      "${battery}"))
 
 ; bluetooth
 ; notifications
@@ -59,31 +48,23 @@
    (box :class "main"
       (box :space-evenly false :halign "start"
          (w_workspaces :monitor "${monitor}")
-         (w_keymode)
-      )
+         (w_keymode))
       (box :space-evenly false :halign "center"
-         (w_time :full true)
-      )
+         (w_time :full true))
       (box :space-evenly false :halign "end"
          (w_network)
          (w_volume)
-         (w_battery)
-      )
-   )
-)
+         (w_battery))))
+
 (defwidget w_secondary [monitor]
    (box :class "main"
       (box :space-evenly false :halign "start"
          (w_workspaces :monitor "${monitor}")
-         (w_keymode)
-      )
-      (box :space-evenly false :halign "center"
-      )
+         (w_keymode))
+      (box :space-evenly false :halign "center")
       (box :space-evenly false :halign "end"
-         (w_time :full false)
-      )
-   )
-)
+         (w_time :full false))))
+
 
 (defwindow DP-1
    :monitor "DP-1"
@@ -96,8 +77,8 @@
    :stacking "fg"
    :namespace "bar"
 
-   (w_primary :monitor "DP-1")
-)
+   (w_primary :monitor "DP-1"))
+
 (defwindow eDP-1
    :monitor "eDP-1"
    :geometry (geometry :x "0px"
@@ -109,8 +90,8 @@
    :stacking "fg"
    :namespace "bar"
 
-   (w_primary :monitor "eDP-1")
-)
+   (w_primary :monitor "eDP-1"))
+
 (defwindow HDMI-A-1
    :monitor "HDMI-A-1"
    :geometry (geometry :x "0px"
@@ -122,5 +103,4 @@
    :stacking "fg"
    :namespace "bar"
 
-   (w_secondary :monitor "HDMI-A-1")
-)
+   (w_secondary :monitor "HDMI-A-1"))

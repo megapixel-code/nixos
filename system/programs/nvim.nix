@@ -84,6 +84,7 @@
       yarn # Markdown Preview
       typst # preview and compile
       tree-sitter # tree-sitter
+      rustc # parinfer
     ];
   };
 }
