@@ -13,6 +13,7 @@ in
 {
   config = lib.mkIf config.my.module-cursor.enable {
     home.pointerCursor = {
+      enable = true;
       package = cursorPackage;
       name = cursorName;
       size = cursorSize;
