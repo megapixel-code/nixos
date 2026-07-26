@@ -89,6 +89,8 @@
     })
 
     {
+      documentation.dev.enable = true;
+
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
         settings = {
