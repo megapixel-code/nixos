@@ -11,18 +11,24 @@ vim.api.nvim_create_autocmd( "TextYankPost", {
 
 
 -- [[ Auto-format ("lint") on save ]]
+local formatting = true;
+vim.keymap.set( "n", "<leader>tw", function()
+                   formatting = not formatting;
+                end, { desc = "Toggle format on Write" } );
 vim.api.nvim_create_autocmd( "BufWritePre", {
    group = vim.api.nvim_create_augroup( "formatting", { clear = false } ),
    pattern = "*",
    callback = function( args )
-      require( "conform" ).format( {
-         bufnr = args.buf,
-         timeout_ms = 1000,
-         lsp_format = "fallback",
-         formatting_options = {
-            tabSize = 3,
-         },
-      } );
+      if formatting then
+         require( "conform" ).format( {
+            bufnr = args.buf,
+            timeout_ms = 1000,
+            lsp_format = "fallback",
+            formatting_options = {
+               tabSize = 3,
+            },
+         } );
+      end;
    end,
 } );
 
