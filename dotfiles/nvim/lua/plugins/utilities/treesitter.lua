@@ -25,6 +25,7 @@ return {
             "javascript",
 
             "json",
+            "xml",
             "yaml",
             "qmljs",
 
