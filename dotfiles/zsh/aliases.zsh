@@ -62,7 +62,6 @@ export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 alias v="nvim"
-alias vim="nvim"
 alias ff="fastfetch"
 alias gs="git status"
 alias lt='tree -a --dirsfirst -I .git/'
