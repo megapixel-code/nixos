@@ -32,8 +32,8 @@ SK_THEME=(
 DIRS=(
 	"/etc/nixos/dotfiles/"
 	"$HOME/documents/"
-	"$HOME/documents/projects/"
-	"$HOME/documents/git/"
+	"$HOME/projects/personal/"
+	"$HOME/projects/git/"
 )
 
 if [[ $# -eq 1 ]]; then
