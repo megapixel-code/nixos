@@ -50,7 +50,7 @@ end;
 return {
    -- "Megapixel-code/color-skimer.nvim",
    -- OR localy:
-   dir = "~/documents/projects/color-skimer.nvim",
+   dir = "~/projects/personal/color-skimer.nvim",
 
    init = function()
       local color_skimer = require( "color-skimer" );

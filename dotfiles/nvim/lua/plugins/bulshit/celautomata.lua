@@ -1,5 +1,5 @@
 return {
-   dir = "~/documents/projects/celautomata.nvim/",
+   dir = "~/projects/personal/celautomata.nvim/",
    lazy = true,
 
    init = function()
