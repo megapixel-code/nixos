@@ -34,6 +34,7 @@
       set -g status-style "bg=default" # background of the header
       set -g window-status-current-style "fg=red bold" # current window
       set -g pane-active-border-style "fg=red" # active pane border
+      set -g cursor-style bar
 
       # [[ BINDS ]]
       # easely reload config file
