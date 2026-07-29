@@ -36,8 +36,9 @@ else
 end;
 
 -- filetypes
+local extensionless_file = "[ ---/-Ͽ]*";
 vim.filetype.add( {
-   extension = {
-      [""] = "sh",
+   pattern = {
+      [extensionless_file] = "bash",
    },
 } );

@@ -3,6 +3,7 @@ return {
    opts = {
       formatters_by_ft = {
          sh = { "shfmt" },       -- bash, look in .editorconfig
+         bash = { "shfmt" },     -- ^
          zsh = { "shfmt" },      -- ^
          pascal = { "pasfmt" },  -- pascal FIX: add tab_width=3 not working
          css = { "prettierd" },  -- angular, css, flow, graphql, html, json, jsx, javascript, less, markdown, scss, typescript, vue, yaml
