@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+# https://www.shellcheck.net/wiki/SC3046
+
+# If not running interactively, don't do anything
+[[ -n $PS1   ]] || return
+[[ $- == *i* ]] && source -- "$(blesh-share)"/ble.sh --attach=none
+
+source "$XDG_CONFIG_HOME/bash/aliases"
+source "$XDG_CONFIG_HOME/bash/blesh"
+source "$(gitstatus-share)/gitstatus.prompt.sh"
+
+### history
+[ -d "$XDG_STATE_HOME"/bash ] || mkdir -p "$XDG_STATE_HOME"/bash
+HISTFILE="$XDG_STATE_HOME"/bash/history
+HISTSIZE=100000
+HISTCONTROL="ignoredups" # consecutive duplicates
+
+### config
+export MANPAGER="bat -plman"
+# shopt -s autocd
+# shopt -s cdspell
+# shopt -s cmdhist
+# shopt -s direxpand
+# shopt -s dirspell
+# shopt -s dotglob
+# shopt -s extglob
+
+### colors settings
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+red="\e[0;31m"
+green="\e[0;32m"
+yellow="\e[0;33m"
+magenta="\e[0;35m"
+blue="\e[0;34m"
+cyan="\e[0;36m"
+reset="\e[0m"
+
+function gitstatus_prompt_update() {
+	gitstatus_query "$@" || return 1 # error
+	[[ $VCS_STATUS_RESULT == ok-sync ]] || return 0 # not a git repo
+
+	local red=$'\001\e[0;31m\002'
+	local green=$'\001\e[0;32m\002'
+	local yellow=$'\001\e[0;33m\002'
+	local blue=$'\001\e[0;34m\002'
+	local reset=$'\001\e[0m\002'
+
+	local p="${green} "
+
+	local where # branch name, tag or commit
+	if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
+		where="$VCS_STATUS_LOCAL_BRANCH"
+	elif [[ -n $VCS_STATUS_TAG ]]; then
+		p+="${reset}#"
+		where="$VCS_STATUS_TAG"
+	else
+		p+="${reset}@"
+		where="${VCS_STATUS_COMMIT:0:8}"
+	fi
+
+	((${#where} > 32)) && where="${where:0:12}…${where: -12}" # truncate long branch names and tags
+	p+="${green}${where}"
+
+	# ⇣42 if behind the remote.
+	((VCS_STATUS_COMMITS_BEHIND)) && p+=" ${green}⇣${VCS_STATUS_COMMITS_BEHIND}"
+	# ⇡42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
+	((VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND)) && p+=" "
+	((VCS_STATUS_COMMITS_AHEAD)) && p+="${green}⇡${VCS_STATUS_COMMITS_AHEAD}"
+	# ⇠42 if behind the push remote.
+	((VCS_STATUS_PUSH_COMMITS_BEHIND)) && p+=" ${green}⇠${VCS_STATUS_PUSH_COMMITS_BEHIND}"
+	((VCS_STATUS_PUSH_COMMITS_AHEAD && !VCS_STATUS_PUSH_COMMITS_BEHIND)) && p+=" "
+	# ⇢42 if ahead of the push remote; no leading space if also behind: ⇠42⇢42.
+	((VCS_STATUS_PUSH_COMMITS_AHEAD)) && p+="${green}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}"
+	# *42 if have stashes.
+	((VCS_STATUS_STASHES)) && p+=" ${green}*${VCS_STATUS_STASHES}"
+	# 'merge' if the repo is in an unusual state.
+	[[ -n $VCS_STATUS_ACTION ]] && p+=" ${red}${VCS_STATUS_ACTION}"
+	# ~42 if have merge conflicts.
+	((VCS_STATUS_NUM_CONFLICTED)) && p+=" ${red}~${VCS_STATUS_NUM_CONFLICTED}"
+	# +42 if have staged changes.
+	((VCS_STATUS_NUM_STAGED)) && p+=" ${yellow}+${VCS_STATUS_NUM_STAGED}"
+	# !42 if have unstaged changes.
+	((VCS_STATUS_NUM_UNSTAGED)) && p+=" ${yellow}!${VCS_STATUS_NUM_UNSTAGED}"
+	# ?42 if have untracked files. It's really a question mark, your font isn't broken.
+	((VCS_STATUS_NUM_UNTRACKED)) && p+=" ${blue}?${VCS_STATUS_NUM_UNTRACKED}"
+
+	GITSTATUS_PROMPT="${p}${reset}"
+}
+gitstatus_stop && gitstatus_start -s -1 -u -1 -c -1 -d -1
+PROMPT_COMMAND=gitstatus_prompt_update
+
+PS1="⌌ ${blue}$(  ((UID == 0)) && printf "%s" "${red}")\u"
+PS1+="${reset}@"
+PS1+="${magenta}\h${reset}"
+PS1+='${GITSTATUS_PROMPT:+ [$GITSTATUS_PROMPT]} '
+PS1+="${cyan}\w${reset}\n"
+PS1+="⌎ ${red}λ${reset} "
+
+[[ ! ${BLE_VERSION-} ]] || ble-attach

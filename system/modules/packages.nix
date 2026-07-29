@@ -12,7 +12,13 @@ let
     with pkgs;
     [
       # always on
-      zsh
+      (my_lib.makeWrapper {
+        package = pkgs.bash;
+        package_exec = "bash";
+        extra_flags = "--init-file $XDG_CONFIG_HOME/bash/bashrc";
+      })
+      blesh
+      gitstatus
       git
       tmux
       home-manager

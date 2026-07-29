@@ -10,8 +10,6 @@ let
   pkgs = nixpkgs.legacyPackages.${system};
 in
 {
-  nixpkgs.config.allowUnfree = true;
-
   makeWrapper =
     {
       package,

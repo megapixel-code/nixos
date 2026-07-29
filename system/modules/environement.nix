@@ -35,7 +35,6 @@
         HISTFILE = "$XDG_STATE_HOME/bash/history";
 
         # partialy suported
-        ZDOTDIR = "$XDG_CONFIG_HOME/zsh";
         CARGO_HOME = "$XDG_CACHE_HOME/cargo";
         _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java"; # FIXME: not working
         RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
