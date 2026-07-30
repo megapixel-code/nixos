@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-# remove trash files older than 100 days
-find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
-
 # notify
 swaync &> /dev/null &
 
@@ -18,12 +15,15 @@ sunsetr &> /dev/null &
 "$XDG_CONFIG_HOME/scripts/tmux-session-dispensary" "$HOME" &> /dev/null &
 
 if [[ $(hostname) == "nixos-main" ]]; then
-	mmsg -s -o "HDMI-A-1"
-	mmsg -s -t 9
+	mmsg dispatch focusmon,"HDMI-A-1" &> /dev/null
+	mmsg dispatch view,9 &> /dev/null
 	deezer-desktop &> /dev/null &
 	firefox &> /dev/null &
 elif [[ $(hostname) == "nixos-school" ]]; then
-	mmsg -s -o "eDP-1"
-	mmsg -s -t 9
+	mmsg dispatch focusmon,"eDP-1" &> /dev/null
+	mmsg dispatch view,9 &> /dev/null
 	firefox &> /dev/null &
 fi
+
+# remove trash files older than 100 days
+find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
