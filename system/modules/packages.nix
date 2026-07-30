@@ -109,6 +109,7 @@ let
       tree
       fastfetch
       cbonsai
+      lavat
       htop-vim # interactive process viewer
       skim # command line fuzy finder
       pass-wayland # password manager

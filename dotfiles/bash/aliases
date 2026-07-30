@@ -33,7 +33,7 @@ git() {
 }
 
 cbonsai() {
-	if [[ $@ != "" ]]; then
+	if [[ $1 != "" ]]; then
 		command cbonsai "$@"
 		return
 	fi
@@ -42,7 +42,7 @@ cbonsai() {
 	leafs_dark=$((1 + "$RANDOM" % 7))
 
 	bark_dark=$((1 + ("$leafs_dark" + "$RANDOM") % 7))
-	while [[ bark_dark == leafs_dark ]]; do
+	while [[ $bark_dark == "$leafs_dark" ]]; do
 		bark_dark=$((1 + ("$leafs_dark" + "$RANDOM") % 7))
 	done
 
@@ -52,8 +52,51 @@ cbonsai() {
 	command cbonsai -S --time=0.05 --wait=5 --base=2 --leaf="$" --color="$leafs_dark,$bark_dark,$leafs_light,$bark_light" --multiplier=9 --life=45
 }
 
-batdiff() {
-	git diff --name-only --relative --diff-filter=d -z | xargs -0 bat --diff
+lavat() {
+	if [[ $1 != "" ]]; then
+		command lavat "$@"
+		return
+	fi
+
+	colors=(
+		"red"
+		"blue"
+		"yellow"
+		"green"
+		"cyan"
+		"magenta"
+		"white"
+		"black"
+	)
+
+	local ball_color="${colors[$((RANDOM % ${#colors[@]}))]}"
+	local rim_color="${colors[$((RANDOM % (${#colors[@]} - 1)))]}" # dont include black
+	local radius="1"
+	local party=""
+	local gravity=""
+	local chars=""
+	if [[ $(("$RANDOM" % 5)) == 1 ]]; then
+		party="-p2"
+	fi
+	if [[ $(("$RANDOM" % 5)) == 1 ]]; then
+		gravity="-G"
+	fi
+	case "$(("$RANDOM" % 5))" in
+		0)
+			chars="-F@@::::::"
+			;;
+		1)
+			chars="-F#@"
+			;;
+		2)
+			chars="-F#+"
+			;;
+		3)
+			chars="-F0*"
+			;;
+	esac
+
+	command lavat "$gravity" -c"$ball_color" -k"$rim_color" -r"$radius" "$chars" "$party"
 }
 
 alias v="nvim"
