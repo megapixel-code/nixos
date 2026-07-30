@@ -7,7 +7,7 @@
 
 source "$XDG_CONFIG_HOME/bash/aliases"
 source "$XDG_CONFIG_HOME/bash/blesh"
-source "$(gitstatus-share)/gitstatus.prompt.sh"
+source "$(gitstatus-share)/gitstatus.plugin.sh"
 
 ### history
 [ -d "$XDG_STATE_HOME"/bash ] || mkdir -p "$XDG_STATE_HOME"/bash
