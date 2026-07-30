@@ -24,6 +24,10 @@ shopt -s direxpand
 shopt -s dirspell
 shopt -s dotglob
 shopt -s extglob
+shopt -s histappend
+shopt -s huponexit
+shopt -s no_empty_cmd_completion
+shopt -s nocaseglob
 
 ### colors settings
 alias ls='ls --color=auto'
