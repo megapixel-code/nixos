@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     home-manager = {
@@ -30,6 +31,7 @@
     let
       system = "x86_64-linux";
       user = "ivan";
+      pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
       pkgs-unstable = inputs.nixpkgs-unstable.legacyPackages.${system};
       my_lib = import ./lib {
         inherit
@@ -76,6 +78,7 @@
                 specialArgs = lib.mergeAttrsList [
                   sharedSpecialArgs
                   {
+                    inherit pkgs-stable;
                     inherit pkgs-unstable;
                     inherit home-manager;
                   }
