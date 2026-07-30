@@ -4,5 +4,10 @@
 #F9F9FA33
 #008080
 
-grim -g "$(slurp -b '#F9F9FA33' -c '#C0C0C0ff')"
-
+if [[ -z $1 ]]; then
+	grim -g "$(slurp -b '#F9F9FA33' -c '#C0C0C0ff')"
+elif [[ $1 == "copy" ]]; then
+	grim -g "$(slurp -b '#F9F9FA33' -c '#C0C0C0ff')" - | wl-copy
+elif [[ $1 == "color" ]]; then
+	slurp -p | grim -g - - | magick - txt: | awk 'NR==2 { print $3 }' | wl-copy
+fi
