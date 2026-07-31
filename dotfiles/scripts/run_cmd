@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# NOTE: look at mango config, needed to run a command with bash shell.
+command $1
