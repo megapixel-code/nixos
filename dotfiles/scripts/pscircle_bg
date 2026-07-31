@@ -3,7 +3,7 @@
 # start daemon :
 awww-daemon &> /dev/null &
 
-cmd_output=$(mmsg -O | grep "eDP-1")
+cmd_output=$(mmsg get monitor "eDP-1")
 
 if [[ $cmd_output == "" ]]; then
 	# "main computer"
