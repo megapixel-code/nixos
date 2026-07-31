@@ -27,6 +27,7 @@ return {
             "json",
             "xml",
             "yaml",
+            "toml",
             "qmljs",
 
             "cmake",
