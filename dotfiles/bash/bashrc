@@ -3,7 +3,7 @@
 
 # If not running interactively, don't do anything
 [[ -n $PS1   ]] || return
-[[ $- == *i* ]] && source -- "$(blesh-share)"/ble.sh --attach=none
+[[ $- == *i* ]] && source -- "$(blesh-share)/ble.sh" --attach=none
 
 source "$XDG_CONFIG_HOME/bash/aliases"
 source "$XDG_CONFIG_HOME/bash/blesh"
@@ -46,6 +46,8 @@ cyan="\e[0;36m"
 reset="\e[0m"
 
 function gitstatus_prompt_update() {
+	GITSTATUS_PROMPT=""
+
 	gitstatus_query "$@" || return 1 # error
 	[[ $VCS_STATUS_RESULT == ok-sync ]] || return 0 # not a git repo
 
