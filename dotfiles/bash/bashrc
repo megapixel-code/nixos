@@ -110,3 +110,5 @@ PS1+="${cyan}\w${reset}\n"
 PS1+="⌎ ${red}λ${reset} "
 
 [[ ! ${BLE_VERSION-} ]] || ble-attach
+
+printf '\e[5 q' # set cursor to line
