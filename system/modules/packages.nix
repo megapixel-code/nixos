@@ -71,7 +71,7 @@ let
         package = pkgs.steam;
         package_exec = "steam";
         script = ''
-          HOME=$XDG_DATA_HOME/Steam
+          HOME="$XDG_DATA_HOME/Steam"
           mkdir -p $HOME
         '';
       })

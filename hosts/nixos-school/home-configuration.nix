@@ -8,7 +8,6 @@
   ];
 
   my.pkgs = {
-    editors.enable = lib.mkForce false;
     games.enable = lib.mkForce false;
   };
 }
