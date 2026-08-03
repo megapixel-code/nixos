@@ -76,13 +76,15 @@
 
     (lib.mkIf config.home-manager.users.${user}.my.module-mango.enable {
       # Display manager :
-      programs.regreet.enable = true;
-      services.greetd = {
-        enable = true;
-        settings = {
-          default_session = {
-            command = "mango";
-            user = "${user}"; # autologin
+      services = {
+        displayManager.regreet.enable = true;
+        greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = "mango";
+              user = "${user}"; # autologin
+            };
           };
         };
       };
