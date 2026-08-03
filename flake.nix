@@ -46,7 +46,7 @@
         "nixos-school"
       ];
       allServerHostNames = [
-        "host1"
+        "server"
       ];
     in
     {
