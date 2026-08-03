@@ -47,20 +47,16 @@
          "format": "{#magenta}{$5}{$1} {user-name-colored}{at-symbol-colored}{host-name-colored}"
       },
       {
-         "type": "os",
-         "key": "{#magenta}{$3}{#light_yellow}OS"
-      },
-      {
          "type": "kernel",
          "key": "{#magenta}{$3}{#light_yellow}Kernel"
       },
       {
-         "type": "packages",
-         "key": "{#magenta}{$3}{#light_yellow}Packages"
+         "type": "os",
+         "key": "{#magenta}{$3}{#light_yellow}OS"
       },
       {
-         "type": "wm",
-         "key": "{#magenta}{$3}{#light_yellow}Window Manager"
+         "type": "packages",
+         "key": "{#magenta}{$3}{#light_yellow}Packages"
       },
       {
          "type": "terminal",
@@ -69,6 +65,10 @@
       {
          "type": "shell",
          "key": "{#magenta}{$3}{#light_yellow}Shell"
+      },
+      {
+         "type": "wm",
+         "key": "{#magenta}{$3}{#light_yellow}Window Manager"
       },
       {
          "type": "cpu",
