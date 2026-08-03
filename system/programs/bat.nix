@@ -7,7 +7,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.home-manager.users.${user}.my.pkgs.utilities.user.enable {
+  config = lib.mkIf config.home-manager.users.${user}.my.pkgs.utilities.system.enable {
 
     # # run `bat --help` to get a list of all possible configuration options.
     #
