@@ -1,5 +1,3 @@
--- TODO: customize the cmp look, for example: custom scroll bar
-
 return {
    "hrsh7th/nvim-cmp",
    dependencies = {

@@ -4,12 +4,6 @@
 }:
 {
   options = {
-    # TODO: ?
-    # user = lib.mkOption {
-    #   type = lib.types.string;
-    #   default = "ivan";
-    # };
-
     my = {
       module-mango.enable = lib.mkEnableOption "enable mangowc";
 

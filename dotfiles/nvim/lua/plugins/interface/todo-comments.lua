@@ -22,26 +22,6 @@ return {
                       } );
    end,
    opts = {
-      -- FIX : test
-      -- FIXME: test
-      -- BUG: test
-      -- FIXIT: test
-      -- ISSUE: test
-      -- HACK : test
-      -- WARN : test
-      -- WARNING: test
-      -- XXX: test
-      -- PERF : test
-      -- OPTIM: test
-      -- PERFORMANCE: test
-      -- OPTIMIZE: test
-      -- TEST : test
-      -- TESTING: test
-      -- PASSED: test
-      -- FAILED: test
-      -- NOTE : test
-      -- INFO: test
-      -- TODO : test
       signs = true,      -- show icons in the signs column
       sign_priority = 0, -- sign priority
       -- keywords recognized as todo comments

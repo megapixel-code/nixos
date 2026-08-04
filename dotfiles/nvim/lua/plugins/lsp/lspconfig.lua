@@ -103,8 +103,8 @@ return {
                   capabilities = capabilities,
                },
             },
-            {                  -- QML lsp
-               name = "qmlls", -- TODO: cant find ?
+            { -- QML lsp
+               name = "qmlls",
                args = {
                   capabilities = capabilities,
                },

@@ -52,7 +52,7 @@
       pyrefly # python
       clang-tools # c cpp
       bash-language-server # bash
-      # pascal-language-server # pascal TODO:
+      # pascal-language-server #  TODO: pascal
       # qml-language-server # TODO: https://github.com/NixOS/nixpkgs/pull/515608
       metals # scala
       nil # nix

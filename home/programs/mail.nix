@@ -35,8 +35,6 @@
     };
   };
 
-  # TODO: https://man.sr.ht/~rjarry/aerc/configurations/mailto.md
-
   config = lib.mkIf config.my.pkgs.apps.enable {
     my.aerc.accounts = {
       total_vfemails = 1;
