@@ -25,8 +25,6 @@
       create-folders = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         # $HOME/pictures/screenshoots/
         mkdir -p $GRIM_DEFAULT_DIR
-        # $HOME/documents/projects/
-        mkdir -p ${config.home.homeDirectory}/documents/projects/
       '';
 
       symlink-desktop-files = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
@@ -45,7 +43,7 @@
       '';
 
       symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run /etc/nixos/dotfiles/scripts/dotfiles_symlink
+        "$NIXOS_CONFIG_DIR/dotfiles/scripts/dotfiles_symlink"
       '';
     };
   };
