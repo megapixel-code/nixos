@@ -89,7 +89,6 @@ return {
          "mfd-dark",
          "ef-winter",
          "ef-deuteranopia-dark",
-         "modus_vivendi",
 
          "ef-summer",
          "ef-elea-light",
