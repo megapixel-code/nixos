@@ -7,7 +7,10 @@
     ../personal-home-defaults.nix
   ];
 
-  my.pkgs = {
-    games.enable = lib.mkForce false;
+  my = {
+    battery_dependent = lib.mkForce true;
+    pkgs = {
+      games.enable = lib.mkForce false;
+    };
   };
 }

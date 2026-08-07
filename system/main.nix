@@ -34,7 +34,7 @@
             # When enabled other devices can connect faster to us, however
             # the tradeoff is increased power consumption. Defaults to
             # 'false'.
-            FastConnectable = false;
+            FastConnectable = if (config.home-manager.users.${user}.my.battery_dependent) then false else true;
           };
           Policy = {
             # Enable all controllers when they are found. This includes

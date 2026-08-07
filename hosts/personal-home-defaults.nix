@@ -11,6 +11,7 @@
     module-audio.enable = lib.mkDefault true;
     module-printing.enable = lib.mkDefault true;
 
+    battery_dependent = lib.mkDefault false;
     networking.personal.enable = lib.mkDefault true;
 
     pkgs = {

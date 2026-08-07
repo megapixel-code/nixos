@@ -6,13 +6,14 @@
   options = {
     my = {
       module-mango.enable = lib.mkEnableOption "enable mangowc";
+      module-home-lab.enable = lib.mkEnableOption "enable home-lab";
 
       module-cursor.enable = lib.mkEnableOption "enable custom cursor";
       module-bluetooth.enable = lib.mkEnableOption "enable bluetooth";
       module-audio.enable = lib.mkEnableOption "enable audio";
       module-printing.enable = lib.mkEnableOption "enable printing";
 
-      module-home-lab.enable = lib.mkEnableOption "enable home-lab";
+      battery_dependent = lib.mkEnableOption "device is battery dependent";
 
       networking = {
         personal.enable = lib.mkEnableOption "enable networking for personal computers";
