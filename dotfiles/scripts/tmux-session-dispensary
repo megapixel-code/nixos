@@ -30,7 +30,7 @@ SK_THEME=(
 )
 
 DIRS=(
-	"/etc/nixos/dotfiles/"
+	"$NIXOS_CONFIG_DIR/dotfiles/"
 	"$HOME/documents/"
 	"$HOME/projects/personal/"
 	"$HOME/projects/git/"
