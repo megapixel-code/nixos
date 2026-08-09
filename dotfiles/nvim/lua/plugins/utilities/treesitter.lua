@@ -30,6 +30,7 @@ return {
             "toml",
             "qmljs",
 
+            "make",
             "cmake",
             "typst",
             "markdown",

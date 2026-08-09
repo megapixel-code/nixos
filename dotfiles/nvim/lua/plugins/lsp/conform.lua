@@ -9,7 +9,7 @@ return {
          css = { "prettierd" },  -- angular, css, flow, graphql, html, json, jsx, javascript, less, markdown, scss, typescript, vue, yaml
          typst = { "typstyle" }, -- typst
          nix = { "nixfmt" },     -- nix
-         make = { "bake" },      -- makefiles FIX: not working
+         make = { "bake" },      -- makefiles
       },
 
       formatters = {
