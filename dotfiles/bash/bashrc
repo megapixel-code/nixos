@@ -102,7 +102,7 @@ gitstatus_stop && gitstatus_start -s -1 -u -1 -c -1 -d -1
 PROMPT_COMMAND=gitstatus_prompt_update
 PROMPT_DIRTRIM=10
 
-PS1="⌌ ${blue}$(  ((UID == 0)) && printf "%s" "${red}")\u"
+PS1="⌌ ${blue}$( ((UID == 0)) && printf "%s" "${red}")\u"
 PS1+="${reset}@"
 PS1+="${magenta}\h${reset}"
 PS1+='${GITSTATUS_PROMPT:+ [$GITSTATUS_PROMPT]} '
