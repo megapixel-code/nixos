@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-cc -o out/battery modules/battery.c
-./out/battery

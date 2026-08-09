@@ -1,10 +1,10 @@
-(deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "./modules/time")
+(deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "make out/time; out/time")
 (defwidget w_time [full]
    (box :class "time container"
       {full ? "${time.full}" : "${time.partial}"}))
 
 
-(deflisten workspaces "./modules/workspaces")
+(deflisten workspaces "make out/workspaces; out/workspaces")
 (defwidget w_workspaces [monitor]
    (box :class "workspaces container"
       (for wsp in {workspaces[monitor].tags}
@@ -21,13 +21,13 @@
       {keymode["keymode"]=="resize" ? "R" : ""}))
 
 
-(deflisten network "./modules/network")
+(deflisten network "make out/network; out/network")
 (defwidget w_network []
    (box :class "network container"
       "${network}"))
 
 
-(deflisten volume "./modules/volume")
+(deflisten volume "make out/volume; out/volume")
 (defwidget w_volume []
    (eventbox :timeout "50ms"
              :onscroll "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume {}"
@@ -36,11 +36,12 @@
        "${volume}")))
 
 
-(deflisten battery "./modules/battery")
+(deflisten battery "make out/battery; out/battery")
 (defwidget w_battery []
    (box :class {battery != "" ? "battery container" : "empty"}
       "${battery}"))
 
+; TODO: library file
 ; TODO:
 ; bluetooth
 ; notifications
