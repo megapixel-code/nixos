@@ -1,17 +1,24 @@
-CC = cc
+CC := cc
 
-all: out/battery out/network out/time out/volume out/workspaces
+MODULES_DIR := ./modules
+OUT_DIR := ./out
+MODULES := battery \
+	network \
+	time \
+	volume \
+	workspaces
+OUT_MODULES := $(foreach module,$(MODULES),$(OUT_DIR)/$(module))
 
+.PHONY: all clean
+all: $(OUT_MODULES)
 clean:
-	rm $(filter-out .gitignore,out/*)
+	-rm $(filter-out .gitignore,$(OUT_DIR)/*)
 
-out/battery: modules/battery.c
-	$(CC) $< -o $@
-out/network: modules/network.c
-	$(CC) $< -o $@
-out/time: modules/time.c
-	$(CC) $< -o $@
-out/volume: modules/volume.c
-	$(CC) $< -o $@
-out/workspaces: modules/workspaces.c
-	$(CC) $< -o $@
+$(OUT_DIR)/library.h.gch: $(MODULES_DIR)/library.h
+	$(CC) -c $< -o $@
+
+$(OUT_DIR)/%: $(MODULES_DIR)/%.c $(OUT_DIR)/library.h.gch
+	$(CC) $< -o $@ -I$(OUT_DIR)
+
+run_%: $(OUT_DIR)/%
+	$^

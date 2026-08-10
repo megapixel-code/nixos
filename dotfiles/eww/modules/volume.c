@@ -1,37 +1,9 @@
+#include "library.h"
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-char *concat_str(char *str1, char *str2)
-{
-   int   count;
-   int   tot_count  = 0;
-   char *strings[2] = { str1, str2 };
-
-   for ( int i = 0; i < 2; i++ ) {
-      count = 0;
-      while ( strings[i][count] != '\0' ) {
-         count++;
-      }
-      tot_count += count;
-   }
-
-   char *out = malloc(sizeof(char) * (tot_count + 1));
-
-   tot_count = 0;
-   for ( int i = 0; i < 2; i++ ) {
-      count = 0;
-      while ( strings[i][count] != '\0' ) {
-         out[count + tot_count] = strings[i][count];
-         count++;
-      }
-      tot_count += count;
-   }
-   out[tot_count] = '\0';
-
-   return out;
-}
 
 void create_file()
 {

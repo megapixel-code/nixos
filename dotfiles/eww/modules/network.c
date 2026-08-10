@@ -1,3 +1,5 @@
+#include "library.h"
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,30 +19,6 @@ typedef struct {
    device_info *device_infos;
    size_t       size;
 } list_device_info;
-
-int same_str(char *str1, char *str2)
-{
-   int i = 0;
-   while ( str1[i] == str2[i] && str1[i] != '\0' && str2[i] != '\0' ) {
-      i++;
-   }
-   if ( str1[i] == '\0' && str2[i] == '\0' ) {
-      return 1;
-   }
-   return 0;
-}
-
-int assign(char *dest, char *src)
-{
-   int changed = 0;
-
-   if ( !same_str(dest, src) ) {
-      strcpy(dest, src);
-      changed = 1;
-   }
-
-   return changed;
-}
 
 device_info *get_device_info(list_device_info *list_device_info, char *device)
 {
@@ -82,22 +60,6 @@ void display_device_info(list_device_info list_device_info)
    }
 
    fflush(stdout);
-}
-
-char *get_next_str_char(char *buffer, int *index, char c)
-{
-   while ( buffer[*index] == ' ' ) {
-      (*index)++;
-   }
-   char *output = buffer + *index;
-
-   while ( buffer[*index] != c && buffer[*index] != '\n' ) {
-      (*index)++;
-   }
-   buffer[*index] = '\0';
-   (*index)++;
-
-   return output;
 }
 
 void cleanup(int sig)
@@ -143,9 +105,9 @@ void parser(list_device_info *list_device_info)
 
       device_info *device_info = get_device_info(list_device_info, device);
 
-      changed = assign(device_info->type, type) || changed;
-      changed = assign(device_info->state, state) || changed;
-      changed = assign(device_info->connection, connection) || changed;
+      changed = assign(type, device_info->type) || changed;
+      changed = assign(state, device_info->state) || changed;
+      changed = assign(connection, device_info->connection) || changed;
    }
 
    if ( changed ) {

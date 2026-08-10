@@ -1,3 +1,5 @@
+#include "library.h"
+
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,37 +34,6 @@ void open()
       exit(1);
    }
    signal(SIGINT, cleanup);
-}
-
-int next_occurrence_end_index(char *buff, char *string, int index)
-{
-   int offset = 0;
-
-   while ( buff[index + offset] != '\0' && string[offset] != '\0' ) {
-      while ( buff[index + offset] != '\0' &&
-              string[offset] != '\0' &&
-              buff[index + offset] == string[offset] ) {
-         offset++;
-      }
-
-      if ( string[offset] == '\0' ) {
-         return (index + offset - 1);
-      }
-
-      index++;
-      offset = 0;
-   }
-   return -1;
-}
-
-int same_str(char *buff, char *str)
-{
-   for ( int i = 0; str[i] != '\0' && buff[i] != '\0'; i++ ) {
-      if ( str[i] != buff[i] ) {
-         return 0;
-      }
-   }
-   return 1;
 }
 
 monitor_info *get_monitor_info(monitor_info_list *monitor_info_list,
@@ -156,7 +127,7 @@ void display_monitor_info_json(monitor_info_list monitor_info_list)
          }
          printf("\", \"name\": \"%d\" }", j + 1);
       }
-      printf("]}");
+      printf("] }");
 
       if ( i < monitor_info_list.size - 1 ) {
          printf(", ");
@@ -188,41 +159,29 @@ void parser()
       index   = 0;
 
       while ( 1 ) {
-         index = next_occurrence_end_index(buffer, "\"monitor\":\"", index);
+         next_occurrence_end_index(buffer, "\"monitor\":\"", &index);
          if ( index == -1 ) {
             break;
          }
-         buffer[index] = '\0';
          index++;
-         monitor       = buffer + index;
-         index         = next_occurrence_end_index(buffer, "\"", index);
-         buffer[index] = '\0';
-         index++;
+         monitor = get_next_str_char(buffer, &index, '"');
 
          monitor_info = get_monitor_info(&monitor_info_list, monitor);
 
          for ( int i = 0; i < 9; i++ ) {
-            index = next_occurrence_end_index(buffer, "\"is_active\":", index);
+            next_occurrence_end_index(buffer, "\"is_active\":", &index);
             index++;
-            is_selected   = buffer + index;
-            index         = next_occurrence_end_index(buffer, ",", index);
-            buffer[index] = '\0';
-            index++;
+            is_selected = get_next_str_char(buffer, &index, ',');
 
             b_is_selected = same_str(is_selected, "true");
-            if ( monitor_info->selected_tags[i] != b_is_selected ) {
-               changed                        = 1;
-               monitor_info->selected_tags[i] = b_is_selected;
-            }
+            changed = assign(&b_is_selected, &monitor_info->selected_tags[i]) ||
+                      changed;
 
-            index =
-               next_occurrence_end_index(buffer, "\"client_count\":", index);
+            next_occurrence_end_index(buffer, "\"client_count\":", &index);
             index++;
             b_is_active = buffer[index] != '0';
-            if ( monitor_info->active_tags[i] != b_is_active ) {
-               changed                      = 1;
-               monitor_info->active_tags[i] = b_is_active;
-            }
+            changed =
+               assign(&b_is_active, &monitor_info->active_tags[i]) || changed;
          }
       }
 

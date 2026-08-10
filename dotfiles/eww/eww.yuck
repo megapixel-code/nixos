@@ -1,10 +1,10 @@
-(deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "make out/time; out/time")
+(deflisten time :initial '{"full": "--:--:--", "partial": "--:--:--"}' "make run_time")
 (defwidget w_time [full]
    (box :class "time container"
       {full ? "${time.full}" : "${time.partial}"}))
 
 
-(deflisten workspaces "make out/workspaces; out/workspaces")
+(deflisten workspaces "make run_workspaces")
 (defwidget w_workspaces [monitor]
    (box :class "workspaces container"
       (for wsp in {workspaces[monitor].tags}
@@ -21,13 +21,13 @@
       {keymode["keymode"]=="resize" ? "R" : ""}))
 
 
-(deflisten network "make out/network; out/network")
+(deflisten network "make run_network")
 (defwidget w_network []
    (box :class "network container"
       "${network}"))
 
 
-(deflisten volume "make out/volume; out/volume")
+(deflisten volume "make run_volume")
 (defwidget w_volume []
    (eventbox :timeout "50ms"
              :onscroll "$NIXOS_CONFIG_DIR/dotfiles/scripts/volume {}"
@@ -36,7 +36,7 @@
        "${volume}")))
 
 
-(deflisten battery "make out/battery; out/battery")
+(deflisten battery "make run_battery")
 (defwidget w_battery []
    (box :class {battery != "" ? "battery container" : "empty"}
       "${battery}"))
