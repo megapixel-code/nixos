@@ -8,7 +8,7 @@
 void create_file()
 {
    char *cache_path = getenv("XDG_CACHE_HOME");
-   char *path       = concat_str(cache_path, "/eww/volume.pid");
+   char *path       = lib_concat_str(cache_path, "/eww/volume.pid");
    pid_t pid        = getpid();
 
    FILE *f = fopen(path, "w");

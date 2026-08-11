@@ -23,7 +23,7 @@ typedef struct {
 device_info *get_device_info(list_device_info *list_device_info, char *device)
 {
    for ( int i = 0; i < list_device_info->size; i++ ) {
-      if ( same_str(device, list_device_info->device_infos[i].device) ) {
+      if ( lib_same_str(device, list_device_info->device_infos[i].device) ) {
          return list_device_info->device_infos + i;
       }
    }
@@ -42,14 +42,16 @@ void display_device_info(list_device_info list_device_info)
    int i;
 
    for ( i = 0; i < list_device_info.size; i++ ) {
-      if ( !same_str(list_device_info.device_infos[i].state, "connected") ) {
+      if ( !lib_same_str(list_device_info.device_infos[i].state,
+                         "connected") ) {
          continue;
       }
 
-      if ( same_str(list_device_info.device_infos[i].type, "ethernet") ) {
+      if ( lib_same_str(list_device_info.device_infos[i].type, "ethernet") ) {
          printf("ntwk: eth\n");
          break;
-      } else if ( same_str(list_device_info.device_infos[i].type, "wifi") ) {
+      } else if ( lib_same_str(list_device_info.device_infos[i].type,
+                               "wifi") ) {
          printf("ntwk: %s\n", list_device_info.device_infos[i].connection);
          break;
       }
@@ -93,15 +95,15 @@ void parser(list_device_info *list_device_info)
 
    while ( getline(&buffer, &buffer_size, f) != -1 ) {
       index  = 0;
-      device = get_next_str_char(buffer, &index, ' ');
+      device = lib_get_next_str_char(buffer, &index, ' ');
 
-      if ( same_str(device, "lo") || same_str(device, "DEVICE") ) {
+      if ( lib_same_str(device, "lo") || lib_same_str(device, "DEVICE") ) {
          continue;
       }
 
-      type       = get_next_str_char(buffer, &index, ' ');
-      state      = get_next_str_char(buffer, &index, ' ');
-      connection = get_next_str_char(buffer, &index, '\n');
+      type       = lib_get_next_str_char(buffer, &index, ' ');
+      state      = lib_get_next_str_char(buffer, &index, ' ');
+      connection = lib_get_next_str_char(buffer, &index, '\n');
 
       device_info *device_info = get_device_info(list_device_info, device);
 

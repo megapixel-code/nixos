@@ -40,8 +40,8 @@ monitor_info *get_monitor_info(monitor_info_list *monitor_info_list,
                                char              *monitor_name)
 {
    for ( int i = 0; i < monitor_info_list->size; i++ ) {
-      if ( same_str(monitor_info_list->monitor_info[i].monitor_name,
-                    monitor_name) ) {
+      if ( lib_same_str(monitor_info_list->monitor_info[i].monitor_name,
+                        monitor_name) ) {
          return monitor_info_list->monitor_info + i;
       }
    }
@@ -159,25 +159,25 @@ void parser()
       index   = 0;
 
       while ( 1 ) {
-         next_occurrence_end_index(buffer, "\"monitor\":\"", &index);
+         lib_next_occurrence_end_index(buffer, "\"monitor\":\"", &index);
          if ( index == -1 ) {
             break;
          }
          index++;
-         monitor = get_next_str_char(buffer, &index, '"');
+         monitor = lib_get_next_str_char(buffer, &index, '"');
 
          monitor_info = get_monitor_info(&monitor_info_list, monitor);
 
          for ( int i = 0; i < 9; i++ ) {
-            next_occurrence_end_index(buffer, "\"is_active\":", &index);
+            lib_next_occurrence_end_index(buffer, "\"is_active\":", &index);
             index++;
-            is_selected = get_next_str_char(buffer, &index, ',');
+            is_selected = lib_get_next_str_char(buffer, &index, ',');
 
-            b_is_selected = same_str(is_selected, "true");
+            b_is_selected = lib_same_str(is_selected, "true");
             changed = assign(&b_is_selected, &monitor_info->selected_tags[i]) ||
                       changed;
 
-            next_occurrence_end_index(buffer, "\"client_count\":", &index);
+            lib_next_occurrence_end_index(buffer, "\"client_count\":", &index);
             index++;
             b_is_active = buffer[index] != '0';
             changed =

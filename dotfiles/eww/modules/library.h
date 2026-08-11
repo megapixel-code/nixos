@@ -12,7 +12,7 @@
  *
  * @return int, 1 if the two strings are the same, 0 otherwise
  */
-int same_str(char *str1, char *str2)
+int lib_same_str(char *str1, char *str2)
 {
    int i = 0;
    while ( str1[i] != '\0' && str2[i] != '\0' && str1[i] == str2[i] ) {
@@ -34,7 +34,7 @@ int same_str(char *str1, char *str2)
  *
  * @return int, 1 if the content of the destination int changed
  */
-int assign_int(int *src, int *dest)
+int _assign_int(int *src, int *dest)
 {
    int changed = 0;
 
@@ -55,11 +55,11 @@ int assign_int(int *src, int *dest)
  *
  * @return int, 1 if the content of the destination buffer changed
  */
-int assign_str(char *src, char *dest)
+int _assign_str(char *src, char *dest)
 {
    int changed = 0;
 
-   if ( !same_str(dest, src) ) {
+   if ( !lib_same_str(dest, src) ) {
       strcpy(dest, src);
       changed = 1;
    }
@@ -67,8 +67,8 @@ int assign_str(char *src, char *dest)
    return changed;
 }
 
-#define assign(src, dest)                                            \
-   _Generic((src), char *: assign_str, int *: assign_int)(src, dest)
+#define assign(src, dest)                                              \
+   _Generic((src), char *: _assign_str, int *: _assign_int)(src, dest)
 
 /**
  * Concatenate two string and returns the allocated string output.
@@ -79,7 +79,7 @@ int assign_str(char *src, char *dest)
  *
  * @return char *, the result of the two concatenated strings
  */
-char *concat_str(char *str1, char *str2)
+char *lib_concat_str(char *str1, char *str2)
 {
    int   count;
    int   tot_count  = 0;
@@ -117,7 +117,7 @@ char *concat_str(char *str1, char *str2)
  * @param char *string, the string we compare to
  * @param int *index, index we want to move
  */
-void next_occurrence_end_index(char *buffer, char *string, int *index)
+void lib_next_occurrence_end_index(char *buffer, char *string, int *index)
 {
    int offset = 0;
 
@@ -151,7 +151,7 @@ void next_occurrence_end_index(char *buffer, char *string, int *index)
  *
  * @return char*, a string that ends with char c without spaces in front
  */
-char *get_next_str_char(char *buffer, int *index, char c)
+char *lib_get_next_str_char(char *buffer, int *index, char c)
 {
    while ( buffer[*index] == ' ' ) {
       (*index)++;

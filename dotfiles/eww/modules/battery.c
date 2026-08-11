@@ -44,14 +44,14 @@ int main()
       fclose(f_status);
 
       i               = 0;
-      buffer_capacity = get_next_str_char(buffer_capacity, &i, '\n');
+      buffer_capacity = lib_get_next_str_char(buffer_capacity, &i, '\n');
       i               = 0;
-      buffer_status   = get_next_str_char(buffer_status, &i, '\n');
+      buffer_status   = lib_get_next_str_char(buffer_status, &i, '\n');
 
       printf("bat");
-      if ( same_str(buffer_status, "Charging") ) {
+      if ( lib_same_str(buffer_status, "Charging") ) {
          printf(" (charging) : ");
-      } else if ( same_str(buffer_status, "Not charging") ) {
+      } else if ( lib_same_str(buffer_status, "Not charging") ) {
          printf(" (plugged) : ");
       } else {
          printf(": ");

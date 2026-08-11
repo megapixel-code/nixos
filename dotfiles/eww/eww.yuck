@@ -41,7 +41,6 @@
    (box :class {battery != "" ? "battery container" : "empty"}
       "${battery}"))
 
-; TODO: library file
 ; TODO:
 ; bluetooth
 ; notifications
