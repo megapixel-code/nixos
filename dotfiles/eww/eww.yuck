@@ -41,8 +41,12 @@
    (box :class {battery != "" ? "battery container" : "empty"}
       "${battery}"))
 
+(deflisten bluetooth "make run_bluetooth")
+(defwidget w_bluetooth []
+   (box :class {bluetooth != "" ? "bluetooth container" : "empty"}
+      "${bluetooth}"))
+
 ; TODO:
-; bluetooth
 ; notifications
 
 (defwidget w_primary [monitor]
@@ -54,6 +58,7 @@
          (w_time :full true))
       (box :space-evenly false :halign "end"
          (w_network)
+         (w_bluetooth)
          (w_volume)
          (w_battery))))
 
