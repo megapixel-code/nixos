@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 void parser(int *device_count, char *device_name)
@@ -44,6 +45,8 @@ void parser(int *device_count, char *device_name)
       printf("%d devices\n", n_devices);
    }
    fflush(stdout);
+
+   system("xargs -a \"$XDG_CACHE_HOME/eww/volume.pid\" kill -s SIGUSR1");
 }
 
 int main(int argc, char *argv[])
