@@ -90,7 +90,7 @@
       },
       {
          "type": "title",
-         "format": "{#magenta}{$6}{$1}"
+         "format": "{#magenta}{$6}{$1} {user-name-colored}{at-symbol-colored}{host-name-colored}"
       }
       // "de",
       // "colors"
