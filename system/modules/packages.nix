@@ -106,7 +106,6 @@ let
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.user.enable [
       ncpamixer # audio TUI control
-      stow
       tree
       fastfetch
       cbonsai

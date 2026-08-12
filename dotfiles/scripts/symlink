@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+font_dir="$XDG_DATA_HOME/fonts"
+config_dir="$XDG_CONFIG_HOME"
+desktop_dir="$XDG_DATA_HOME/applications"
+
+mkdir -p "$config_dir" "$font_dir" "$desktop_dir"
+
+stow --dir="$NIXOS_CONFIG_DIR" --target="$config_dir" -S dotfiles
+stow --dir="$NIXOS_CONFIG_DIR" --target="$font_dir" -S fonts
+
+rm -f "$desktop_dir"/*.desktop
+ln -sfn "$HOME"/desktop/*.desktop "$desktop_dir"

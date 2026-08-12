@@ -1,7 +1,7 @@
 {
   lib,
-  config,
   user,
+  pkgs,
   import-tree,
   ...
 }:
@@ -21,29 +21,12 @@
     username = "${user}";
     homeDirectory = "/home/${user}";
 
+    packages = with pkgs; [
+      stow # NOTE: needed for symlink script
+    ];
     activation = {
-      create-folders = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        # $HOME/pictures/screenshoots/
-        mkdir -p $GRIM_DEFAULT_DIR
-      '';
-
-      symlink-desktop-files = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        desktop_dir="${config.xdg.dataHome}/applications"
-
-        mkdir -p "$desktop_dir"
-        find "$desktop_dir" -name "*.desktop" -delete
-
-        readarray -t desktopfiles <<< "$(find "${config.home.homeDirectory}/desktop" -name "*.desktop")"
-        if [[ ''${desktopfiles[*]} == "" ]]; then
-        	exit
-        fi
-        for e in "''${desktopfiles[@]}"; do
-        	ln -sfn "$e" "$desktop_dir"
-        done
-      '';
-
-      symlink-dotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        "$NIXOS_CONFIG_DIR/dotfiles/scripts/dotfiles_symlink"
+      symlink = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        "$NIXOS_CONFIG_DIR"/dotfiles/scripts/symlink
       '';
     };
   };

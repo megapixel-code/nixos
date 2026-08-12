@@ -5,6 +5,7 @@
 #008080
 
 if [[ -z $1 ]]; then
+	mkdir -p "$GRIM_DEFAULT_DIR"
 	grim -g "$(slurp -b '#F9F9FA33' -c '#C0C0C0ff')"
 elif [[ $1 == "copy" ]]; then
 	grim -g "$(slurp -b '#F9F9FA33' -c '#C0C0C0ff')" - | wl-copy

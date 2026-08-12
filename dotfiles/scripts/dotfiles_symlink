@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-stow --dir="$NIXOS_CONFIG_DIR" --target="$XDG_CONFIG_HOME" -S dotfiles
-stow --dir="$NIXOS_CONFIG_DIR" --target="$XDG_DATA_HOME/fonts/" -S fonts
