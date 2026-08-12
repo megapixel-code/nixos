@@ -1,15 +1,26 @@
 [mgr]
 prepend_keymap = [
+  { desc = "Go to git root", on = ["g", "r"], run = 'shell -- ya emit cd "$(git rev-parse --show-toplevel)"' },
+  { desc = "Go to ~/downloads", on = ["g", "d"], run = "cd $HOME/downloads" },
+  { desc = "Go to Nix config", on = ["g", "n"], run = "cd $NIXOS_CONFIG_DIR" },
+  { desc = "Go to projects", on = ["g", "p"], run = "cd $HOME/projects" },
+
   { desc = "yank files in clipboard", on = ["<C-y>"], run = "plugin wl-clipboard" },
+
   { desc = "Chmod on selected files", on = ["c", "m"], run = "plugin chmod" },
+
   { desc = "Restore last deleted files/folders", on = ["u"], run = "plugin restore" },
+
   { desc = "Open the mount plugin", on = ["M"], run = "plugin mount" },
+
   { desc = "Archive selected files", on = ["c", "o"], run = "plugin compress" },
+
   { desc = "Drag and drop file", on = "<C-n>", run = "shell 'dragon-drop -x -i -T \"$1\"' --confirm" },
-  { desc = "Sudo paste", on = ["R", "p"], run = "plugin sudo -- paste" },
-  { desc = "Sudo rename", on = ["R", "r"], run = "plugin sudo -- rename" },
-  { desc = "Sudo create", on = ["R", "a"], run = "plugin sudo -- create" },
-  { desc = "Sudo remove to trash", on = ["R", "d"], run = "plugin sudo -- remove" },
-  { desc = "Sudo remove permanently", on = ["R", "D"], run = "plugin sudo -- remove --permanently" },
-  { desc = "Sudo chmod", on = ["R", "c", "m"], run = "plugin sudo -- chmod" },
+
+  { desc = "Sudo paste", on = ["S", "p"], run = "plugin sudo -- paste" },
+  { desc = "Sudo rename", on = ["S", "r"], run = "plugin sudo -- rename" },
+  { desc = "Sudo create", on = ["S", "a"], run = "plugin sudo -- create" },
+  { desc = "Sudo remove to trash", on = ["S", "d"], run = "plugin sudo -- remove" },
+  { desc = "Sudo remove permanently", on = ["S", "D"], run = "plugin sudo -- remove --permanently" },
+  { desc = "Sudo chmod", on = ["S", "c", "m"], run = "plugin sudo -- chmod" },
 ]
