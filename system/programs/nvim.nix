@@ -41,7 +41,6 @@
       gcc
       wl-clipboard
       fzf
-      ripgrep
 
       # language servers
       jdk
