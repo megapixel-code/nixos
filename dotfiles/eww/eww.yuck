@@ -11,7 +11,7 @@
          (box :class "${wsp.class}"
             (button :class "tag_button"
                     :active true
-                    :onclick "mmsg -s -t ${wsp.name}"
+                    :onclick "mmsg dispatch view,${wsp.name}"
                "${wsp.name}")))))
 
 
