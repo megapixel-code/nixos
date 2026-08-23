@@ -12,8 +12,10 @@ int main()
    time_t time_buf = 0;
    time_t time_current;
    int    i;
-   char  *buffer_status   = malloc(sizeof(char) * 32);
-   char  *buffer_capacity = malloc(sizeof(char) * 4);
+   char  *buffer_status        = NULL;
+   char  *buffer_capacity      = NULL;
+   size_t size_buffer_status   = 0;
+   size_t size_buffer_capacity = 0;
 
    FILE *f = popen("upower -m", "r");
    if ( f == NULL ) {
@@ -32,13 +34,12 @@ int main()
       FILE *f_status   = fopen("/sys/class/power_supply/BAT0/status", "r");
 
       if ( f_capacity == NULL || f_status == NULL ) {
-         // printf("error opening files\n");
-         printf("\n");
+         fprintf(stderr, "error opening files\n");
          exit(1);
       }
 
-      fgets(buffer_capacity, sizeof(buffer_capacity), f_capacity);
-      fgets(buffer_status, sizeof(buffer_status), f_status);
+      getline(&buffer_capacity, &size_buffer_capacity, f_capacity);
+      getline(&buffer_status, &size_buffer_status, f_status);
 
       fclose(f_capacity);
       fclose(f_status);
