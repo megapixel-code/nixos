@@ -111,6 +111,7 @@ void parser(list_device_info *list_device_info)
       changed = assign(state, device_info->state) || changed;
       changed = assign(connection, device_info->connection) || changed;
    }
+   free(buffer);
 
    if ( changed ) {
       display_device_info(*list_device_info);

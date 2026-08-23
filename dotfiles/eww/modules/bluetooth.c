@@ -7,7 +7,7 @@
 
 void parser(int *device_count, char *device_name)
 {
-   char  *buffer;
+   char  *buffer      = NULL;
    size_t buffer_size = 0;
 
    int   n_devices = 0;
@@ -30,6 +30,7 @@ void parser(int *device_count, char *device_name)
       changed = assign(device, device_name) || changed;
    }
    fclose(f);
+   free(buffer);
 
    changed = assign(&n_devices, device_count) || changed;
    if ( !changed ) {

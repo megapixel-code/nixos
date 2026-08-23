@@ -20,7 +20,7 @@ void create_file()
 void display(int sig)
 {
    size_t buffer_size = 0;
-   char  *buffer;
+   char  *buffer      = NULL;
 
    FILE *f = popen("wpctl get-volume @DEFAULT_AUDIO_SINK@", "r");
    getline(&buffer, &buffer_size, f);
@@ -52,14 +52,15 @@ void display(int sig)
       printf("vol: muted\n");
    }
 
+   free(buffer);
    fflush(stdout);
 }
 
 int main()
 {
+   signal(SIGUSR1, display);
    create_file();
    display(SIGUSR1);
-   signal(SIGUSR1, display);
 
    while ( 1 ) {
       sleep(60);
