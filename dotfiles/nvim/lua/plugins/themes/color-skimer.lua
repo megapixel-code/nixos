@@ -89,9 +89,11 @@ return {
          "mfd-dark",
          "ef-winter",
          "ef-deuteranopia-dark",
+         "ef-atlantis",
 
          "ef-summer",
          "ef-elea-light",
+         "ef-orange",
          "modus_operandi",
 
          -- [PROBATION]
