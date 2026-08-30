@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
    int  device_count = -1;
    char device_name[64];
    while ( 1 ) {
-      parser(&device_count, device_name);
       sleep(2);
+      parser(&device_count, device_name);
    }
 }
