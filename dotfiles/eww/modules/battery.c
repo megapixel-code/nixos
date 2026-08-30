@@ -34,8 +34,10 @@ int main()
       FILE *f_status   = fopen("/sys/class/power_supply/BAT0/status", "r");
 
       if ( f_capacity == NULL || f_status == NULL ) {
+         printf("\n");
+         fflush(stdout);
          fprintf(stderr, "error opening files\n");
-         exit(1);
+         exit(0);
       }
 
       getline(&buffer_capacity, &size_buffer_capacity, f_capacity);
