@@ -1,3 +1,18 @@
+local is_inside_work_tree = {};
+local mod_find_files = function()
+   local cwd = vim.fn.getcwd();
+   if is_inside_work_tree[cwd] == nil then
+      vim.fn.system( "git rev-parse --is-inside-work-tree" );
+      is_inside_work_tree[cwd] = vim.v.shell_error == 0;
+   end;
+
+   if is_inside_work_tree[cwd] then
+      require( "telescope.builtin" ).git_files();
+   else
+      require( "telescope.builtin" ).find_files();
+   end;
+end;
+
 return {
    "nvim-telescope/telescope.nvim",
    version = "*",
@@ -13,12 +28,12 @@ return {
 
       telescope.load_extension( "fzf" );
 
-      vim.keymap.set( "n", "<leader>sf", telescope_builtins.find_files,    { desc = "Search Files" } );
+      vim.keymap.set( "n", "<leader>sf", mod_find_files,                   { desc = "Search Files" } );
       vim.keymap.set( "n", "<leader>sh", telescope_builtins.help_tags,     { desc = "Search Help" } );
       vim.keymap.set( "n", "<leader>sm", telescope_builtins.marks,         { desc = "Search Marks" } );
       vim.keymap.set( "n", "<leader>ss", telescope_builtins.spell_suggest, { desc = "Search Spelling" } );
       vim.keymap.set( "n", "<leader>sn", function()
-                         telescope_builtins.find_files( {
+                         telescope_builtins.git_files( {
                             cwd = "/etc/nixos/dotfiles/nvim/",
                          } );
                       end, { desc = "Search Neovim" } );
@@ -62,7 +77,11 @@ return {
 
       pickers = {
          find_files = {
-            hidden = true,
+            find_command = { "find", "-type", "f", "-printf", "%P\n" },
+         },
+         git_files = {
+            use_git_root = false,
+            show_untracked = true,
          },
       },
 
