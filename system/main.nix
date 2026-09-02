@@ -95,13 +95,15 @@
 
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
+        trustedUsers = [ "${user}" ];
+        allowedUsers = [ "${user}" ];
         settings = {
           auto-optimise-store = true;
         };
         gc = {
           automatic = true;
           dates = "weekly";
-          options = "--delete-older-than 7d";
+          options = "--delete-older-than 30d";
         };
       };
 
