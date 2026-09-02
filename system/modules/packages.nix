@@ -84,6 +84,7 @@ let
       gnumake
       cmake
       gcc
+      tinycc
       curl
       wget
       nh

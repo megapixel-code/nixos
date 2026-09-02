@@ -26,13 +26,14 @@
         # main
         NIXOS_CONFIG_DIR = "/etc/nixos";
         XDG_CONFIG_HOME = "$HOME/.config";
+        XDG_CONFIG_DIR = "/etc/xdg";
         XDG_CACHE_HOME = "$HOME/.cache";
         XDG_DATA_HOME = "$HOME/.local/share";
         XDG_STATE_HOME = "$HOME/.local/state";
         XDG_PICTURES_DIR = "$HOME/pictures";
         XDG_DOWNLOAD_DIR = "$HOME/downloads";
-        XDG_CONFIG_DIR = "/etc/xdg";
         HISTFILE = "$XDG_STATE_HOME/bash/history";
+        CC = "tcc";
 
         # partialy suported
         CARGO_HOME = "$XDG_CACHE_HOME/cargo";
