@@ -95,10 +95,10 @@
 
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
-        trustedUsers = [ "${user}" ];
-        allowedUsers = [ "${user}" ];
         settings = {
           auto-optimise-store = true;
+          trusted-users = [ "${user}" ];
+          allowed-users = [ "${user}" ];
         };
         gc = {
           automatic = true;
