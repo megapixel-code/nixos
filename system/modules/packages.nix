@@ -81,21 +81,18 @@ let
       man-pages
       man-pages-posix
       glibcInfo
+      busybox # bunch of unix utilities
+      gnutls # TODO: check if keep
       gnumake
       cmake
       gcc
       tinycc
       curl
-      wget
       nh
       sops
       age # simple encryption
       bear # used to create compilation db for clang
-      xxd
 
-      unzip
-      gzip
-      gnutar
       ntfs3g # read/fix ntfs file systems
 
       fzf
