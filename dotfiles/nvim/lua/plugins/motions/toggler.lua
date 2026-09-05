@@ -6,6 +6,7 @@ return {
    end,
    opts = {
       inverses = {
+         ["open"] = "close",
          ["true"] = "false",
          ["always"] = "never",
          ["yes"] = "no",
