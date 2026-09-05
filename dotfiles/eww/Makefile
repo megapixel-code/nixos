@@ -1,5 +1,3 @@
-CC := cc
-
 MODULES_DIR := ./modules
 OUT_DIR := ./out
 MODULES := battery \
