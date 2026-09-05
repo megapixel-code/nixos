@@ -15,6 +15,7 @@
 
       battery_dependent = lib.mkEnableOption "device is battery dependent";
 
+      # TODO: merge networking with homelab. add setting to enable ssh
       networking = {
         personal.enable = lib.mkEnableOption "enable networking for personal computers";
         servers.enable = lib.mkEnableOption "enable networking for servers";

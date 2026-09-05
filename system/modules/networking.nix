@@ -8,13 +8,6 @@
   ...
 }:
 {
-  # id_ed25519
-  # with :
-  # -------begin ssh .......
-  # id_ed25519.pub
-  # with :
-  # ed25519 dakjfldskjfa ivan@nixosmain
-
   config = lib.mkMerge [
     (lib.mkIf config.home-manager.users.${user}.my.networking.personal.enable {
       users.users.${user} = {
@@ -92,20 +85,17 @@
       services.openssh = {
         enable = false;
       };
-
-      # Configure network proxy if necessary
-      # networking.proxy.default = "http://user:password@proxy:port/";
-      # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-      # Open ports in the firewall.
-      # networking.firewall.allowedTCPPorts = [ ... ];
-      # networking.firewall.allowedUDPPorts = [ ... ];
-      # Or disable the firewall altogether.
-      # networking.firewall.enable = false;
     })
 
     (lib.mkIf config.home-manager.users.${user}.my.networking.servers.enable {
       networking = {
+        domain = "${config.my.home-lab.baseDomain}";
+        usePredictableInterfaceNames = false;
+        wireless.enable = false;
+
+        firewall = {
+          enable = true;
+        };
       };
 
       sops.secrets."ssh/privateKeys/servers" = { };

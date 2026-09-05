@@ -16,7 +16,7 @@
 {
   imports = [
     ./secrets.nix
-    ./home-lab
+    (import-tree ./home-lab)
     (import-tree ./modules)
     (import-tree ./programs)
   ];
