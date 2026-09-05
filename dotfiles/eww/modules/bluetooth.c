@@ -16,6 +16,10 @@ void parser(int *device_count, char *device_name)
    int   changed = 0;
 
    FILE *f = popen("bluetoothctl devices Connected", "r");
+   if ( f == NULL ) {
+      fprintf(stderr, "Error: could not run the command");
+      exit(69);
+   }
    while ( getline(&buffer, &buffer_size, f) != -1 ) {
       n_devices++;
       if ( n_devices > 1 ) {

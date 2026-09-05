@@ -23,6 +23,11 @@ void display(int sig)
    char  *buffer      = NULL;
 
    FILE *f = popen("wpctl get-volume @DEFAULT_AUDIO_SINK@", "r");
+   if ( f == NULL ) {
+      fprintf(stderr, "Error: could not run the command");
+      exit(69);
+   }
+
    getline(&buffer, &buffer_size, f);
    pclose(f);
 

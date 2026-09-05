@@ -28,10 +28,9 @@ void cleanup(int sig)
 void open()
 {
    f = popen("mmsg watch all-tags", "r");
-
    if ( f == NULL ) {
-      printf("error: could not run the command");
-      exit(1);
+      fprintf(stderr, "Error: could not run the command");
+      exit(69);
    }
    signal(SIGINT, cleanup);
 }

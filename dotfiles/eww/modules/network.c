@@ -75,8 +75,8 @@ void open()
    f = popen("nmcli device", "r");
 
    if ( f == NULL ) {
-      printf("error: could not run the command");
-      exit(1);
+      fprintf(stderr, "Error: could not run the command");
+      exit(69);
    }
    signal(SIGINT, cleanup);
 }
@@ -125,9 +125,9 @@ int main()
    list_device_info.size         = 0;
 
    while ( 1 ) {
+      sleep(2);
       open();
       parser(&list_device_info);
       cleanup(0);
-      sleep(2);
    }
 }
