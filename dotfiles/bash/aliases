@@ -99,6 +99,7 @@ lavat() {
 	command lavat "$gravity" -c"$ball_color" -k"$rim_color" -r"$radius" "$chars" "$party"
 }
 
+alias ssh="kitten ssh"
 alias v="nvim"
 alias ff="fastfetch"
 alias gs="git status"
