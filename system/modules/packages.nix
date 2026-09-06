@@ -21,6 +21,7 @@ let
       gitstatus
       git
       tmux
+      skim # command line fuzy finder
       home-manager
     ]
     ++ [
@@ -109,7 +110,6 @@ let
       cbonsai
       lavat
       htop-vim # interactive process viewer
-      skim # command line fuzy finder
       pass-wayland # password manager
     ]);
 
