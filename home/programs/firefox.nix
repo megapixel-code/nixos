@@ -32,6 +32,13 @@
             IconURL = "https://en.wikipedia.org/static/favicon/wikipedia.ico";
             Alias = "!w";
           }
+          {
+            Name = "Youtube";
+            URLTemplate = "https://www.youtube.com/results?search_query={searchTerms}";
+            Method = "GET";
+            IconURL = "https://www.youtube.com/s/desktop/adccb25c/img/favicon.ico";
+            Alias = "!y";
+          }
         ];
         Remove = [
           "Bing"
