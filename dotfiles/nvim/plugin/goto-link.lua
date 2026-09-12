@@ -26,7 +26,7 @@ local function parse( content )
    };
    local pathname;
    for match, m_origin in pairs( matches ) do
-      pathname = string.gsub( content, match, "" );
+      pathname = content:gsub( match, "" );
       if (content ~= pathname) then
          origin = m_origin;
          break;
@@ -38,12 +38,12 @@ local function parse( content )
       ":",
    };
    for _, exclusion in ipairs( exclusions ) do
-      if (string.find( pathname, exclusion )) then
+      if (pathname:find( exclusion )) then
          return nil;
       end;
    end;
 
-   if string.match( pathname, "%a+/%a+" ) == nil then
+   if pathname:match( "%a+/%a+" ) == nil then
       return nil;
    end;
 
@@ -68,16 +68,25 @@ local function goto_link()
    if (content == nil) then
       return;
    end;
+   local parts = vim.split( content, " " );
+   if (#parts ~= 1) then
+      parts = { vim.fn.expand( "<cWORD>" ) };
+   end;
 
-   local link = parse( content );
-   if (link ~= nil) then
-      local err = open_link( link );
-      if (err == nil) then
-         return;
+   for _, p in ipairs( parts ) do
+      local link = parse( p );
+      if (link ~= nil) then
+         vim.print( "INFO: trying to open \"" .. link .. "\"" );
+         local err = open_link( link );
+         if (err == nil) then
+            return;
+         end;
       end;
    end;
 
-   open_link( content );
+   local link = vim.fn.expand( "<cWORD>" );
+   vim.print( "INFO: trying to open \"" .. link .. "\"" );
+   vim.ui.open( link );
 end;
 
 vim.keymap.set( "n", "gx", goto_link, { desc = "go to link" } );
