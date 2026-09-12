@@ -23,8 +23,6 @@ vim.keymap.set( "n", "<leader>tf", function()
                       vim.o.spelllang = "en_us";
                    end;
                 end, { desc = "Toggle French spelling" } );
-vim.keymap.set( "n", "<leader>tv", "<cmd>ToggleDiagnosticsVirtualLines<CR>",
-                { desc = "Toggle diagnostics virtual lines" } );
 
 
 -- [Clear highlights]
