@@ -16,6 +16,12 @@ in
       prefix = lib.mkOption {
         type = lib.types.str;
       };
+      host = lib.mkOption {
+        type = lib.types.str;
+      };
+      port = lib.mkOption {
+        type = lib.types.int;
+      };
       category = lib.mkOption {
         type = lib.types.str;
       };
@@ -23,23 +29,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    my.home-lab.immich = {
+      port = config.services.immich.port;
+      host = config.services.immich.host;
+    };
+
     services.immich = {
       enable = true;
       # package = pkgs-stable.immich; TODO: uncomment on next stable release ( december 2026 )
-      port = 2283;
       openFirewall = false;
-    };
-
-    services.nginx.virtualHosts = {
-      "${cfg.prefix}.${home-lab.baseDomain}" = {
-        useACMEHost = home-lab.baseDomain;
-        forceSSL = true;
-
-        locations."/" = {
-          proxyPass = "http://${config.services.immich.host}:${lib.toString config.services.immich.port}";
-          proxyWebsockets = true;
-        };
-      };
     };
   };
 }

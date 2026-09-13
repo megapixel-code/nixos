@@ -17,6 +17,12 @@ in
       prefix = lib.mkOption {
         type = lib.types.str;
       };
+      host = lib.mkOption {
+        type = lib.types.str;
+      };
+      port = lib.mkOption {
+        type = lib.types.int;
+      };
       category = lib.mkOption {
         type = lib.types.str;
       };

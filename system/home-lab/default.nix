@@ -20,6 +20,7 @@
       home-lab_sub_attrs = builtins.filter (value: (is_set value)) (
         builtins.attrValues config.my.home-lab
       );
+      home-lab = config.my.home-lab;
     in
     lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
       my.home-lab = {
@@ -44,7 +45,7 @@
         };
         jellyfin = {
           enable = true;
-          auto-proxy = true;
+          auto-proxy = false;
           prefix = "movies";
           category = "media";
         };
@@ -80,9 +81,9 @@
           reloadServices = [ "nginx.service" ];
         };
         certs = {
-          "${config.my.home-lab.baseDomain}" = {
-            domain = "${config.my.home-lab.baseDomain}";
-            extraDomainNames = [ "*.${config.my.home-lab.baseDomain}" ];
+          "${home-lab.baseDomain}" = {
+            domain = "${home-lab.baseDomain}";
+            extraDomainNames = [ "*.${home-lab.baseDomain}" ];
           };
         };
       };
@@ -101,65 +102,88 @@
         recommendedProxySettings = true;
         recommendedBrotliSettings = true;
 
-        virtualHosts."${config.my.home-lab.baseDomain}" = {
-          useACMEHost = config.my.home-lab.baseDomain;
-          forceSSL = true;
+        virtualHosts =
+          let
+            all_auto_proxy = lib.filter (
+              attr: if attr ? auto-proxy then attr.auto-proxy else false
+            ) home-lab_sub_attrs;
+          in
+          lib.mkMerge [
+            (lib.mkMerge (
+              map (attr: {
+                "${attr.prefix}.${home-lab.baseDomain}" = {
+                  useACMEHost = home-lab.baseDomain;
+                  forceSSL = true;
 
-          locations."/" = {
-            return =
-              let
-                all_categories = lib.uniqueStrings (builtins.catAttrs "category" home-lab_sub_attrs);
-                get_prefixes = attrs: builtins.catAttrs "prefix" attrs;
-                get_prefixes_category =
-                  category:
-                  get_prefixes (
-                    builtins.filter (a: if a ? category then (a.category == category) else false) home-lab_sub_attrs
-                  );
+                  locations."/" = {
+                    proxyPass = "http://${attr.host}:${lib.toString attr.port}";
+                    proxyWebsockets = true;
+                  };
+                };
+              }) all_auto_proxy
+            ))
+            {
+              "${config.my.home-lab.baseDomain}" = {
+                useACMEHost = config.my.home-lab.baseDomain;
+                forceSSL = true;
 
-                mkContent = (
-                  prefixes: category:
-                  ''
-                    <div class="category">
-                      <h1>
-                        ${category}
-                      </h1>
-                      <table>
-                  ''
-                  + "${lib.concatStrings (
-                    map (prefix: ''
-                      <tr>
-                        <td>
-                          <a href="https://${prefix}.${config.my.home-lab.baseDomain}">
-                            ${prefix}
-                          </a>
-                        </td>
-                      </tr>
-                    '') prefixes
-                  )}"
-                  + ''
-                      </table>
-                    </div>
-                  ''
-                );
+                locations."/" = {
+                  return =
+                    let
+                      all_categories = lib.uniqueStrings (builtins.catAttrs "category" home-lab_sub_attrs);
+                      get_prefixes = attrs: builtins.catAttrs "prefix" attrs;
+                      get_prefixes_category =
+                        category:
+                        get_prefixes (
+                          builtins.filter (a: if a ? category then (a.category == category) else false) home-lab_sub_attrs
+                        );
 
-                all_content = lib.concatStrings (
-                  map (category: mkContent (get_prefixes_category category) category) all_categories
-                );
-              in
-              ''
-                200 '
-                <html>
-                  <body>
-                    ${all_content}
-                  </body>
-                </html>
-                '
-              '';
-            extraConfig = ''
-              default_type text/html;
-            '';
-          };
-        };
+                      mkContent = (
+                        prefixes: category:
+                        ''
+                          <div class="category">
+                            <h1>
+                              ${category}
+                            </h1>
+                            <table>
+                        ''
+                        + "${lib.concatStrings (
+                          map (prefix: ''
+                            <tr>
+                              <td>
+                                <a href="https://${prefix}.${config.my.home-lab.baseDomain}">
+                                ${prefix}
+                                </a>
+                              </td>
+                            </tr>
+                          '') prefixes
+                        )}"
+                        + ''
+                            </table>
+                          </div>
+                        ''
+                      );
+
+                      all_content = lib.concatStrings (
+                        map (category: mkContent (get_prefixes_category category) category) all_categories
+                      );
+                    in
+                    ''
+                      200 '
+                      <html>
+                        <body>
+                          ${all_content}
+                        </body>
+                      </html>
+                      '
+                    '';
+                  extraConfig = ''
+                    default_type text/html;
+                  '';
+                };
+              };
+            }
+          ];
       };
     };
 }
