@@ -12,8 +12,11 @@ in
   options = {
     my.home-lab.immich = {
       enable = lib.mkEnableOption "enable immich";
+      auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
-        default = "pictures";
+        type = lib.types.str;
+      };
+      category = lib.mkOption {
         type = lib.types.str;
       };
     };

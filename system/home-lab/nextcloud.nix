@@ -13,8 +13,11 @@ in
   options = {
     my.home-lab.nextcloud = {
       enable = lib.mkEnableOption "enable nextcloud";
+      auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
-        default = "cloud";
+        type = lib.types.str;
+      };
+      category = lib.mkOption {
         type = lib.types.str;
       };
     };
