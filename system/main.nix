@@ -93,6 +93,10 @@
     {
       documentation.dev.enable = true;
 
+      powerManagement.enable = true;
+      services.thermald.enable = true; # prevents overheating on Intel CPUs
+      services.auto-cpufreq.enable = true; # power managment
+
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
         optimise.automatic = true;
