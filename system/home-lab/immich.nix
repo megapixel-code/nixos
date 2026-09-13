@@ -27,7 +27,7 @@
   config = lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
     services.immich = {
       enable = true;
-      package = pkgs-stable.immich;
+      # package = pkgs-stable.immich; TODO: uncomment on next stable release ( december 2026 )
       port = 2283;
       openFirewall = false;
     };
