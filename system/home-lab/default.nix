@@ -17,20 +17,10 @@
 
   config = lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
     my.home-lab = {
+      fail2ban.enable = true;
+
       nextcloud.enable = true;
       immich.enable = true;
-    };
-
-    services.fail2ban = {
-      # TODO: better config
-      enable = true;
-      maxretry = 3;
-      bantime = "24h";
-      bantime-increment = {
-        enable = true;
-        formula = "ban.Time * math.exp( ban.Count + 1 )";
-        overalljails = true;
-      };
     };
 
     # NOTE: this is used to update duckdns ip for the domain
