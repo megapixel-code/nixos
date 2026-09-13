@@ -27,5 +27,15 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable { };
+  config = lib.mkIf cfg.enable {
+    my.home-lab.jellyfin = {
+      host = "localhost";
+      port = 8096;
+    };
+
+    services.jellyfin = {
+      enable = true;
+      openFirewall = false;
+    };
+  };
 }

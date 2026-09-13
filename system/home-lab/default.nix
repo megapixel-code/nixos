@@ -45,7 +45,7 @@
         };
         jellyfin = {
           enable = true;
-          auto-proxy = false;
+          auto-proxy = true;
           prefix = "movies";
           category = "media";
         };
