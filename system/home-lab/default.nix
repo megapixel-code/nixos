@@ -7,6 +7,7 @@
 {
   options = {
     my.home-lab = {
+      enable = lib.mkEnableOption;
       baseDomain = lib.mkOption {
         default = "ivanchtp.duckdns.org";
         type = lib.types.str;
@@ -15,11 +16,15 @@
   };
 
   config = lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
+    my.home-lab = {
+      nextcloud.enable = true;
+      immich.enable = true;
+    };
+
     services.fail2ban = {
       # TODO: better config
       enable = true;
       maxretry = 3;
-      ignoreIP = [ "ivanchtp.duckdns.org" ]; # TODO: REMOVE
       bantime = "24h";
       bantime-increment = {
         enable = true;
