@@ -29,7 +29,7 @@ void open()
 {
    f = popen("mmsg watch all-tags", "r");
    if ( f == NULL ) {
-      fprintf(stderr, "Error: could not run the command");
+      fprintf(stderr, "Error: could not run the command\n");
       exit(69);
    }
    signal(SIGINT, cleanup);

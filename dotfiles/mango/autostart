@@ -1,15 +1,4 @@
 #!/usr/bin/env bash
-# notify
-swaync &> /dev/null &
-
-# blue light filter
-sunsetr &> /dev/null &
-
-# bar
-"$XDG_CONFIG_HOME/scripts/bar_controls" open &> /dev/null &
-
-# wallpaper
-"$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
 
 if [[ $(hostname) == "nixos-main" ]]; then
 	mmsg dispatch focusmon,"HDMI-A-1" &> /dev/null
@@ -21,6 +10,19 @@ elif [[ $(hostname) == "nixos-school" ]]; then
 	mmsg dispatch view,9 &> /dev/null
 	firefox &> /dev/null &
 fi
+
+# notify
+swaync &> /dev/null &
+
+# blue light filter
+sunsetr &> /dev/null &
+
+# wallpaper
+"$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
+
+# bar
+sleep 5
+"$XDG_CONFIG_HOME/scripts/bar_controls" open &> /dev/null &
 
 # remove trash files older than 100 days
 find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &

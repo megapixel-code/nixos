@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 status_file="$XDG_CACHE_HOME/toggle.eww"
 
 open() {

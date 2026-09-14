@@ -1,6 +1,7 @@
 #include "library.h"
 
 #include <signal.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -17,6 +18,13 @@ void create_file()
    free(path);
 }
 
+void shutdown(int sig)
+{
+   char *path = lib_concat_str(getenv("XDG_CACHE_HOME"), "/eww/volume.pid");
+   remove(path);
+   exit(0);
+}
+
 void display(int sig)
 {
    size_t buffer_size = 0;
@@ -24,7 +32,7 @@ void display(int sig)
 
    FILE *f = popen("wpctl get-volume @DEFAULT_AUDIO_SINK@", "r");
    if ( f == NULL ) {
-      fprintf(stderr, "Error: could not run the command");
+      fprintf(stderr, "Error: could not run the command\n");
       exit(69);
    }
 
@@ -63,8 +71,23 @@ void display(int sig)
 
 int main()
 {
+   // waiting for the command to work
+   char  *buffer = NULL;
+   size_t size   = 0;
+   do {
+      FILE *f = popen("wpctl get-volume @DEFAULT_AUDIO_SINK@", "r");
+      if ( f != NULL ) {
+         getline(&buffer, &size, f);
+         pclose(f);
+      }
+      f = NULL;
+      sleep(1);
+   } while ( buffer[0] == '\0' );
+   free(buffer);
+
    signal(SIGUSR1, display);
    create_file();
+   signal(SIGTERM, shutdown);
    display(SIGUSR1);
 
    while ( 1 ) {

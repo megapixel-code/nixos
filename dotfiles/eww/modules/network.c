@@ -7,7 +7,7 @@
 #include <strings.h>
 #include <unistd.h>
 
-FILE *f;
+FILE *f = NULL;
 
 typedef struct {
    char device[20];
@@ -65,21 +65,21 @@ void display_device_info(list_device_info list_device_info)
    fflush(stdout);
 }
 
-void cleanup(int sig)
-{
-   pclose(f);
-   f = NULL;
-}
-
 void open()
 {
    f = popen("nmcli device", "r");
-
    if ( f == NULL ) {
-      fprintf(stderr, "Error: could not run the command");
+      fprintf(stderr, "Error: could not run the command\n");
       exit(69);
    }
-   signal(SIGINT, cleanup);
+}
+
+void cleanup()
+{
+   if ( f != NULL ) {
+      pclose(f);
+   }
+   f = NULL;
 }
 
 void parser(list_device_info *list_device_info)
@@ -133,9 +133,9 @@ int main()
    list_device_info.size         = 0;
 
    while ( 1 ) {
-      sleep(2);
       open();
       parser(&list_device_info);
-      cleanup(0);
+      cleanup();
+      sleep(2);
    }
 }

@@ -19,7 +19,7 @@ int main()
 
    FILE *f = popen("upower -m", "r");
    if ( f == NULL ) {
-      fprintf(stderr, "Error: could not run the command");
+      fprintf(stderr, "Error: could not run the command\n");
       exit(69);
    }
 
