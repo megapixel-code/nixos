@@ -9,9 +9,10 @@ vim.keymap.set( "n", "<leader>rr", "<cmd>restart<CR>", { desc = "restart the edi
 
 
 -- [Visual mode]
-vim.keymap.set( "v", "J", ":m '>+1<CR>gv=gv", { desc = "move selected down" } );
-vim.keymap.set( "v", "K", ":m '<-2<CR>gv=gv", { desc = "move selected up" } );
-
+vim.keymap.set( "v", "J",     ":m '>+1<CR>gv=gv", { desc = "move selected down" } );
+vim.keymap.set( "v", "K",     ":m '<-2<CR>gv=gv", { desc = "move selected up" } );
+vim.keymap.set( "v", "<C-t>", ">gv" );
+vim.keymap.set( "v", "<C-d>", "<gv" );
 
 -- [Toggle settings]
 vim.keymap.set( "n", "<leader>ts", "<cmd>set spell!<CR>", { desc = "Toggle Spelling" } );
