@@ -1,10 +1,13 @@
 #include "library.h"
 
 #include <signal.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+bool command_working = false;
 
 void create_file()
 {
@@ -38,6 +41,10 @@ void display(int sig)
 
    getline(&buffer, &buffer_size, f);
    pclose(f);
+   if ( buffer[0] == '\0' ) {
+      command_working = false;
+      return;
+   }
 
    int index = 0;
    while ( buffer[index] != ' ' ) {
@@ -67,28 +74,19 @@ void display(int sig)
 
    free(buffer);
    fflush(stdout);
+   command_working = true;
 }
 
 int main()
 {
-   // waiting for the command to work
-   char  *buffer = NULL;
-   size_t size   = 0;
-   do {
-      FILE *f = popen("wpctl get-volume @DEFAULT_AUDIO_SINK@", "r");
-      if ( f != NULL ) {
-         getline(&buffer, &size, f);
-         pclose(f);
-      }
-      f = NULL;
-      sleep(1);
-   } while ( buffer[0] == '\0' );
-   free(buffer);
-
    signal(SIGUSR1, display);
    create_file();
    signal(SIGTERM, shutdown);
-   display(SIGUSR1);
+
+   while ( !command_working ) {
+      display(SIGUSR1);
+      sleep(1);
+   }
 
    while ( 1 ) {
       sleep(60);

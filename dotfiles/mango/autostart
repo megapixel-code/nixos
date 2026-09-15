@@ -21,7 +21,6 @@ sunsetr &> /dev/null &
 "$XDG_CONFIG_HOME/scripts/pscircle_bg" &> /dev/null &
 
 # bar
-sleep 5
 "$XDG_CONFIG_HOME/scripts/bar_controls" open &> /dev/null &
 
 # remove trash files older than 100 days

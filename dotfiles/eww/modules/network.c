@@ -1,6 +1,5 @@
 #include "library.h"
 
-#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -97,14 +96,26 @@ void parser(list_device_info *list_device_info)
    while ( getline(&buffer, &buffer_size, f) != -1 ) {
       index  = 0;
       device = lib_get_next_str_char(buffer, &index, ' ');
+      if ( device == NULL ) {
+         return;
+      }
 
       if ( lib_same_str(device, "lo") || lib_same_str(device, "DEVICE") ) {
          continue;
       }
 
-      type       = lib_get_next_str_char(buffer, &index, ' ');
-      state      = lib_get_next_str_char(buffer, &index, ' ');
+      type = lib_get_next_str_char(buffer, &index, ' ');
+      if ( type == NULL ) {
+         return;
+      }
+      state = lib_get_next_str_char(buffer, &index, ' ');
+      if ( state == NULL ) {
+         return;
+      }
       connection = lib_get_next_str_char(buffer, &index, '\n');
+      if ( connection == NULL ) {
+         return;
+      }
 
       // remove trailing whitespaces in connection
       index -= 2;

@@ -149,18 +149,28 @@ void lib_next_occurrence_end_index(char *buffer, char *string, int *index)
  * @param int* index, the index we are currently in said buffer
  * @param char c, the char we want the string to end with
  *
- * @return char*, a string that ends with char c without spaces in front
+ * @return char*, a string that ends with char c without spaces in front or NULL
+ * in case the char c was not found
  */
 char *lib_get_next_str_char(char *buffer, int *index, char c)
 {
-   while ( buffer[*index] == ' ' ) {
+   while ( buffer[*index] == ' ' && buffer[*index] != '\0' ) {
       (*index)++;
+   }
+   if ( buffer[*index] == '\0' ) {
+      return NULL;
    }
    char *output = buffer + *index;
 
-   while ( buffer[*index] != c && buffer[*index] != '\n' ) {
+   while ( buffer[*index] != c &&
+           buffer[*index] != '\n' &&
+           buffer[*index] != '\0' ) {
       (*index)++;
    }
+   if ( buffer[*index] == '\0' ) {
+      return NULL;
+   }
+
    buffer[*index] = '\0';
    (*index)++;
 
