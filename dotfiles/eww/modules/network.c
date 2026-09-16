@@ -58,7 +58,7 @@ void display_device_info(list_device_info list_device_info)
    }
 
    if ( i == list_device_info.size ) {
-      printf("ntwk: ----\n");
+      printf("ntwk: none\n");
    }
 
    fflush(stdout);
