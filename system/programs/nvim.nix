@@ -41,6 +41,7 @@
       gcc
       wl-clipboard
       fzf
+      universal-ctags
 
       # language servers
       jdk

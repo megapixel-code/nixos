@@ -3,19 +3,17 @@ return {
    dependencies = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-
+      "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-cmdline",
       "petertriho/cmp-git",
-
-      "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
+      "quangnguyen30192/cmp-nvim-tags",
 
-      "hrsh7th/cmp-nvim-lsp",
       "onsails/lspkind.nvim",
    },
    event = { "InsertEnter", "CmdlineEnter" },
 
-   config = function()
+   init = function()
       local cmp = require( "cmp" );
       local cmp_autopairs = require( "nvim-autopairs.completion.cmp" );
       local lspkind = require( "lspkind" );
@@ -42,6 +40,13 @@ return {
             ),
          } ),
          sources = cmp.config.sources( {
+            {
+               name = "tags",
+               option = {
+                  max_items = 100,
+                  keyword_length = 1,
+               },
+            },
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp" },
             { name = "luasnip" },
