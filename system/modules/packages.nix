@@ -66,6 +66,7 @@ let
       inkscape # pdf/svg editor
       gimp3
       kdePackages.kdenlive # video editor
+      blender
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
       (my_lib.makeWrapper {
