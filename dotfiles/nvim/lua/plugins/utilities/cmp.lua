@@ -40,6 +40,9 @@ return {
             ),
          } ),
          sources = cmp.config.sources( {
+            { name = "nvim_lsp_signature_help" },
+            { name = "nvim_lsp" },
+            { name = "luasnip" },
             {
                name = "tags",
                option = {
@@ -47,9 +50,6 @@ return {
                   keyword_length = 1,
                },
             },
-            { name = "nvim_lsp_signature_help" },
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
             { name = "buffer" },
             { name = "path" },
          } ),
