@@ -38,7 +38,6 @@
     configFile = {
       "xdg-desktop-portal-termfilechooser/config" = {
         force = true;
-        executable = true;
         text = ''
           [filechooser]
           cmd=${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh
@@ -67,68 +66,6 @@
         text = ''
           hsts-file = ${config.xdg.dataHome}/wget-hsts
         '';
-      };
-    };
-    dataFile = {
-    };
-    stateFile = {
-    };
-
-    # portal config :
-    portal = {
-      enable = true;
-      xdgOpenUsePortal = true;
-
-      extraPortals = with pkgs; [
-        xdg-desktop-portal
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-        xdg-desktop-portal-termfilechooser
-      ];
-
-      config = {
-        # to find XDG files : got to the {hash} of the new version and find file named xdg-desktop*
-        # .services files are located : /etc/profiles/per-user/...{user}.../share/systemd/user
-
-        # pattern :
-        # {name} -> "{name}-" -> {name}-portals.conf file
-
-        # common -> empty -> portals.conf file
-        common = {
-          default = [ "gtk" ];
-          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-          "org.freedesktop.impl.portal.Inhibit" = [ "none" ];
-
-          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-        };
-
-        # wlroots -> "wlroots-" -> wlroots-portals.conf file
-        wlroots = {
-        };
-      };
-    };
-
-    mimeApps = {
-      enable = true;
-      # ll /etc/profiles/per-user/ivan/share/applications /run/current-system/sw/share/applications
-      defaultApplications = {
-        "application/pdf" = [
-          "org.pwmt.zathura.desktop"
-        ];
-        "application/*" = [
-          "base.desktop"
-        ];
-        "image/*" = [
-          "vimiv.desktop"
-        ];
-        "video/*" = [
-          "vlc.desktop"
-        ];
-        "audio/*" = [
-          "vlc.desktop"
-        ];
       };
     };
   };
