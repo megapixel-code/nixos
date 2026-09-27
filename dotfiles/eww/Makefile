@@ -8,7 +8,7 @@ MODULES := battery \
 OUT_MODULES := $(foreach module,$(MODULES),$(OUT_DIR)/$(module))
 
 .PHONY: all clean
-all: $(filter-out $(OUT_DIR)/library,$(OUT_MODULES))
+all: $(OUT_MODULES)
 clean:
 	-rm $(filter-out .gitignore,$(OUT_DIR)/*)
 

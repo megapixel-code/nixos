@@ -25,6 +25,7 @@ void shutdown(int sig)
 {
    char *path = lib_concat_str(getenv("XDG_CACHE_HOME"), "/eww/volume.pid");
    remove(path);
+   free(path);
    exit(0);
 }
 

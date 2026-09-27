@@ -34,10 +34,10 @@ int _assign_int(int *src, int *dest);
  *
  * @return int, 1 if the content of the destination buffer changed
  */
-int _assign_str(char *src, char *dest);
+int _assign_str(char **src, char **dest);
 
-#define assign(src, dest)                                              \
-   _Generic((src), char *: _assign_str, int *: _assign_int)(src, dest)
+#define assign(src, dest)                                               \
+   _Generic((src), char **: _assign_str, int *: _assign_int)(src, dest)
 
 /**
  * Concatenate two string and returns the allocated string output.

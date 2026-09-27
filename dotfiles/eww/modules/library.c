@@ -1,5 +1,7 @@
 #include "library.h"
 
+#include <stdio.h>
+
 int lib_same_str(char *str1, char *str2)
 {
    if ( str1 == NULL || str2 == NULL ) {
@@ -29,13 +31,13 @@ int _assign_int(int *src, int *dest)
    return changed;
 }
 
-int _assign_str(char *src, char *dest)
+int _assign_str(char **src, char **dest)
 {
    int changed = 0;
 
-   if ( !lib_same_str(dest, src) ) {
-      dest = (char *)realloc(dest, sizeof(char) * strlen(src));
-      strcpy(dest, src);
+   if ( !lib_same_str(*dest, *src) ) {
+      *dest = (char *)realloc(*dest, sizeof(char) * strlen(*src));
+      strcpy(*dest, *src);
       changed = 1;
    }
 
@@ -44,30 +46,10 @@ int _assign_str(char *src, char *dest)
 
 char *lib_concat_str(char *str1, char *str2)
 {
-   int   count;
-   int   tot_count  = 0;
-   char *strings[2] = { str1, str2 };
+   char *out = (char *)malloc(sizeof(char) * (strlen(str1) + strlen(str2) + 1));
 
-   for ( int i = 0; i < 2; i++ ) {
-      count = 0;
-      while ( strings[i][count] != '\0' ) {
-         count++;
-      }
-      tot_count += count;
-   }
-
-   char *out = (char *)malloc(sizeof(char) * (tot_count + 1));
-
-   tot_count = 0;
-   for ( int i = 0; i < 2; i++ ) {
-      count = 0;
-      while ( strings[i][count] != '\0' ) {
-         out[count + tot_count] = strings[i][count];
-         count++;
-      }
-      tot_count += count;
-   }
-   out[tot_count] = '\0';
+   strcpy(out, str1);
+   strcat(out, str2);
 
    return out;
 }

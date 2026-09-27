@@ -39,7 +39,7 @@ device_info *get_device_info(list_device_info *list_device_info, char *device)
    new_device->type       = NULL;
    new_device->state      = NULL;
    new_device->connection = NULL;
-   assign(device, new_device->device);
+   assign(&device, &new_device->device);
    return new_device;
 }
 
@@ -132,9 +132,9 @@ void parser(list_device_info *list_device_info)
 
       device_info *device_info = get_device_info(list_device_info, device);
 
-      changed = assign(type, device_info->type) || changed;
-      changed = assign(state, device_info->state) || changed;
-      changed = assign(connection, device_info->connection) || changed;
+      changed = assign(&type, &device_info->type) || changed;
+      changed = assign(&state, &device_info->state) || changed;
+      changed = assign(&connection, &device_info->connection) || changed;
    }
    free(buffer);
 

@@ -31,7 +31,7 @@ void parser(int *device_count, char *device_name)
       lib_get_next_str_char(buffer, &index, ' ');
       device = lib_get_next_str_char(buffer, &index, '\n');
 
-      changed = assign(device, device_name) || changed;
+      changed = assign(&device, &device_name) || changed;
    }
    fclose(f);
    free(buffer);
