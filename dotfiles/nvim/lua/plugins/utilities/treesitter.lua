@@ -35,6 +35,7 @@ return {
             "typst",
             "markdown",
             "markdown_inline",
+            "diff",
             "gitcommit",
             "gitignore",
             "editorconfig",
