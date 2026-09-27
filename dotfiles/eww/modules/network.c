@@ -9,10 +9,10 @@
 FILE *f = NULL;
 
 typedef struct {
-   char device[20];
-   char type[10];
-   char state[15];
-   char connection[25];
+   char *device;
+   char *type;
+   char *state;
+   char *connection;
 } device_info;
 
 typedef struct {
@@ -32,9 +32,15 @@ device_info *get_device_info(list_device_info *list_device_info, char *device)
    list_device_info->device_infos =
       realloc(list_device_info->device_infos,
               list_device_info->size * sizeof(device_info));
-   strcpy(list_device_info->device_infos[list_device_info->size - 1].device,
-          device);
-   return list_device_info->device_infos + list_device_info->size - 1;
+
+   device_info *new_device =
+      list_device_info->device_infos + list_device_info->size - 1;
+   new_device->device     = NULL;
+   new_device->type       = NULL;
+   new_device->state      = NULL;
+   new_device->connection = NULL;
+   assign(device, new_device->device);
+   return new_device;
 }
 
 void display_device_info(list_device_info list_device_info)
