@@ -4,6 +4,7 @@ prepend_keymap = [
   { desc = "Go to ~/downloads", on = ["g", "d"], run = "cd $HOME/downloads" },
   { desc = "Go to Nix config", on = ["g", "n"], run = "cd $NIXOS_CONFIG_DIR" },
   { desc = "Go to projects", on = ["g", "p"], run = "cd $HOME/projects" },
+  { desc = "Go to root directory", on = ["g", "/"], run = "cd /" },
 
   { desc = "yank files in clipboard", on = ["<C-y>"], run = "plugin wl-clipboard" },
 
