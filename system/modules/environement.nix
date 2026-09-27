@@ -33,7 +33,7 @@
         XDG_PICTURES_DIR = "$HOME/pictures";
         XDG_DOWNLOAD_DIR = "$HOME/downloads";
         HISTFILE = "$XDG_STATE_HOME/bash/history";
-        CC = "tcc";
+        # CC = "tcc"; # TODO: one day's dream. Treesitter cannot compile parsers.
 
         # partialy suported
         CARGO_HOME = "$XDG_CACHE_HOME/cargo";

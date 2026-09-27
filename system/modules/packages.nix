@@ -88,7 +88,6 @@ let
       gnumake
       cmake
       gcc
-      tinycc
       curl
       nh
       sops
