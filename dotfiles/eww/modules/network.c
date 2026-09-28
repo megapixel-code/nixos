@@ -1,5 +1,6 @@
 #include "library.h"
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,26 +46,34 @@ device_info *get_device_info(list_device_info *list_device_info, char *device)
 
 void display_device_info(list_device_info list_device_info)
 {
-   int i;
+   size_t i;
+   size_t n_displayed = 0;
 
+   printf("ntwk: ");
    for ( i = 0; i < list_device_info.size; i++ ) {
       if ( !lib_same_str(list_device_info.device_infos[i].state,
                          "connected") ) {
          continue;
       }
 
+      if ( n_displayed ) {
+         printf(" & ");
+      }
+
       if ( lib_same_str(list_device_info.device_infos[i].type, "ethernet") ) {
-         printf("ntwk: eth\n");
-         break;
+         printf("eth");
       } else if ( lib_same_str(list_device_info.device_infos[i].type,
                                "wifi") ) {
-         printf("ntwk: %s\n", list_device_info.device_infos[i].connection);
-         break;
+         printf("%s", list_device_info.device_infos[i].connection);
       }
+
+      n_displayed++;
    }
 
-   if ( i == list_device_info.size ) {
-      printf("ntwk: none\n");
+   if ( !n_displayed ) {
+      printf("none\n");
+   } else {
+      printf("\n");
    }
 
    fflush(stdout);
