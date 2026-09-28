@@ -1,4 +1,6 @@
 {
+  config,
+  user,
   pkgs,
   inputs,
   ...
@@ -13,7 +15,7 @@
   ];
 
   services.xremap = {
-    enable = true;
+    enable = if config.home-manager.users.${user}.my.module-home-lab.enable then false else true;
     package = pkgs.xremap;
 
     config = {
