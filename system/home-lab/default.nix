@@ -49,6 +49,12 @@
           prefix = "movies";
           category = "media";
         };
+        searxng = {
+          enable = true;
+          auto-proxy = true;
+          prefix = "search";
+          category = "search";
+        };
       };
 
       # NOTE: this is used to update duckdns ip for the domain
