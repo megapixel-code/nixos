@@ -24,28 +24,6 @@
         # wireless.iwd.enable = true;  # needed for using impala network manager
       };
 
-      # NOTE: taken from https://github.com/NixOS/nixpkgs/blob/ed142ab1b3a092c4d149245d0c4126a5d7ea00b0/nixos/modules/config/networking.nix#L175
-      sops.secrets."networking/localHostsIp/router" = { };
-      sops.templates."hosts" = {
-        content =
-          let
-            cfg = config.networking;
-            hostNames = # Note: The FQDN (canonical hostname) has to come first:
-              lib.optional (cfg.hostName != "" && cfg.domain != null) "${cfg.hostName}.${cfg.domain}"
-              ++ lib.optional (cfg.hostName != "") cfg.hostName; # Then the hostname (without the domain)
-            strHostNames = lib.concatStringsSep " " hostNames;
-          in
-          ''
-            127.0.0.1 localhost
-            ${lib.optionalString cfg.enableIPv6 "::1 localhost"}
-            127.0.0.2 ${strHostNames}
-            ${config.sops.placeholder."networking/localHostsIp/router"} router
-          '';
-        path = "/etc/hosts";
-        mode = "440";
-        group = "wheel";
-      };
-
       sops.secrets."ssh/publicKeys/personal" = { };
       sops.templates."id_ed25519.pub" = {
         content = ''
