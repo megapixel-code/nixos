@@ -45,6 +45,7 @@ let
       awww # bg daemon
       wofi # app launcher
       swaynotificationcenter # notification deamon
+      dconf # used to control light and dark mode through portals
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.networking.personal.enable [
       impala # Network TUI control
