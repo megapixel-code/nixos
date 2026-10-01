@@ -25,3 +25,6 @@ sunsetr &> /dev/null &
 
 # remove trash files older than 100 days
 find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {} \; &> /dev/null &
+
+cd "$XDG_CONFIG_HOME/sunsetr/" || exit
+make &> /dev/null &
