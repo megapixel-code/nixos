@@ -78,6 +78,8 @@
       bind-key -T copy-mode-vi C-M-l swap-pane -s "{right-of}"
 
 
+      bind S swap-pane
+      bind P join-pane
       bind y run "tmux neww -c '#{pane_current_path}' yazi"
       bind E show-environment -g # show environment vars
       bind f run "tmux neww $XDG_CONFIG_HOME/scripts/tmux-session-dispensary"
