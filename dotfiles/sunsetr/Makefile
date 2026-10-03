@@ -1,4 +1,6 @@
 .PHONY: all clean
+CFLAGS := -O3
+
 all: out/main
 	out/main
 clean:
@@ -10,7 +12,7 @@ build/:
 	mkdir -p build
 
 build/%.o: script/%.c build/
-	$(CC) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 out/%: build/%.o out/
-	$(CC) -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $<

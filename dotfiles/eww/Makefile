@@ -1,3 +1,4 @@
+CFLAGS := -O3
 MODULES_DIR := ./modules
 OUT_DIR := ./out
 MODULES := battery \
@@ -13,10 +14,10 @@ clean:
 	-rm $(filter-out .gitignore,$(OUT_DIR)/*)
 
 $(OUT_DIR)/%.o: $(MODULES_DIR)/%.c
-	$(CC) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OUT_DIR)/%: $(OUT_DIR)/%.o $(OUT_DIR)/library.o
-	$(CC) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 run_%: $(OUT_DIR)/%
 	$^
