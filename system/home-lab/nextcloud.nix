@@ -36,7 +36,7 @@ in
       configureRedis = true; # caching
       https = true;
       hostName = "${cfg.prefix}.${home-lab.baseDomain}";
-      package = pkgs-stable.nextcloud34;
+      package = pkgs-stable.nextcloud35;
       database.createLocally = true;
 
       autoUpdateApps.enable = true;
