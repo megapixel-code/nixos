@@ -57,7 +57,7 @@ void parser()
    char  *buf_temp;
    size_t buff_size;
    char  *period;
-   while ( getline(&buffer, &buff_size, cmd) ) {
+   while ( getline(&buffer, &buff_size, cmd) != -1 ) {
       buf_temp = buffer;
 
       if ( goto_next_space(&buf_temp) ) {
