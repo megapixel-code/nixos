@@ -58,13 +58,13 @@
       };
 
       # NOTE: this is used to update duckdns ip for the domain
-      # sops.secrets."duckdns/domains" = { };
-      # sops.secrets."duckdns/token" = { };
-      # services.duckdns = {
-      #   enable = true;
-      #   domainsFile = config.sops.secrets."duckdns/domains".path;
-      #   tokenFile = config.sops.secrets."duckdns/token".path;
-      # };
+      sops.secrets."duckdns/domains" = { };
+      sops.secrets."duckdns/token" = { };
+      services.duckdns = {
+        enable = true;
+        domainsFile = config.sops.secrets."duckdns/domains".path;
+        tokenFile = config.sops.secrets."duckdns/token".path;
+      };
 
       sops.secrets."duckdns/token" = { };
       sops.templates."acme.env" = {
