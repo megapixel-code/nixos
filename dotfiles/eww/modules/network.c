@@ -55,6 +55,9 @@ void display_device_info(list_device_info list_device_info)
                          "connected") ) {
          continue;
       }
+      if ( lib_same_str(list_device_info.device_infos[i].type, "wireguard") ) {
+         continue;
+      }
 
       if ( n_displayed ) {
          printf(" & ");
@@ -158,10 +161,13 @@ int main()
    list_device_info.device_infos = NULL;
    list_device_info.size         = 0;
 
-   while ( 1 ) {
+   FILE  *cmd    = popen("nmcli device monitor", "r");
+   char  *buffer = NULL;
+   size_t size   = 0;
+   do {
       open();
       parser(&list_device_info);
       cleanup();
-      sleep(2);
-   }
+   } while ( getline(&buffer, &size, cmd) );
+   fprintf(stderr, "ERROR: cmd exited\n");
 }
