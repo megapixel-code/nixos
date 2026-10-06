@@ -118,7 +118,7 @@
           "K" = ":prev<Enter>";
 
           "q" = ":close<Enter>";
-          "o" = ":open -d<Enter>";
+          "o" = ":open<Enter>";
           "S" = ":save<Space>";
           "|" = ":pipe<Space>";
           "D" = ":delete<Enter>";
