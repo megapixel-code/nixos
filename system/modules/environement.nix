@@ -60,7 +60,7 @@
 
     variables = {
       EDITOR = "nvim";
-      BROWSER = "firefox";
+      BROWSER = "librewolf";
       # TERM = "screen-256color";
     };
   };
