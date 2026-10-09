@@ -11,17 +11,11 @@
     escapeTime = 0;
     keyMode = "vi";
     newSession = true;
-    prefix = "C-SPACE";
+    shortcut = "C-SPACE";
     terminal = "\${TERM}";
 
     plugins = with pkgs; [
-      {
-        plugin = tmuxPlugins.battery;
-        extraConfig = ''
-          set -g status-right-length 50
-          set -g status-right 'bat: #{battery_percentage} | %a %d-%h %H:%M '
-        '';
-      }
+      tmuxPlugins.battery
     ];
 
     extraConfig = ''
@@ -38,7 +32,7 @@
 
       # [[ BINDS ]]
       # easely reload config file
-      bind r source-file $XDG_CONFIG_HOME/tmux/tmux.conf \; display-message "tmux.conf reloaded."
+      bind r source-file /etc/tmux.conf \; display-message "tmux.conf reloaded."
 
       bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
@@ -77,7 +71,6 @@
       bind-key -T copy-mode-vi C-M-k swap-pane -s "{up-of}"
       bind-key -T copy-mode-vi C-M-l swap-pane -s "{right-of}"
 
-
       bind S swap-pane
       bind P join-pane
       bind y run "tmux neww -c '#{pane_current_path}' yazi"
@@ -86,6 +79,13 @@
       bind H run "~/.config/scripts/tmux-session-dispensary $HOME"
       bind D run "~/.config/scripts/tmux-session-dispensary /etc/nixos/dotfiles/"
       bind N run "~/.config/scripts/tmux-session-dispensary /etc/nixos/"
+
+      # [[ PLUGINS ]]
+      set -g status-right-length 50
+      set -g status-right 'bat: #{battery_percentage} | %a %d-%h %H:%M '
+    ''
+    + ''
+      run-shell ${pkgs.tmuxPlugins.battery}/share/tmux-plugins/battery/battery.tmux
     '';
   };
 }
