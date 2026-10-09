@@ -32,6 +32,17 @@ vim.api.nvim_create_autocmd( "BufWritePre", {
    end,
 } );
 
+-- [[ use tabs or spaces ]]
+local tab_filetype = { "bash", "zsh", "sh", "make" };
+vim.api.nvim_create_autocmd( "BufEnter", {
+   callback = function()
+      if (vim.list_contains( tab_filetype, vim.bo.filetype )) then
+         vim.o.expandtab = false; -- use tabs
+      else
+         vim.o.expandtab = true;  -- use spaces
+      end;
+   end,
+} );
 
 -- [[ keep folding and cursor pos on nvim quit ]]
 local fold_augroup           = vim.api.nvim_create_augroup( "config.folds", { clear = true } );
@@ -91,15 +102,6 @@ vim.api.nvim_create_autocmd( "VimResized", {
 } );
 
 
--- [[ treesitter syntax highlighting on config files ]]
-vim.api.nvim_create_autocmd( "BufRead", {
-   pattern = { ".env", ".env.*", "*.conf" },
-   callback = function()
-      vim.bo.filetype = "dosini";
-   end,
-} );
-
-
 -- [[ document-higligting ]]
 local hover_highlight_group = vim.api.nvim_create_augroup( "hover-highlight", { clear = false } );
 local no_highlight_table = { "json", "jsonc", "cmake", "yaml", "toml" };
@@ -107,10 +109,8 @@ local no_highlight_table = { "json", "jsonc", "cmake", "yaml", "toml" };
 vim.api.nvim_create_autocmd( { "CursorHold", "CursorHoldI" }, {
    group = hover_highlight_group,
    callback = function()
-      for _, no_highlight_ft in pairs( no_highlight_table ) do
-         if vim.bo.filetype == no_highlight_ft then
-            return;
-         end;
+      if (vim.list_contains( no_highlight_table, vim.bo.filetype )) then
+         return;
       end;
       vim.lsp.buf.document_highlight();
    end,
