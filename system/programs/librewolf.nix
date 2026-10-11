@@ -20,9 +20,14 @@
         DefaultDownloadDirectory = "\${home}/downloads/"; # Set the default download directory
         DownloadDirectory = "\${home}/downloads/"; # Set and lock the download directory
         SearchEngines = {
-          Default = "DuckDuckGo";
+          Default = "SearXNG";
           PreventInstalls = true;
           Add = [
+            {
+              Name = "SearXNG";
+              URLTemplate = "https://search.ivanchtp.duckdns.org/search?q={searchTerms}";
+              Method = "GET";
+            }
             {
               Name = "Nix_Packages";
               URLTemplate = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
@@ -60,6 +65,7 @@
             }
           ];
           Remove = [
+            "DuckDuckGo No-AI"
             "Bing"
             "Google"
             "Perplexity"
@@ -76,6 +82,7 @@
           Sessions = false;
           SiteSettings = true;
           Exceptions = [
+            "https://ivanchtp.duckdns.org/"
             "https://www.youtube.com"
             "https://www.netflix.com"
             "https://www.deezer.com"
@@ -129,8 +136,6 @@
       # ---- PREFERENCES ----
       # Check about:config for options.
       preferences = {
-        "browser.urlbar.placeholderName" = "DuckDuckGo";
-        "browser.urlbar.placeholderName.private" = "DuckDuckGo";
         "widget.use-xdg-desktop-portal.file-picker" = 1;
         "browser.search.suggest.enabled" = true;
       };
