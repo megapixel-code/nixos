@@ -88,6 +88,7 @@
             "https://www.deezer.com"
             "https://github.com"
             "https://discord.com"
+            "https://web.whatsapp.com"
           ];
           Locked = true; # prevents user from changing manualy
         };
