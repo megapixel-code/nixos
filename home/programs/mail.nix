@@ -50,7 +50,7 @@
       enable = true;
 
       extraBinds = {
-        # NOTE: https://man.archlinux.org/man/aerc.1.en
+        # NOTE: man aerc
         global = {
           "<C-p>" = ":prev-tab<Enter>";
           "<C-n>" = ":next-tab<Enter>";
@@ -66,7 +66,7 @@
           "<C-u>" = ":prev 50%<Enter>";
           "<C-f>" = ":next 100%<Enter>";
           "<C-b>" = ":prev 100%<Enter>";
-          "g" = ":select 0<Enter>";
+          "gg" = ":select 0<Enter>";
           "G" = ":select -1<Enter>";
           "zz" = ":align center<Enter>";
           "zt" = ":align top<Enter>";
