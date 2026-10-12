@@ -4,6 +4,7 @@
   lib,
   config,
   pkgs,
+  hostName,
   ...
 }:
 let
@@ -40,7 +41,10 @@ in
               publicKey = public_key;
               allowedIPs = [
                 (if is_server then wireguard_address_main else wireguard_address_server)
-                (lib.mkIf (!is_server) "192.168.1.69")
+
+                # TODO: search terms: "NAT reflection/loopback" "hairpinning" "split DNS"
+                # (lib.mkIf (!is_server) "192.168.1.69")
+                (lib.mkIf (hostName == "nixos-school") "192.168.1.69")
               ];
               endpoint = lib.mkIf (!is_server) "wg-ivanchtp.duckdns.org:${lib.toString wireguard_port}";
             }
