@@ -8,6 +8,7 @@ return {
          local ensure_installed = {
             "c",
             "bash",
+            "glsl", -- opengl shading language
 
             "cpp",
             "python",
@@ -17,10 +18,10 @@ return {
 
             "scala",
             "nix",
+            "yuck",
 
             "html",
             "css",
-            "yuck",
             "scss",
             "javascript",
 
