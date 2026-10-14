@@ -47,4 +47,9 @@
       };
     };
   };
+
+  environment.sessionVariables = {
+    GTK_USE_PORTAL = "1"; # for outdated gtk programs termfilechooser
+    GDK_DEBUG = "portals"; # for termfilechooser
+  };
 }
