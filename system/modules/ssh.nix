@@ -1,0 +1,96 @@
+{
+  config,
+  user,
+  hostName,
+  lib,
+  allServerHostNames,
+  allPersonalHostNames,
+  ...
+}:
+{
+  config = lib.mkMerge [
+    (lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
+      # server config
+      sops.secrets."ssh/privateKeys/servers" = { };
+
+      services.openssh = {
+        enable = true;
+        openFirewall = true;
+        # generateHostKeys = false; # opt seems to not exist
+        hostKeys = [ ]; # unset this opt to not generate keys
+
+        # added in the config in /etc/ssh/sshd_config
+        settings = {
+          PasswordAuthentication = false;
+          PermitRootLogin = "no";
+          HostKey = config.sops.secrets."ssh/privateKeys/servers".path;
+        };
+      };
+
+      sops.secrets."ssh/publicKeys/personal" = { };
+      sops.templates."${user}" = {
+        content =
+          let
+            oneToString = (
+              personalHostName:
+              lib.concatStringsSep " " [
+                "${config.sops.placeholder."ssh/publicKeys/personal"}"
+                "${user}@${personalHostName}"
+              ]
+              + "\n"
+            );
+            allToString = lib.concatStrings (map oneToString allPersonalHostNames);
+          in
+          ''
+            ${allToString}
+          '';
+        path = "/etc/ssh/authorized_keys.d/${user}";
+        mode = "440";
+        group = "wheel";
+      };
+    })
+
+    (lib.mkIf (!config.home-manager.users.${user}.my.module-home-lab.enable) {
+      # user config
+      sops.secrets."ssh/publicKeys/personal" = { };
+      sops.templates."id_ed25519.pub" = {
+        content = ''
+          ${config.sops.placeholder."ssh/publicKeys/personal"} ${user}@${hostName}
+        '';
+        path = "/home/${user}/.ssh/id_ed25519.pub";
+        mode = "440";
+        group = "wheel";
+      };
+      sops.secrets."ssh/privateKeys/personal" = {
+        path = "/home/${user}/.ssh/id_ed25519";
+        mode = "440";
+        group = "wheel";
+      };
+      sops.secrets."ssh/publicKeys/servers" = { };
+      sops.templates."known_hosts" = {
+        content =
+          let
+            oneToString = (
+              ServerHostName:
+              lib.concatStringsSep " " [
+                ServerHostName
+                "${config.sops.placeholder."ssh/publicKeys/servers"}"
+              ]
+              + "\n"
+            );
+            allToString = lib.concatStrings (map oneToString allServerHostNames);
+          in
+          ''
+            ${allToString}
+          '';
+        path = "/home/${user}/.ssh/known_hosts";
+        mode = "440";
+        group = "wheel";
+      };
+
+      services.openssh = {
+        enable = false;
+      };
+    })
+  ];
+}

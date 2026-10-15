@@ -47,9 +47,6 @@ let
       swaynotificationcenter # notification deamon
       dconf # used to control light and dark mode through portals
     ])
-    ++ (lib.lists.optionals config.home-manager.users.${user}.my.networking.personal.enable [
-      impala # Network TUI control
-    ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-bluetooth.enable [
       bluetui # Bluetooth TUI control
     ])
