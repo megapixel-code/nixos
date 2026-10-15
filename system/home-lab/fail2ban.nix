@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs-stable,
   ...
 }:
 let
@@ -18,6 +19,7 @@ in
     services.fail2ban = {
       # TODO: better config
       enable = true;
+      package = pkgs-stable.fail2ban;
       maxretry = 3;
       bantime = "24h";
       bantime-increment = {
