@@ -67,14 +67,14 @@ let
       blender
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.games.enable [
-      (my_lib.makeWrapper {
-        package = pkgs.steam;
-        package_exec = "steam";
-        script = ''
-          HOME="$XDG_DATA_HOME/Steam"
-          mkdir -p $HOME
-        '';
-      })
+      # (my_lib.makeWrapper {
+      #   package = pkgs.steam;
+      #   package_exec = "steam";
+      #   script = ''
+      #     HOME="$XDG_DATA_HOME/Steam"
+      #     mkdir -p $HOME
+      #   '';
+      # })
       prismlauncher # minecraft
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.system.enable [
