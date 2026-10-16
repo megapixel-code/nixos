@@ -82,7 +82,6 @@ let
       man-pages-posix
       glibcInfo
       busybox # bunch of unix utilities
-      gnutls # TODO: check if keep
       gnumake
       cmake
       gcc

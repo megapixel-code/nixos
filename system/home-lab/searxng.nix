@@ -38,7 +38,7 @@ in
     sops.secrets."searxng/key" = { };
     services.searx = {
       enable = true;
-      package = pkgs.searxng; # TODO: use stable packages
+      # package = pkgs-stable.searxng; # TODO: uncomment
       redisCreateLocally = true;
 
       configureUwsgi = true;
