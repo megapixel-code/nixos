@@ -36,9 +36,7 @@
       cmake
       gcc
       curl
-      unzip
-      gnutar # tar
-      gcc
+      busybox
       wl-clipboard
       fzf
       universal-ctags
