@@ -124,6 +124,7 @@ in
       "steam-unwrapped"
       "nvidia-settings"
       "nvidia-x11"
+      "rar"
     ];
 
   # List packages installed in system profile.

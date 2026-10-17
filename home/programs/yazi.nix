@@ -12,6 +12,10 @@
       trash-cli # dependency of restore plugin
       git
       nushell # sudo
+      gnutar # compress
+      zip # compress
+      rar # compress
+      _7zip-zstd # compress
     ];
 
     plugins = with pkgs.yaziPlugins; {
