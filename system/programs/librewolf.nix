@@ -107,6 +107,10 @@
               install_url = moz "windows-95-browser";
               installation_mode = "force_installed";
             };
+            "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+              install_url = moz "bitwarden-password-manager";
+              installation_mode = "force_installed";
+            };
             "uBlock0@raymondhill.net" = {
               install_url = moz "ublock-origin";
               installation_mode = "force_installed";
@@ -142,7 +146,6 @@
       };
 
       # find syntax examples : find / -type f -name "mozilla.cfg"
-      # TODO: remove later firefox sync with bitwarden
       autoConfig = ''
         // middle mouse scroll "autoscroll"
         pref("middlemouse.paste", false);
@@ -155,9 +158,6 @@
           "privacy.fingerprintingProtection.overrides",
           "+AllTargets,-CSSPrefersColorScheme"
         );
-
-        // enable firefox sync
-        defaultPref("identity.fxaccounts.enabled", true);
       '';
     };
 
