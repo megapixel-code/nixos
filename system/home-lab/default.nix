@@ -37,6 +37,12 @@
           prefix = "cloud";
           category = "services";
         };
+        vaultwarden = {
+          enable = true;
+          auto-proxy = true;
+          prefix = "password";
+          category = "services";
+        };
         immich = {
           enable = true;
           auto-proxy = true;
