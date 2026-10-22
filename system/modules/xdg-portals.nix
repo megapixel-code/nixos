@@ -49,7 +49,8 @@
   };
 
   environment.sessionVariables = {
-    GTK_USE_PORTAL = "1"; # for outdated gtk programs termfilechooser
-    GDK_DEBUG = "portals"; # for termfilechooser
+    GDK_DEBUG = "portals"; # for gtk apps
+    GTK_USE_PORTAL = "1"; # for outdated gtk apps
+    QT_QPA_PLATFORMTHEME = "xdgdesktopportal"; # for qt apps
   };
 }
