@@ -76,6 +76,7 @@ let
       #   '';
       # })
       prismlauncher # minecraft
+      dolphin-emu # wii emulator
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.system.enable [
       man-pages
