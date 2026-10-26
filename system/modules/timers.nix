@@ -1,6 +1,7 @@
 {
   pkgs,
   user,
+  config,
   ...
 }:
 let
@@ -19,7 +20,9 @@ in
 
   systemd.services.${trash_cleanup_name} = {
     script = ''
-      ${pkgs.findutils}/bin/find "$XDG_DATA_HOME/Trash" -type f -atime +100 -exec rm {}
+      ${pkgs.findutils}/bin/find "${
+        config.home-manager.users.${user}.xdg.dataHome
+      }/Trash" -atime +100 -delete
       ${pkgs.coreutils}/bin/echo "INFO: trashed files older than 100 days"
     '';
     serviceConfig = {
