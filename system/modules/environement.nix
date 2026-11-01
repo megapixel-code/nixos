@@ -1,5 +1,5 @@
 {
-  lib,
+  pkgs,
   ...
 }:
 {
@@ -30,7 +30,7 @@
       XDG_PICTURES_DIR = "$HOME/pictures";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
       HISTFILE = "$XDG_STATE_HOME/bash/history";
-      # CC = "tcc"; # TODO: one day's dream. Treesitter cannot compile parsers.
+      CC = "${pkgs.clang}/bin/clang";
 
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
