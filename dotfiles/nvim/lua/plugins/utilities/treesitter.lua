@@ -11,6 +11,7 @@ return {
             "glsl", -- opengl shading language
 
             "cpp",
+            "rust",
             "python",
             "java",
             "lua",
