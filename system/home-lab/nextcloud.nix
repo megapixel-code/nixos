@@ -30,7 +30,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets."nextcloud/password" = { };
     services.nextcloud = {
       enable = true;
       configureRedis = true; # caching
@@ -58,8 +57,6 @@ in
 
       config = {
         dbtype = "pgsql";
-        adminuser = "${user}";
-        adminpassFile = config.sops.secrets."nextcloud/password".path;
       };
     };
 
