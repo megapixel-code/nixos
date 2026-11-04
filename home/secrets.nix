@@ -1,11 +1,18 @@
 {
   config,
+  hostName,
   ...
 }:
 {
   sops = {
     defaultSopsFile =
-      if config.my.module_home_lab.enable then ../secrets/home-lab.yaml else ../secrets/primary.yaml;
+      {
+        "server" = ../secrets/home-lab.yaml;
+        "router" = ../secrets/router.yaml;
+        "nixos-main" = ../secrets/primary.yaml;
+        "nixos-school" = ../secrets/primary.yaml;
+      }
+      ."${hostName}";
     defaultSopsFormat = "yaml";
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
   };
