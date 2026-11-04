@@ -22,7 +22,7 @@
   ];
 
   config = lib.mkMerge [
-    (lib.mkIf config.home-manager.users.${user}.my.module-bluetooth.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_bluetooth.enable {
       hardware.bluetooth = {
         enable = true;
         powerOnBoot = true;
@@ -46,7 +46,7 @@
       };
     })
 
-    (lib.mkIf config.home-manager.users.${user}.my.module-audio.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_audio.enable {
       security.rtkit.enable = true;
       services.pipewire = {
         enable = true;
@@ -57,7 +57,7 @@
       };
     })
 
-    (lib.mkIf config.home-manager.users.${user}.my.module-printing.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_printing.enable {
       services = {
         printing = {
           enable = true;
@@ -74,7 +74,7 @@
       };
     })
 
-    (lib.mkIf config.home-manager.users.${user}.my.module-mango.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_mango.enable {
       # Display manager :
       services = {
         displayManager.regreet.enable = true;

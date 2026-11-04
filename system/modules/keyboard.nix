@@ -15,7 +15,7 @@
   ];
 
   services.xremap = {
-    enable = if config.home-manager.users.${user}.my.module-home-lab.enable then false else true;
+    enable = config.home-manager.users.${user}.my.module_mango.enable;
     package = pkgs.xremap;
 
     config = {

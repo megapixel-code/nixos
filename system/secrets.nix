@@ -6,7 +6,7 @@
 {
   sops = {
     defaultSopsFile =
-      if config.home-manager.users.${user}.my.module-home-lab.enable then
+      if config.home-manager.users.${user}.my.module_home_lab.enable then
         ../secrets/home-lab.yaml
       else
         ../secrets/primary.yaml;

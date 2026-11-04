@@ -47,6 +47,7 @@
       ];
       allServerHostNames = [
         "server"
+        "router"
       ];
     in
     {
@@ -96,10 +97,9 @@
                       useGlobalPkgs = true; # Use global package definitions
                       backupFileExtension = "backup"; # backup file instead of overriding it
 
-                      users.${user} = import (./. + "/hosts/${hostName}/home-configuration.nix");
+                      users.${user} = import ./home/home.nix;
                       sharedModules = [
                         inputs.sops-nix.homeManagerModules.sops
-                        ./home/home.nix
                       ];
 
                       # to pass arguments to home.nix

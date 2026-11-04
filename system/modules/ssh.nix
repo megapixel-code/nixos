@@ -9,7 +9,7 @@
 }:
 {
   config = lib.mkMerge [
-    (lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_home_lab.enable {
       # server config
       sops.secrets."ssh/privateKeys/servers" = { };
 
@@ -50,7 +50,7 @@
       };
     })
 
-    (lib.mkIf (!config.home-manager.users.${user}.my.module-home-lab.enable) {
+    (lib.mkIf (!config.home-manager.users.${user}.my.module_home_lab.enable) {
       # user config
       sops.secrets."ssh/publicKeys/personal" = { };
       sops.templates."id_ed25519.pub" = {

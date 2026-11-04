@@ -11,7 +11,7 @@
       networking.firewall.enable = true;
     }
 
-    (lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
+    (lib.mkIf config.home-manager.users.${user}.my.module_home_lab.enable {
       networking = {
         domain = "${config.my.home-lab.baseDomain}";
         usePredictableInterfaceNames = false;
@@ -19,7 +19,7 @@
       };
     })
 
-    (lib.mkIf (!config.home-manager.users.${user}.my.module-home-lab.enable) {
+    (lib.mkIf (!config.home-manager.users.${user}.my.module_home_lab.enable) {
       users.users.${user} = {
         extraGroups = [
           "networkmanager"

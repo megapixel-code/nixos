@@ -3,6 +3,6 @@
 }:
 {
   imports = [
-    ../personal-home-defaults.nix
+    ./hardware-configuration.nix
   ];
 }

@@ -11,7 +11,7 @@ let
   cursorSize = 18;
 in
 {
-  config = lib.mkIf config.my.module-cursor.enable {
+  config = lib.mkIf config.my.module_mango.enable {
     home.pointerCursor = {
       enable = true;
       package = cursorPackage;

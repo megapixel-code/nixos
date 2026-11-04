@@ -6,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.my.module-mango.enable {
+  config = lib.mkIf config.my.module_mango.enable {
     xdg.configFile = {
       "mango/config.conf" = {
         force = true;

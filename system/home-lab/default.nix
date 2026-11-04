@@ -22,7 +22,7 @@
       );
       home-lab = config.my.home-lab;
     in
-    lib.mkIf config.home-manager.users.${user}.my.module-home-lab.enable {
+    lib.mkIf config.home-manager.users.${user}.my.module_home_lab.enable {
       my.home-lab = {
         enable = true;
         baseDomain = "ivanchtp.duckdns.org";

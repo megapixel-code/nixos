@@ -33,7 +33,7 @@ let
       python3
       scala
     ]
-    ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-mango.enable [
+    ++ (lib.lists.optionals config.home-manager.users.${user}.my.module_mango.enable [
       mango
       eww
       sunsetr
@@ -47,7 +47,7 @@ let
       swaynotificationcenter # notification deamon
       dconf # used to control light and dark mode through portals
     ])
-    ++ (lib.lists.optionals config.home-manager.users.${user}.my.module-bluetooth.enable [
+    ++ (lib.lists.optionals config.home-manager.users.${user}.my.module_bluetooth.enable [
       bluetui # Bluetooth TUI control
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.apps.enable [

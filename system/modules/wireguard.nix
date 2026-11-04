@@ -8,7 +8,7 @@
   ...
 }:
 let
-  is_server = config.home-manager.users.${user}.my.module-home-lab.enable;
+  is_server = config.home-manager.users.${user}.my.module_home_lab.enable;
 
   server_public_key = "PxdneU21LtdrvBL2qfEmFyYf2Ex5MO9KMHGR339/fVM=";
   personal_public_key = "V1RzEbcGpr7aKfq9qPz8NK2iwgsVp23kD2P2UnrULjE=";
