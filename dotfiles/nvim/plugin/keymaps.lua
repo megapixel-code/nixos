@@ -29,7 +29,9 @@ vim.keymap.set( "n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clears higlightin
 
 
 -- [lsp]
-vim.keymap.set( "n", "K", vim.lsp.buf.hover, { desc = "Hover Information" } );
+vim.keymap.set( "n", "K",   vim.lsp.buf.hover,       { desc = "Hover Information" } );
+vim.keymap.set( "n", "grd", vim.lsp.buf.declaration, { desc = "goto declaration" } );
+vim.keymap.set( "n", "grf", vim.lsp.buf.definition,  { desc = "goto definition" } );
 
 
 -- [Quickfix]
