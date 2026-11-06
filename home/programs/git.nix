@@ -13,7 +13,7 @@
     };
   };
 
-  sops.secrets."git/credentials" = {
+  sops.secrets."git/github-credentials" = {
     path = "${config.xdg.configHome}/git/credentials";
   };
 }
