@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   hostName,
@@ -11,8 +10,8 @@
       "mango/config.conf" = {
         force = true;
         text = ''
-          source=~/.config/mango/main.conf
-          source=~/.config/mango/hosts/${hostName}.conf
+          source=~/.config/mango/main.toml
+          source=~/.config/mango/hosts/${hostName}.toml
         '';
       };
     };
