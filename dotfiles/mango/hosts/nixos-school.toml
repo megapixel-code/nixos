@@ -7,6 +7,7 @@ y = 0
 width = 2560
 height = 1440
 refresh = 60
+vrr = 1
 primary = 1
 
 [[rule.monitor_rule]]
@@ -18,6 +19,7 @@ y = 1440
 width = 1920
 height = 1080
 refresh = 60
+vrr = 1
 
 # [[rule.monitor_rule]]
 # name = "HDMI-A-1"
@@ -28,6 +30,7 @@ refresh = 60
 # width = 1920
 # height = 1080
 # refresh = 60
+# vrr = 1
 #
 # [[rule.monitor_rule]]
 # name = "eDP-1"
@@ -38,4 +41,5 @@ refresh = 60
 # width = 1920
 # height = 1080
 # refresh = 60
+# vrr = 1
 # primary = 1

@@ -7,6 +7,7 @@ y = 688
 width = 1920
 height = 1080
 refresh = 60
+vrr = 1
 primary = 1
 
 # [[rule.monitor_rule]]
@@ -18,3 +19,4 @@ primary = 1
 # width = 1920
 # height = 1080
 # refresh = 60
+# vrr = 1

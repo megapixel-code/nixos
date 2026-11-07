@@ -3,7 +3,6 @@
 if [[ $(hostname) == "nixos-main" ]]; then
 	mmsg dispatch focusmon,"HDMI-A-1" &> /dev/null
 	mmsg dispatch view,9 &> /dev/null
-	mmsg dispatch toggle_named_scratchpad,dev.aunetx.deezer,none,deezer-desktop &> /dev/null &
 elif [[ $(hostname) == "nixos-school" ]]; then
 	mmsg dispatch focusmon,"eDP-1" &> /dev/null
 	mmsg dispatch view,9 &> /dev/null

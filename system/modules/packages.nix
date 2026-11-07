@@ -82,6 +82,7 @@ let
       man-pages
       man-pages-posix
       glibcInfo
+
       busybox # bunch of unix utilities
       gnumake
       cmake
@@ -101,6 +102,7 @@ let
       wl-clipboard
       inotify-tools
       ffmpeg
+      jq
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.pkgs.utilities.user.enable [
       ncpamixer # audio TUI control
@@ -109,7 +111,7 @@ let
       cbonsai
       lavat
       htop-vim # interactive process viewer
-      pass-wayland # password manager
+      pass-wayland # password manager TODO: wtf is that ?
     ]);
 
   unstablePackages = with pkgs-unstable; [
