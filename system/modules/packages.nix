@@ -111,7 +111,6 @@ let
       cbonsai
       lavat
       htop-vim # interactive process viewer
-      pass-wayland # password manager TODO: wtf is that ?
     ]);
 
   unstablePackages = with pkgs-unstable; [
