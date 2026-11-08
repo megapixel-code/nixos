@@ -1,9 +1,5 @@
 -- ~~~ [[ Basic Keymaps ]] ~~~
 
--- [Source file]
-vim.keymap.set( "n", "<leader>o", "<cmd>update<CR><cmd>source<CR>", { desc = "Rel[O]ad file" } );
-
-
 -- [Restart editor]
 vim.keymap.set( "n", "<leader>rr", "<cmd>restart<CR>", { desc = "restart the editor" } );
 
