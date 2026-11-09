@@ -10,15 +10,27 @@
 let
   is_server = config.home-manager.users.${user}.my.module_home_lab.enable;
 
+  sops_private_key_name = "wireguard/privateKeys/${hostName}";
+
+  personnal_peers = {
+    "nixos-main" = {
+      address = "10.0.0.1/32";
+      public_key = "V1RzEbcGpr7aKfq9qPz8NK2iwgsVp23kD2P2UnrULjE=";
+    };
+    "nixos-school" = {
+      address = "10.0.0.2/32";
+      public_key = "p6WoUqksQ7FHiKolxYlCIrOHGjEsv/EXDY4TeU12fng=";
+    };
+
+    "phone" = {
+      address = "10.0.1.1/32";
+      public_key = "HLPDgwEgd/Ye+bDCXF7EnI/9qmqIlrkd2BWm5O3RfCA=";
+    };
+  };
+  server_address = "10.0.0.69/32";
   server_public_key = "PxdneU21LtdrvBL2qfEmFyYf2Ex5MO9KMHGR339/fVM=";
-  personal_public_key = "V1RzEbcGpr7aKfq9qPz8NK2iwgsVp23kD2P2UnrULjE=";
-  public_key = if is_server then personal_public_key else server_public_key;
-  sops_private_key_name =
-    if is_server then "wireguard/privateKeys/servers" else "wireguard/privateKeys/personal";
 
   wireguard_network = "10.0.0.0/24";
-  wireguard_address_main = "10.0.0.1/32";
-  wireguard_address_server = "10.0.0.69/32";
   wireguard_port = 51820;
   wireguard_interface = "wg0";
 in
@@ -34,21 +46,31 @@ in
 
       networking.wg-quick.interfaces = {
         ${wireguard_interface} = {
-          address = [ (if is_server then wireguard_address_server else wireguard_address_main) ];
+          address = [ (if is_server then server_address else personnal_peers.${hostName}.address) ];
           privateKeyFile = config.sops.secrets.${sops_private_key_name}.path;
-          peers = [
-            {
-              publicKey = public_key;
-              allowedIPs = [
-                (if is_server then wireguard_address_main else wireguard_address_server)
 
-                # TODO: search terms: "NAT reflection/loopback" "hairpinning" "split DNS"
-                # (lib.mkIf (!is_server) "192.168.1.69")
-                (lib.mkIf (hostName == "nixos-school") "192.168.1.69")
+          peers =
+            if is_server then
+              lib.map (peer: {
+                publicKey = peer.public_key;
+                allowedIPs = [
+                  peer.address
+                ];
+              }) (lib.attrValues personnal_peers)
+            else
+              [
+                {
+                  publicKey = server_public_key;
+                  allowedIPs = [
+                    server_address
+
+                    # TODO: search terms: "NAT reflection/loopback" "hairpinning" "split DNS"
+                    # (lib.mkIf (!is_server) "192.168.1.69")
+                    (lib.mkIf (hostName == "nixos-school") "192.168.1.69")
+                  ];
+                  endpoint = "wg-ivanchtp.duckdns.org:${lib.toString wireguard_port}";
+                }
               ];
-              endpoint = lib.mkIf (!is_server) "wg-ivanchtp.duckdns.org:${lib.toString wireguard_port}";
-            }
-          ];
         };
       };
     }
