@@ -37,6 +37,7 @@ in
     services.immich = {
       enable = true;
       # package = pkgs-stable.immich; TODO: uncomment on next stable release ( december 2026 )
+      host = "127.0.0.1";
       openFirewall = false;
     };
   };

@@ -57,7 +57,7 @@ in
       networking = {
         nat = {
           enable = true;
-          enableIPv6 = true;
+          enableIPv6 = false;
           externalInterface = "eth0";
           internalInterfaces = [ wireguard_interface ];
         };
