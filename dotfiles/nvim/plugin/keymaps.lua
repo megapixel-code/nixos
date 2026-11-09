@@ -74,3 +74,5 @@ vim.keymap.set( "n", "<leader>tp", "", {
    end,
    desc = "toggle preview",
 } );
+
+vim.keymap.set( "n", "<leader>td", "<cmd>TinyInlineDiag toggle<CR>", { desc = "toggle diagnostics" } );
