@@ -18,13 +18,13 @@ return {
          };
 
          M = {
-            { -- Lua lsp
+            { -- Lua
                name = "lua_ls",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Python lsp
+            { -- Python
                name = "pyrefly",
                args = {
                   capabilities = capabilities,
@@ -37,44 +37,44 @@ return {
                   },
                },
             },
-            { -- C, Cpp, ... lsp
+            { -- C, Cpp, ...
                name = "clangd",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Bash, Zsh lsp
+            { -- Bash, Zsh
                name = "bashls",
                args = {
                   capabilities = capabilities,
                   filetypes = { "bash", "sh", "zsh" },
                },
             },
-            { -- Json, Jsonc lsp
+            { -- Json, Jsonc
                name = "jsonls",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- yaml lsp
+            { -- yaml
                name = "yamlls",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- CSS lsp
+            { -- CSS
                name = "cssls",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Html lsp
+            { -- Html
                name = "superhtml",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Typst lsp
+            { -- Typst
                name = "tinymist",
                args = {
                   capabilities = capabilities,
@@ -85,43 +85,43 @@ return {
                   },
                },
             },
-            { -- Nix lsp
+            { -- Nix
                name = "nil_ls",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Nix lsp
+            { -- Nix
                name = "nixd",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- Scala lsp
+            { -- Scala
                name = "metals",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- QML lsp
+            { -- QML
                name = "qmlls",
                args = {
                   capabilities = capabilities,
                },
             },
-            {
+            { -- cmake
                name = "neocmake",
                args = {
                   capabilities = capabilities,
                },
             },
-            {
+            { -- toml
                name = "tombi",
                args = {
                   capabilities = capabilities,
                },
             },
-            { -- pascal lsp
+            { -- pascal
                name = "pasls",
                args = {
                   capabilities = capabilities,
