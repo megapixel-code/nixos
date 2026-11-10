@@ -90,12 +90,15 @@
       };
     })
 
-    {
-      documentation.dev.enable = true;
-
+    (lib.mkIf config.home-manager.users.${user}.my.battery_dependent {
+      services.upower.enable = true;
       powerManagement.enable = true;
       services.thermald.enable = true; # prevents overheating on Intel CPUs
-      services.auto-cpufreq.enable = true; # power managment
+      services.auto-cpufreq.enable = true;
+    })
+
+    {
+      documentation.dev.enable = true;
 
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
@@ -132,22 +135,12 @@
         defaultLocale = "en_US.UTF-8";
       };
       # console = {
-      #   font = "Lat2-Terminus16";
-      #   keyMap = "us";
-      #   useXkbConfig = true; # use xkb.options in tty.
+      #   font = "Lat2-Terminus16"; TODO: find better font
       # };
-
-      services.upower.enable = true;
 
       # enable the service to allow mounting filesystems
       services.udisks2.enable = true;
       services.gvfs.enable = true;
-
-      # hardware accelerated graphics drivers. (hardware rendering, video encode/decode acceleration, etc)
-      hardware.graphics = {
-        enable = true;
-        enable32Bit = true; # needed for steam
-      };
 
       users.users.${user} = {
         isNormalUser = true;
@@ -155,10 +148,6 @@
           "wheel" # Administration group
         ];
       };
-
-      # Some programs need SUID wrappers, can be configured further or are
-      # started in user sessions.
-      # programs.mtr.enable = true;
 
       # This option defines the first version of NixOS you have installed on this particular machine,
       # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
