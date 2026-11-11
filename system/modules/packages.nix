@@ -26,6 +26,7 @@ let
     ]
     ++ [
       # languages
+      gcc
       cargo
       typst
       lua
@@ -86,7 +87,6 @@ let
       busybox # bunch of unix utilities
       gnumake
       cmake
-      gcc
       curl
       nh
       sops
@@ -135,5 +135,6 @@ in
 
   fonts.packages = with pkgs; [
     nerd-fonts.blex-mono
+    (pkgs.callPackage ../extra-packages/tiny5.nix { })
   ];
 }
