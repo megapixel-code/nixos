@@ -38,15 +38,14 @@ let
       mango
       eww
       sunsetr
-      brightnessctl
       slurp # select region in wayland
       grim # screenshoot tool
       imagemagick # image manipulation tool (used for color picker)
       pscircle # proccess viewer image generator
       awww # bg daemon
       wofi # app launcher
-      swaynotificationcenter # notification deamon
       dconf # used to control light and dark mode through portals
+      brightnessctl
     ])
     ++ (lib.lists.optionals config.home-manager.users.${user}.my.module_bluetooth.enable [
       bluetui # Bluetooth TUI control
