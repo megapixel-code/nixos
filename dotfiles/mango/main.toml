@@ -125,6 +125,10 @@ height = 0.8
 layer_name = "wofi"
 no_animation = 1
 
+[[rule.layer_rule]]
+layer_name = "selection"  # slurp
+no_animation = 1
+
 [[rule.tag_rule]]
 id = 0
 layout_name = "scroller"
