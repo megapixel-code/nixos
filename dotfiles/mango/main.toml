@@ -3,7 +3,9 @@ term = "kitty"
 browser = "librewolf"
 
 # #000000FF
-color_black = "0x000000FF"
+color_darker = "0x000000FF"
+# #222222FF
+color_dark = "0x222222FF"
 # #C0C0C0FF
 color_gray = "0xC0C0C0FF"
 # #F9F9FAFF
@@ -64,16 +66,16 @@ dim_enable = 1
 dim_focused_color = 0x00000000
 dim_unfocused_color = 0x00000022
 
-root_color = "$color_black"
-border_color = "$color_black"
+root_color = "$color_dark"
+border_color = "$color_dark"
 drop_color = "$color_secondary_transparent"
 focus_color = "$color_gray"
 urgent_color = "$color_gray"
 scratchpad_color = "$color_gray"
 
-jump_label_decorate_fg_color = "$color_black"
-jump_label_decorate_bg_color = "$color_primary"
-jump_label_decorate_border_color = "$color_gray"
+jump_label_decorate_fg_color = "$color_dark"
+jump_label_decorate_bg_color = "$color_gray"
+jump_label_decorate_border_color = "$color_white"
 jump_label_decorate_border_width = 2
 jump_label_decorate_corner_radius = 0
 jump_label_decorate_font_desc = "Tiny5 Bold"
