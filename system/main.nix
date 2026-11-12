@@ -53,7 +53,6 @@
         alsa.enable = true;
         alsa.support32Bit = true;
         pulse.enable = true;
-        jack.enable = true;
       };
     })
 
@@ -103,10 +102,6 @@
       nix = {
         package = pkgs.lixPackageSets.stable.lix;
         optimise.automatic = true;
-        settings = {
-          trusted-users = [ "${user}" ];
-          allowed-users = [ "${user}" ];
-        };
         gc = {
           automatic = true;
           dates = "weekly";
@@ -122,10 +117,17 @@
         efi.canTouchEfiVariables = true;
       };
 
-      nix.settings.experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      nix.settings = {
+        trusted-users = [ "${user}" ];
+        allowed-users = [ "${user}" ];
+
+        abort-on-warn = true;
+
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+      };
 
       time.timeZone = "Europe/Paris";
 

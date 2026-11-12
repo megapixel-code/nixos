@@ -12,13 +12,13 @@ stdenvNoCC.mkDerivation (
   in
   {
     pname = "Tiny5";
-    version = "1.002";
+    version = "2.007";
 
     src = fetchFromGitHub {
       owner = owner;
       repo = repo;
       tag = finalAttrs.version;
-      hash = "sha256-h25RiFC6xwX82asc2boy/LEhaf7QsJwIoDTTsYKwna4=";
+      hash = "sha256-v6fy9gMK0oc5j6ZO6YXPeSP4mMdxwI4JJ7XVS1u9oms=";
     };
 
     dontBuild = true;
