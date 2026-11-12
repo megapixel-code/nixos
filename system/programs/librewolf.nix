@@ -7,6 +7,10 @@
 }:
 {
   config = lib.mkIf config.home-manager.users.${user}.my.pkgs.apps.enable {
+    environment.sessionVariables = {
+      MOZ_ENABLE_WAYLAND = "1"; # tell mozilla you are on wayland
+    };
+
     programs.firefox = {
       enable = true;
       package = pkgs.librewolf;

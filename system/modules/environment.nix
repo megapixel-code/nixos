@@ -29,8 +29,10 @@
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_PICTURES_DIR = "$HOME/pictures";
       XDG_DOWNLOAD_DIR = "$HOME/downloads";
+
       HISTFILE = "$XDG_STATE_HOME/bash/history";
       CC = "${pkgs.clang}/bin/clang";
+      NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
 
       # partialy suported
       CARGO_HOME = "$XDG_CACHE_HOME/cargo";
@@ -46,10 +48,6 @@
       W3M_DIR = "$XDG_STATE_HOME/w3m";
 
       GRIM_DEFAULT_DIR = "$HOME/pictures/screenshoots"; # NOTE: look in home.nix > activation
-
-      WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
-      NIXOS_OZONE_WL = "1"; # hint electrons apps to use wayland
-      MOZ_ENABLE_WAYLAND = "1"; # tell mozilla you are on wayland
     };
 
     variables = {

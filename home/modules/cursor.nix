@@ -12,6 +12,10 @@ let
 in
 {
   config = lib.mkIf config.my.module_mango.enable {
+    home.sessionVariables = {
+      WLR_NO_HARDWARE_CURSORS = "1"; # weird cursor behavior
+    };
+
     home.pointerCursor = {
       enable = true;
       dotIcons.enable = false; # removes .icons folder in home dir (might break some apps?)
