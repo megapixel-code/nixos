@@ -1,5 +1,7 @@
 {
   pkgs,
+  lib,
+  hostName,
   ...
 }:
 {
@@ -82,7 +84,10 @@
 
       # [[ PLUGINS ]]
       set -g status-right-length 50
-      set -g status-right 'bat: #{battery_percentage} | %a %d-%h %H:%M '
+      set -g status-right '${
+        lib.optionalString (hostName == "nixos-school") "bat: #{battery_percentage} | "
+      }%a %d-%h %H:%M'
+
     ''
     + ''
       run-shell ${pkgs.tmuxPlugins.battery}/share/tmux-plugins/battery/battery.tmux
