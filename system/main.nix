@@ -99,16 +99,6 @@
     {
       documentation.dev.enable = true;
 
-      nix = {
-        package = pkgs.lixPackageSets.stable.lix;
-        optimise.automatic = true;
-        gc = {
-          automatic = true;
-          dates = "weekly";
-          options = "--delete-older-than 30d";
-        };
-      };
-
       boot.loader = {
         systemd-boot = {
           enable = true;
@@ -117,16 +107,27 @@
         efi.canTouchEfiVariables = true;
       };
 
-      nix.settings = {
-        trusted-users = [ "${user}" ];
-        allowed-users = [ "${user}" ];
+      nix = {
+        package = pkgs.lixPackageSets.stable.lix;
 
-        abort-on-warn = true;
+        optimise.automatic = true;
+        gc = {
+          automatic = true;
+          dates = "weekly";
+          options = "--delete-older-than 30d";
+        };
 
-        experimental-features = [
-          "nix-command"
-          "flakes"
-        ];
+        settings = {
+          trusted-users = [ "${user}" ];
+          allowed-users = [ "${user}" ];
+
+          abort-on-warn = true;
+
+          experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+        };
       };
 
       time.timeZone = "Europe/Paris";
