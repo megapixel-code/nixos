@@ -9,14 +9,13 @@
 }:
 {
   config = lib.mkMerge [
-    (lib.mkIf config.home-manager.users.${user}.my.module_home_lab.enable {
+    (lib.mkIf (config.home-manager.users.${user}.my.module_ssh.config == "server") {
       # server config
       sops.secrets."ssh/privateKeys/servers" = { };
 
       services.openssh = {
         enable = true;
         openFirewall = true;
-        # generateHostKeys = false; # opt seems to not exist
         hostKeys = [ ]; # unset this opt to not generate keys
 
         # added in the config in /etc/ssh/sshd_config
@@ -50,7 +49,7 @@
       };
     })
 
-    (lib.mkIf (!config.home-manager.users.${user}.my.module_home_lab.enable) {
+    (lib.mkIf (config.home-manager.users.${user}.my.module_ssh.config == "personal") {
       # user config
       sops.secrets."ssh/publicKeys/personal" = { };
       sops.templates."id_ed25519.pub" = {

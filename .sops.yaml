@@ -1,6 +1,7 @@
 keys:
-   - &home-lab age14yw5u8xmz8mflthepzk9fc7nh9mf2aar3yus0zd5ap9pjnawsuuqedyvfe
    - &primary age1qq99sar3g0n2zpd5tvk96qm8s359u9s8ueq3jglv5lswtwdqls4stxm62x
+   - &home-lab age14yw5u8xmz8mflthepzk9fc7nh9mf2aar3yus0zd5ap9pjnawsuuqedyvfe
+   - &router age1s2zu3hp4sdl2krsqf2gryu0a3ruk56955jd80hqxw60xtsnnty4qpfh2au
 creation_rules:
    - path_regex: secrets/primary.yaml$
      key_groups:
@@ -10,3 +11,7 @@ creation_rules:
      key_groups:
         - age:
              - *home-lab
+   - path_regex: secrets/router.yaml$
+     key_groups:
+        - age:
+             - *router

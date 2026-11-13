@@ -15,6 +15,25 @@
       module_audio.enable = lib.mkEnableOption "enable audio";
       module_printing.enable = lib.mkEnableOption "enable printing";
 
+      module_ssh.config = lib.mkOption {
+        default = null;
+        type = lib.types.enum [
+          "server"
+          "personal"
+          "none"
+        ];
+        description = "type of ssh config";
+      };
+      module_wireguard.config = lib.mkOption {
+        default = null;
+        type = lib.types.enum [
+          "server"
+          "personal"
+          "none"
+        ];
+        description = "type of wireguard config";
+      };
+
       battery_dependent = lib.mkEnableOption "device is battery dependent";
 
       pkgs = {
@@ -40,29 +59,43 @@
       main = (nixos-main ++ nixos-school);
       all = (main ++ server ++ router);
 
-      activate = hostnames: (lib.any (x: x == hostName) hostnames);
+      select = hostnames: (lib.any (x: x == hostName) hostnames);
     in
     {
       my = {
-        module_mango.enable = activate main;
+        module_mango.enable = select main;
 
-        module_home_lab.enable = activate server;
-        module_router.enable = activate router;
+        module_home_lab.enable = select server;
+        module_router.enable = select router;
 
-        module_bluetooth.enable = activate main;
-        module_audio.enable = activate main;
-        module_printing.enable = activate main;
+        module_bluetooth.enable = select main;
+        module_audio.enable = select main;
+        module_printing.enable = select main;
 
-        battery_dependent = activate nixos-school;
+        battery_dependent = select nixos-school;
+        module_ssh.config =
+          if (select main) then
+            "personal"
+          else if (select (router ++ server)) then
+            "server"
+          else
+            "none";
+        module_wireguard.config =
+          if (select main) then
+            "personal"
+          else if (select server) then
+            "server"
+          else
+            "none";
 
         pkgs = {
-          apps.enable = activate main;
-          editors.enable = activate main;
-          games.enable = activate nixos-main;
+          apps.enable = select main;
+          editors.enable = select main;
+          games.enable = select nixos-main;
 
           utilities = {
-            system.enable = activate all;
-            user.enable = activate main;
+            system.enable = select all;
+            user.enable = select main;
           };
         };
       };
