@@ -83,10 +83,12 @@
           Cache = true;
           Cookies = true;
           FormData = true;
-          Sessions = false;
+          Sessions = true;
           SiteSettings = true;
           Exceptions = [
             "https://ivanchtp.duckdns.org/"
+            "https://wikipedia.org"
+            "https://nixos.org"
             "https://www.youtube.com"
             "https://www.netflix.com"
             "https://www.deezer.com"
