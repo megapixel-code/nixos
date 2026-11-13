@@ -16,7 +16,6 @@
       module_printing.enable = lib.mkEnableOption "enable printing";
 
       module_ssh.config = lib.mkOption {
-        default = null;
         type = lib.types.enum [
           "server"
           "personal"
@@ -25,7 +24,6 @@
         description = "type of ssh config";
       };
       module_wireguard.config = lib.mkOption {
-        default = null;
         type = lib.types.enum [
           "server"
           "personal"
