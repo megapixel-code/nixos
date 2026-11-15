@@ -8,14 +8,27 @@
 {
   config =
     let
-      router_outside_interface = "eno1"; # builtin interface
-      router_inside_interfaces = [
-        "enp2s0f0"
-        "enp2s0f1"
-        "enp2s0f2"
-        "enp2s0f3"
-      ];
-      bridge_name = "br0";
+      router = {
+        outside_interface = "eno1"; # builtin interface
+        inside_interfaces = [
+          "enp2s0f0"
+          "enp2s0f1"
+          "enp2s0f2"
+          "enp2s0f3"
+        ];
+        bridge_name = "br0";
+
+        # TODO: dns server on homelab
+        dns_ips = [
+          "1.1.1.1"
+          "9.9.9.9"
+        ];
+
+        outside_ip = "192.168.1.60";
+        inside_ip = "192.168.0.1";
+        subnet = "192.168.0.0/24";
+        pool = "192.168.0.2 - 192.168.0.254";
+      };
     in
     lib.mkMerge [
       {
@@ -33,6 +46,9 @@
           networkmanager = {
             enable = true;
             wifi.powersave = false;
+          };
+          hosts = {
+            ${router.inside_ip} = [ "router" ];
           };
         };
       })
@@ -57,35 +73,31 @@
 
           defaultGateway = {
             address = "192.168.1.1";
-            interface = router_outside_interface;
+            interface = router.outside_interface;
           };
 
-          # TODO: dns server on homelab
-          # nameservers = [
-          #   "130.161.158.4"
-          #   "130.161.33.17"
-          # ];
+          nameservers = router.dns_ips;
 
           # domain = config.my.home-lab.baseDomain;
           # search = [ config.my.home-lab.baseDomain ];
 
-          bridges.${bridge_name} = {
-            interfaces = router_inside_interfaces;
+          bridges.${router.bridge_name} = {
+            interfaces = router.inside_interfaces;
           };
 
           interfaces = {
-            ${router_outside_interface} = {
+            ${router.outside_interface} = {
               ipv4.addresses = [
                 {
-                  address = "192.168.1.60";
+                  address = router.outside_ip;
                   prefixLength = 24;
                 }
               ];
             };
-            ${bridge_name} = {
+            ${router.bridge_name} = {
               ipv4.addresses = [
                 {
-                  address = "192.168.0.1";
+                  address = router.inside_ip;
                   prefixLength = 24;
                 }
               ];
@@ -94,8 +106,8 @@
 
           nat = {
             enable = true;
-            externalInterface = router_outside_interface;
-            internalInterfaces = [ bridge_name ];
+            externalInterface = router.outside_interface;
+            internalInterfaces = [ router.bridge_name ];
           };
         };
 
@@ -106,7 +118,7 @@
 
             settings = {
               interfaces-config = {
-                interfaces = [ (bridge_name + "/" + "192.168.0.1") ];
+                interfaces = [ (router.bridge_name + "/" + router.inside_ip) ];
               };
 
               loggers = [
@@ -124,19 +136,19 @@
                   id = 1;
                   pools = [
                     {
-                      pool = "192.168.0.2 - 192.168.0.254";
+                      pool = router.pool;
                     }
                   ];
-                  interface = bridge_name;
-                  subnet = "192.168.0.0/24";
+                  interface = router.bridge_name;
+                  subnet = router.subnet;
                   option-data = [
                     {
                       name = "routers";
-                      data = "192.168.0.1";
+                      data = router.inside_ip;
                     }
                     {
                       name = "domain-name-servers";
-                      data = "1.1.1.1,9.9.9.9";
+                      data = lib.concatStringsSep "," router.dns_ips;
                     }
                   ];
                 }
