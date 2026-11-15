@@ -16,7 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xremap-flake.url = "github:xremap/nix-flake";
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     import-tree.url = "github:vic/import-tree";
   };
 
