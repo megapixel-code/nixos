@@ -117,3 +117,5 @@ alias python="python3"
 alias c="clear"
 # shellcheck disable=SC2139
 alias nrs="nh os switch $NIXOS_CONFIG_DIR --ask"
+# shellcheck disable=SC2139
+alias nrt="nh os test $NIXOS_CONFIG_DIR"
