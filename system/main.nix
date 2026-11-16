@@ -106,6 +106,17 @@
       services.auto-cpufreq.enable = true;
     })
 
+    (lib.mkIf config.home-manager.users.${user}.my.module_auto_upgrade.enable {
+      system.autoUpgrade = {
+        enable = true;
+        flake = "github:megapixel-code/nixos";
+        upgrade = false; # disable because useless since we are using a flake
+        dates = "04:00";
+        allowReboot = true;
+        randomizedDelaySec = "10min";
+      };
+    })
+
     {
       documentation.dev.enable = true;
 

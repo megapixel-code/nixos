@@ -11,6 +11,7 @@
       module_home_lab.enable = lib.mkEnableOption "enable home-lab";
       module_router.enable = lib.mkEnableOption "enable router";
 
+      module_auto_upgrade.enable = lib.mkEnableOption "enable auto-upgrade";
       module_bluetooth.enable = lib.mkEnableOption "enable bluetooth";
       module_audio.enable = lib.mkEnableOption "enable audio";
       module_printing.enable = lib.mkEnableOption "enable printing";
@@ -19,14 +20,12 @@
         cpu_type = lib.mkOption {
           type = lib.types.enum [
             "intel"
-            "other"
           ];
           description = "cpu compatibility";
         };
         gpu_type = lib.mkOption {
           type = lib.types.enum [
             "nvidia"
-            "other"
           ];
           description = "gpu compatibility";
         };
@@ -81,14 +80,14 @@
         module_home_lab.enable = select server;
         module_router.enable = select router;
 
+        module_auto_upgrade.enable = select (server ++ router);
         module_bluetooth.enable = select main;
         module_audio.enable = select main;
         module_printing.enable = select main;
-
         module_powersave = {
           enable = select all;
-          cpu_type = if (select (nixos-school ++ nixos-main ++ router ++ server)) then "intel" else "other";
-          gpu_type = if (select nixos-main) then "nvidia" else "other";
+          cpu_type = if (select (nixos-school ++ nixos-main ++ router ++ server)) then "intel" else null;
+          gpu_type = if (select nixos-main) then "nvidia" else null;
         };
 
         module_ssh.config =
