@@ -14,6 +14,23 @@
       module_bluetooth.enable = lib.mkEnableOption "enable bluetooth";
       module_audio.enable = lib.mkEnableOption "enable audio";
       module_printing.enable = lib.mkEnableOption "enable printing";
+      module_powersave = {
+        enable = lib.mkEnableOption "enable powersave";
+        cpu_type = lib.mkOption {
+          type = lib.types.enum [
+            "intel"
+            "other"
+          ];
+          description = "cpu compatibility";
+        };
+        gpu_type = lib.mkOption {
+          type = lib.types.enum [
+            "nvidia"
+            "other"
+          ];
+          description = "gpu compatibility";
+        };
+      };
 
       module_ssh.config = lib.mkOption {
         type = lib.types.enum [
@@ -31,8 +48,6 @@
         ];
         description = "type of wireguard config";
       };
-
-      battery_dependent = lib.mkEnableOption "device is battery dependent";
 
       pkgs = {
         apps.enable = lib.mkEnableOption "enable apps";
@@ -70,7 +85,12 @@
         module_audio.enable = select main;
         module_printing.enable = select main;
 
-        battery_dependent = select nixos-school;
+        module_powersave = {
+          enable = select all;
+          cpu_type = if (select (nixos-school ++ nixos-main ++ router ++ server)) then "intel" else "other";
+          gpu_type = if (select nixos-main) then "nvidia" else "other";
+        };
+
         module_ssh.config =
           if (select main) then
             "personal"

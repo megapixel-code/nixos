@@ -31,10 +31,6 @@
             # Shows battery charge of connected devices on supported
             # Bluetooth adapters. Defaults to 'false'.
             Experimental = true;
-            # When enabled other devices can connect faster to us, however
-            # the tradeoff is increased power consumption. Defaults to
-            # 'false'.
-            FastConnectable = if (config.home-manager.users.${user}.my.battery_dependent) then false else true;
           };
           Policy = {
             # Enable all controllers when they are found. This includes
@@ -89,10 +85,24 @@
       };
     })
 
-    (lib.mkIf config.home-manager.users.${user}.my.battery_dependent {
-      services.upower.enable = true;
+    (lib.mkIf config.home-manager.users.${user}.my.module_powersave.enable {
       powerManagement.enable = true;
-      services.thermald.enable = true; # prevents overheating on Intel CPUs
+
+      # TODO: udev rules for hard drives : https://wiki.nixos.org/wiki/Power_Management
+
+      hardware = {
+        # When enabled other devices can connect faster to us, however
+        # the tradeoff is increased power consumption.
+        bluetooth.settings.General.FastConnectable = true;
+
+        nvidia.powerManagement = {
+          enable = config.home-manager.users.${user}.my.module_powersave.gpu_type == "nvidia";
+        };
+      };
+
+      services.upower.enable = true; # abstraction to get battery infos for external apps
+      services.thermald.enable =
+        config.home-manager.users.${user}.my.module_powersave.cpu_type == "intel"; # prevents overheating on Intel CPUs
       services.auto-cpufreq.enable = true;
     })
 
