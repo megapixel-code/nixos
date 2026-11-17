@@ -150,7 +150,7 @@
                     }
                     {
                       name = "domain-name-servers";
-                      data = lib.concatStringsSep "," router.dns_ips;
+                      data = lib.concatStringsSep ", " router.dns_ips;
                     }
                   ];
                   reservations = [

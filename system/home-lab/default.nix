@@ -14,6 +14,8 @@
     };
   };
 
+  # TODO: patch holes : sudo netstat -ntulp
+
   config =
     let
       is_set = value: (lib.typeOf value) == "set";
@@ -63,6 +65,12 @@
             enable = true;
             auto-proxy = true;
             prefix = "search";
+            category = "search";
+          };
+          pihole = {
+            enable = true;
+            auto-proxy = true;
+            prefix = "dns";
             category = "search";
           };
         };
