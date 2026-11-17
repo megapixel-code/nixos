@@ -18,16 +18,19 @@
         ];
         bridge_name = "br0";
 
-        # TODO: dns server on homelab
         dns_ips = [
-          "1.1.1.1"
-          "9.9.9.9"
+          server.ip
         ];
 
-        outside_ip = "192.168.1.60";
         inside_ip = "192.168.0.1";
         subnet = "192.168.0.0/24";
         pool = "192.168.0.2 - 192.168.0.254";
+      };
+
+      server = {
+        interface = "eth0";
+        ip = "192.168.0.69";
+        mac_addr = "10:e7:c6:24:54:41";
       };
     in
     lib.mkMerge [
@@ -69,31 +72,18 @@
 
         networking = {
           usePredictableInterfaceNames = true;
-          dhcpcd.enable = false;
+          nameservers = router.dns_ips;
 
           defaultGateway = {
             address = "192.168.1.1";
             interface = router.outside_interface;
           };
 
-          nameservers = router.dns_ips;
-
-          # domain = config.my.home-lab.baseDomain;
-          # search = [ config.my.home-lab.baseDomain ];
-
           bridges.${router.bridge_name} = {
             interfaces = router.inside_interfaces;
           };
 
           interfaces = {
-            ${router.outside_interface} = {
-              ipv4.addresses = [
-                {
-                  address = router.outside_ip;
-                  prefixLength = 24;
-                }
-              ];
-            };
             ${router.bridge_name} = {
               ipv4.addresses = [
                 {
@@ -108,6 +98,18 @@
             enable = true;
             externalInterface = router.outside_interface;
             internalInterfaces = [ router.bridge_name ];
+            forwardPorts =
+              let
+                wireguard_port = 51820; # TODO: use option config
+                protocol = "udp";
+              in
+              [
+                {
+                  sourcePort = wireguard_port;
+                  destination = "${server.ip}:${lib.toString wireguard_port}";
+                  proto = protocol;
+                }
+              ];
           };
         };
 
@@ -149,6 +151,13 @@
                     {
                       name = "domain-name-servers";
                       data = lib.concatStringsSep "," router.dns_ips;
+                    }
+                  ];
+                  reservations = [
+                    {
+                      hostname = "server";
+                      hw-address = server.mac_addr;
+                      ip-address = server.ip;
                     }
                   ];
                 }
