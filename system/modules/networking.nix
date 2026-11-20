@@ -98,6 +98,8 @@
             enable = true;
             externalInterface = router.outside_interface;
             internalInterfaces = [ router.bridge_name ];
+
+            dmzHost = server.ip;
             forwardPorts =
               let
                 wireguard_port = 51820; # TODO: use option config
@@ -105,6 +107,7 @@
               in
               [
                 {
+                  loopbackIPs = [ "90.127.113.99" ]; # TODO: put in option
                   sourcePort = wireguard_port;
                   destination = "${server.ip}:${lib.toString wireguard_port}";
                   proto = protocol;
