@@ -34,7 +34,7 @@ let
   wireguard_interface = "wg0";
 in
 {
-
+  # TODO: dhcp server on wg port, can do it when conterization is done
   config = lib.mkIf (config_type != "none") (
     lib.mkMerge [
       {
@@ -72,10 +72,9 @@ in
                     publicKey = server_public_key;
                     allowedIPs = [
                       server_address
-
-                      # TODO: search terms: "NAT reflection/loopback" "hairpinning" "split DNS"
-                      # (lib.mkIf (config_type =="personal") "192.168.1.69")
-                      (lib.mkIf (hostName == "nixos-school") "192.168.1.69")
+                      "192.168.0.69" # TODO: config.my.home-lab.ip
+                      "0.0.0.0/0"
+                      "::/0"
                     ];
                     endpoint = "wg-ivanchtp.duckdns.org:${lib.toString wireguard_port}";
                   }
@@ -88,14 +87,14 @@ in
 
       (lib.mkIf (config_type == "server") {
         networking = {
+          firewall.allowedUDPPorts = [ wireguard_port ];
+
           nat = {
             enable = true;
             enableIPv6 = false;
             externalInterface = "eth0";
             internalInterfaces = [ wireguard_interface ];
           };
-
-          firewall.allowedUDPPorts = [ wireguard_port ];
 
           wg-quick.interfaces = {
             ${wireguard_interface} = {
@@ -104,14 +103,10 @@ in
               postUp = ''
                 ${pkgs.iptables}/bin/iptables -A FORWARD -i ${wireguard_interface} -j ACCEPT
                 ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${wireguard_network} -o eth0 -j MASQUERADE
-                ${pkgs.iptables}/bin/ip6tables -A FORWARD -i ${wireguard_interface} -j ACCEPT
-                ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o eth0 -j MASQUERADE
               '';
               preDown = ''
                 ${pkgs.iptables}/bin/iptables -D FORWARD -i ${wireguard_interface} -j ACCEPT
                 ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${wireguard_network} -o eth0 -j MASQUERADE
-                ${pkgs.iptables}/bin/ip6tables -D FORWARD -i ${wireguard_interface} -j ACCEPT
-                ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o eth0 -j MASQUERADE
               '';
             };
           };
