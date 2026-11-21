@@ -35,7 +35,10 @@
     in
     lib.mkMerge [
       {
-        networking.firewall.enable = true;
+        networking = {
+          firewall.enable = true;
+          nameservers = router.dns_ips;
+        };
       }
 
       (lib.mkIf (config.home-manager.users.${user}.my.module_mango.enable) {
@@ -46,8 +49,10 @@
         };
 
         networking = {
+          dhcpcd.extraConfig = "nohook resolv.conf"; # ignore dhcp dns recommendation
           networkmanager = {
             enable = true;
+            dns = "none"; # networkmanager will not modify resolv.conf
             wifi.powersave = false;
           };
           hosts = {
@@ -72,7 +77,6 @@
 
         networking = {
           usePredictableInterfaceNames = true;
-          nameservers = router.dns_ips;
 
           defaultGateway = {
             address = "192.168.1.1";

@@ -76,7 +76,7 @@ in
                       "0.0.0.0/0"
                       "::/0"
                     ];
-                    endpoint = "wg-ivanchtp.duckdns.org:${lib.toString wireguard_port}";
+                    endpoint = "90.127.113.99:${lib.toString wireguard_port}";
                   }
                 ]
               else
