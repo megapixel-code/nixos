@@ -118,6 +118,8 @@
     })
 
     {
+      # TODO: try sum like config.my = config.my // config.homemanager...user.my (merging attrs)
+
       documentation.dev.enable = true;
 
       boot.loader = {

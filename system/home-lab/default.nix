@@ -8,9 +8,7 @@
   options = {
     my.home-lab = {
       enable = lib.mkEnableOption "enable home-lab";
-      baseDomain = lib.mkOption {
-        type = lib.types.str;
-      };
+      baseDomain = lib.mkOption { type = lib.types.str; };
     };
   };
 
@@ -18,21 +16,18 @@
 
   config =
     let
-      is_set = value: (lib.typeOf value) == "set";
-      home-lab_sub_attrs = builtins.filter (value: (is_set value)) (
-        builtins.attrValues config.my.home-lab
-      );
-      home-lab = config.my.home-lab;
+      cfg = config.my.home-lab;
     in
     lib.mkMerge [
       {
-        my.home-lab.baseDomain = "ivanchtp.duckdns.org";
+        my.home-lab = {
+          enable = config.home-manager.users.${user}.my.module_home_lab.enable;
+          baseDomain = "ivanchtp.duckdns.org";
+        };
       }
 
-      (lib.mkIf config.home-manager.users.${user}.my.module_home_lab.enable {
+      (lib.mkIf cfg.enable {
         my.home-lab = {
-          enable = true;
-
           fail2ban = {
             enable = true;
           };
@@ -96,9 +91,9 @@
             reloadServices = [ "nginx.service" ];
           };
           certs = {
-            "${home-lab.baseDomain}" = {
-              domain = "${home-lab.baseDomain}";
-              extraDomainNames = [ "*.${home-lab.baseDomain}" ];
+            "${cfg.baseDomain}" = {
+              domain = "${cfg.baseDomain}";
+              extraDomainNames = [ "*.${cfg.baseDomain}" ];
             };
           };
         };
@@ -119,6 +114,10 @@
 
           virtualHosts =
             let
+              is_set = value: (lib.typeOf value) == "set";
+              home-lab_sub_attrs = builtins.filter (value: (is_set value)) (
+                builtins.attrValues config.my.home-lab
+              );
               all_auto_proxy = lib.filter (
                 attr: if attr ? auto-proxy then attr.auto-proxy else false
               ) home-lab_sub_attrs;
@@ -126,8 +125,8 @@
             lib.mkMerge [
               (lib.mkMerge (
                 map (attr: {
-                  "${attr.prefix}.${home-lab.baseDomain}" = {
-                    useACMEHost = home-lab.baseDomain;
+                  "${attr.prefix}.${cfg.baseDomain}" = {
+                    useACMEHost = cfg.baseDomain;
                     forceSSL = true;
 
                     locations."/" = {

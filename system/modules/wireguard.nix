@@ -7,11 +7,12 @@
   ...
 }:
 let
+  cfg = config.my.networking;
   config_type = config.home-manager.users.${user}.my.module_wireguard.config;
-
   sops_private_key_name = "wireguard/privateKeys/${hostName}";
 
   personal_peers = {
+    # TODO: add address and name to /etc/hosts
     "nixos-main" = {
       address = "10.0.0.1/32";
       public_key = "V1RzEbcGpr7aKfq9qPz8NK2iwgsVp23kD2P2UnrULjE=";
@@ -26,15 +27,12 @@ let
       public_key = "HLPDgwEgd/Ye+bDCXF7EnI/9qmqIlrkd2BWm5O3RfCA=";
     };
   };
-  server_address = "10.0.0.69/32";
-  server_public_key = "PxdneU21LtdrvBL2qfEmFyYf2Ex5MO9KMHGR339/fVM=";
-
-  wireguard_network = "10.0.0.0/24";
-  wireguard_port = 51820;
-  wireguard_interface = "wg0";
+  server = {
+    address = "10.0.0.69/32";
+    public_key = "PxdneU21LtdrvBL2qfEmFyYf2Ex5MO9KMHGR339/fVM=";
+  };
 in
 {
-  # TODO: dhcp server on wg port, can do it when conterization is done
   config = lib.mkIf (config_type != "none") (
     lib.mkMerge [
       {
@@ -45,11 +43,11 @@ in
         };
 
         networking.wg-quick.interfaces = {
-          ${wireguard_interface} = {
+          ${cfg.wireguard.interface} = {
             address = [
               (
                 if (config_type == "server") then
-                  server_address
+                  server.address
                 else if (config_type == "personal") then
                   personal_peers.${hostName}.address
                 else
@@ -69,14 +67,14 @@ in
               else if (config_type == "personal") then
                 [
                   {
-                    publicKey = server_public_key;
+                    publicKey = server.public_key;
                     allowedIPs = [
-                      server_address
-                      "192.168.0.69" # TODO: config.my.home-lab.ip
+                      server.address
+                      cfg.server.ip
                       "0.0.0.0/0"
                       "::/0"
                     ];
-                    endpoint = "90.127.113.99:${lib.toString wireguard_port}";
+                    endpoint = "90.127.113.99:${lib.toString cfg.wireguard.port}";
                   }
                 ]
               else
@@ -87,26 +85,26 @@ in
 
       (lib.mkIf (config_type == "server") {
         networking = {
-          firewall.allowedUDPPorts = [ wireguard_port ];
+          firewall.allowedUDPPorts = [ cfg.wireguard.port ];
 
           nat = {
             enable = true;
             enableIPv6 = false;
             externalInterface = "eth0";
-            internalInterfaces = [ wireguard_interface ];
+            internalInterfaces = [ cfg.wireguard.interface ];
           };
 
           wg-quick.interfaces = {
-            ${wireguard_interface} = {
-              listenPort = wireguard_port;
+            ${cfg.wireguard.interface} = {
+              listenPort = cfg.wireguard.port;
 
               postUp = ''
-                ${pkgs.iptables}/bin/iptables -A FORWARD -i ${wireguard_interface} -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${wireguard_network} -o eth0 -j MASQUERADE
+                ${pkgs.iptables}/bin/iptables -A FORWARD -i ${cfg.wireguard.interface} -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.wireguard.subnet} -o eth0 -j MASQUERADE
               '';
               preDown = ''
-                ${pkgs.iptables}/bin/iptables -D FORWARD -i ${wireguard_interface} -j ACCEPT
-                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${wireguard_network} -o eth0 -j MASQUERADE
+                ${pkgs.iptables}/bin/iptables -D FORWARD -i ${cfg.wireguard.interface} -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s ${cfg.wireguard.subnet} -o eth0 -j MASQUERADE
               '';
             };
           };
