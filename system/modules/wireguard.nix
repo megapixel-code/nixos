@@ -11,24 +11,27 @@ let
   config_type = config.home-manager.users.${user}.my.module_wireguard.config;
   sops_private_key_name = "wireguard/privateKeys/${hostName}";
 
-  personal_peers = {
-    # TODO: add address and name to /etc/hosts
+  mkAdress = ip: "${ip}/32";
+  fixPeer = peer: peer // { address = mkAdress peer.ip; };
+  mkPeers = peers: lib.mapAttrs (name: peer: fixPeer peer) peers;
+
+  personal_peers = mkPeers {
     "nixos-main" = {
-      address = "10.0.0.1/32";
+      ip = "10.0.0.1";
       public_key = "V1RzEbcGpr7aKfq9qPz8NK2iwgsVp23kD2P2UnrULjE=";
     };
     "nixos-school" = {
-      address = "10.0.0.2/32";
+      ip = "10.0.0.2";
       public_key = "p6WoUqksQ7FHiKolxYlCIrOHGjEsv/EXDY4TeU12fng=";
     };
 
     "phone" = {
-      address = "10.0.1.1/32";
+      ip = "10.0.1.1";
       public_key = "HLPDgwEgd/Ye+bDCXF7EnI/9qmqIlrkd2BWm5O3RfCA=";
     };
   };
-  server = {
-    address = "10.0.0.69/32";
+  server = fixPeer {
+    ip = "10.0.0.69";
     public_key = "PxdneU21LtdrvBL2qfEmFyYf2Ex5MO9KMHGR339/fVM=";
   };
 in
@@ -84,6 +87,10 @@ in
       }
 
       (lib.mkIf (config_type == "server") {
+        networking.hosts = lib.mapAttrs' (
+          hostname: attrs: lib.nameValuePair (attrs.ip) [ ("wg-" + hostname) ]
+        ) personal_peers;
+
         networking = {
           firewall.allowedUDPPorts = [ cfg.wireguard.port ];
 

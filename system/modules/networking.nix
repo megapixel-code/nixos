@@ -111,6 +111,9 @@
           domain = "${config.my.home-lab.baseDomain}";
           usePredictableInterfaceNames = false;
           wireless.enable = false;
+          hosts = {
+            ${cfg.router.ip} = [ "router" ];
+          };
         };
       })
 
