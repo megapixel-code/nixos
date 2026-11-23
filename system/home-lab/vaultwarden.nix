@@ -5,13 +5,14 @@
   ...
 }:
 let
+  service = "vaultwarden";
   home-lab = config.my.home-lab;
-  cfg = home-lab.vaultwarden;
+  cfg = home-lab.${service};
 in
 {
   options = {
-    my.home-lab.vaultwarden = {
-      enable = lib.mkEnableOption "enable vaultwarden";
+    my.home-lab.${service} = {
+      enable = lib.mkEnableOption "enable ${service}";
       auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
         type = lib.types.str;
@@ -29,12 +30,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.home-lab.vaultwarden = {
-      host = config.services.vaultwarden.config.ROCKET_ADDRESS;
-      port = config.services.vaultwarden.config.ROCKET_PORT;
+    my.home-lab.${service} = {
+      host = config.services.${service}.config.ROCKET_ADDRESS;
+      port = config.services.${service}.config.ROCKET_PORT;
     };
 
-    services.vaultwarden = {
+    services.${service} = {
       enable = true;
       package = pkgs-stable.vaultwarden;
       config = {

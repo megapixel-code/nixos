@@ -6,13 +6,14 @@
   ...
 }:
 let
+  service = "nextcloud";
   home-lab = config.my.home-lab;
-  cfg = home-lab.nextcloud;
+  cfg = home-lab.${service};
 in
 {
   options = {
-    my.home-lab.nextcloud = {
-      enable = lib.mkEnableOption "enable nextcloud";
+    my.home-lab.${service} = {
+      enable = lib.mkEnableOption "enable ${service}";
       auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
         type = lib.types.str;
@@ -30,7 +31,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.nextcloud = {
+    services.${service} = {
       enable = true;
       configureRedis = true; # caching
       https = true;
@@ -61,7 +62,7 @@ in
     };
 
     services.nginx.virtualHosts = {
-      "${config.services.nextcloud.hostName}" = {
+      "${config.services.${service}.hostName}" = {
         useACMEHost = home-lab.baseDomain;
         forceSSL = true;
       };

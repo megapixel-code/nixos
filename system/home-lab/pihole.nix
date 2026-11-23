@@ -5,13 +5,14 @@
   ...
 }:
 let
+  service = "pihole";
   home-lab = config.my.home-lab;
-  cfg = home-lab.pihole;
+  cfg = home-lab.${service};
 in
 {
   options = {
-    my.home-lab.pihole = {
-      enable = lib.mkEnableOption "enable pihole";
+    my.home-lab.${service} = {
+      enable = lib.mkEnableOption "enable ${service}";
       auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
         type = lib.types.str;
@@ -33,7 +34,7 @@ in
       home_lab_ip = "192.168.0.69";
     in
     lib.mkIf cfg.enable {
-      my.home-lab.pihole = {
+      my.home-lab.${service} = {
         port = 3000;
         host = "127.0.0.1";
       };

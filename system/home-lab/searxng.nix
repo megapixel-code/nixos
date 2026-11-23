@@ -1,18 +1,18 @@
 {
   lib,
   config,
-  pkgs,
   pkgs-stable,
   ...
 }:
 let
+  service = "searxng";
   home-lab = config.my.home-lab;
-  cfg = home-lab.searxng;
+  cfg = home-lab.${service};
 in
 {
   options = {
-    my.home-lab.searxng = {
-      enable = lib.mkEnableOption "enable searxng";
+    my.home-lab.${service} = {
+      enable = lib.mkEnableOption "enable ${service}";
       auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
         type = lib.types.str;
@@ -30,7 +30,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.home-lab.searxng = {
+    my.home-lab.${service} = {
       host = "127.0.0.1";
       port = 8888;
     };

@@ -1,16 +1,18 @@
 {
   lib,
   config,
+  pkgs-stable,
   ...
 }:
 let
+  service = "jellyfin";
   home-lab = config.my.home-lab;
-  cfg = home-lab.jellyfin;
+  cfg = home-lab.${service};
 in
 {
   options = {
-    my.home-lab.jellyfin = {
-      enable = lib.mkEnableOption "enable jellyfin";
+    my.home-lab.${service} = {
+      enable = lib.mkEnableOption "enable ${service}";
       auto-proxy = lib.mkEnableOption "automaticaly proxy";
       prefix = lib.mkOption {
         type = lib.types.str;
@@ -28,14 +30,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    my.home-lab.jellyfin = {
+    my.home-lab.${service} = {
       host = "127.0.0.1";
       port = 8096;
     };
 
-    services.jellyfin = {
+    services.${service} = {
       enable = true;
       openFirewall = false;
+      package = pkgs-stable.jellyfin;
     };
   };
 }
