@@ -47,14 +47,14 @@ in
           mkNginxJails = filters: lib.mkMerge (lib.map mkNginxJail filters);
         in
         lib.mkMerge [
-          (mkNginxJails [
+          (lib.mkIf (config.services.nginx.enable == true) (mkNginxJails [
             "nginx-bad-request"
             "nginx-botsearch"
             "nginx-error-common"
             "nginx-forbidden"
             "nginx-http-auth"
             "nginx-limit-req"
-          ])
+          ]))
           {
             # max 5 failures in 600 sec
             # "nginx-bad-request".settings = {

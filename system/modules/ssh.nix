@@ -13,9 +13,16 @@
       # server config
       sops.secrets."ssh/privateKeys/servers" = { };
 
+      networking.firewall.allowedTCPPorts = lib.mkIf (
+        !(hostName == "router")
+      ) config.services.openssh.ports;
+      networking.firewall.interfaces."${config.my.networking.router.bridge_name}".allowedTCPPorts =
+        lib.mkIf (hostName == "router")
+          config.services.openssh.ports;
+
       services.openssh = {
         enable = true;
-        openFirewall = true;
+        openFirewall = false;
         hostKeys = [ ]; # unset this opt to not generate keys
 
         # added in the config in /etc/ssh/sshd_config
