@@ -120,7 +120,7 @@
       (lib.mkIf (config.home-manager.users.${user}.my.module_router.enable) {
         boot.kernel.sysctl = {
           "net.ipv4.conf.all.forwarding" = true;
-          # "net.ipv6.conf.all.forwarding" = false;
+          "net.ipv6.conf.all.forwarding" = false;
         };
 
         networking = {
@@ -151,7 +151,6 @@
             externalInterface = cfg.router.outside_interface;
             internalInterfaces = [ cfg.router.bridge_name ];
 
-            dmzHost = config.my.networking.server.ip;
             forwardPorts = [
               {
                 loopbackIPs = [ cfg.public_ip ];
