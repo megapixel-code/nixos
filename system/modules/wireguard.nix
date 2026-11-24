@@ -73,7 +73,7 @@ in
                     publicKey = server.public_key;
                     allowedIPs = [
                       server.address
-                      cfg.server.ip
+                      cfg.router.subnet
                       "0.0.0.0/0"
                       "::/0"
                     ];
