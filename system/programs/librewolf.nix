@@ -54,6 +54,13 @@
               Alias = "!nf";
             }
             {
+              Name = "Nix_Wiki";
+              URLTemplate = "https://wiki.nixos.org/w/index.php?search={searchTerms}";
+              Method = "GET";
+              IconURL = "https://search.nixos.org/images/nixos-logomark-default-gradient-none.svg";
+              Alias = "!nw";
+            }
+            {
               Name = "Wikipedia";
               URLTemplate = "https://en.wikipedia.org/w/index.php?search={searchTerms}";
               Method = "GET";
