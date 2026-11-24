@@ -84,6 +84,7 @@ let
       glibcInfo
 
       busybox # bunch of unix utilities
+      nmap # allows you to test open ports
       gnumake
       cmake
       curl
