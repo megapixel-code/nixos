@@ -67,6 +67,7 @@
       };
       sops.secrets."ssh/publicKeys/servers" = { };
       sops.templates."known_hosts" = {
+        # TODO: better code / use program.ssh ?
         content =
           let
             oneToString = (
