@@ -51,6 +51,8 @@ download = [
 [open]
 # how to get MIME type : https://mimetype.io/all-types
 rules = [
+  { mime = "text/html", use = ["nvim", "browser"] },
+  { mime = "text/csv", use = ["libreoffice", "nvim"] },  # FIXME: not working
   { mime = "text/*", use = "nvim" },
   { mime = "image/*", use = ["vimiv", "gimp", "inkscape"] },
   { mime = "video/*", use = ["vlc", "kdenlive"] },
