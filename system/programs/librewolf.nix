@@ -33,6 +33,12 @@
               Method = "GET";
             }
             {
+              Name = "DuckDuckGo";
+              URLTemplate = "https://noai.duckduckgo.com/?q={searchTerms}";
+              Method = "GET";
+              Alias = "!ddg";
+            }
+            {
               Name = "Nix_Packages";
               URLTemplate = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
               Method = "GET";
@@ -171,6 +177,9 @@
           "privacy.fingerprintingProtection.overrides",
           "+AllTargets,-CSSPrefersColorScheme"
         );
+
+        // change startup homepage
+        lockPref("browser.startup.homepage", "about:blank");
       '';
     };
 
