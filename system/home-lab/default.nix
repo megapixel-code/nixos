@@ -44,6 +44,18 @@
             prefix = "password";
             category = "services";
           };
+          arr = {
+            enable = true;
+            auto-proxy = false;
+            prefix = "arr";
+            category = "arr";
+          };
+          i2p = {
+            enable = true;
+            auto-proxy = true;
+            prefix = "i2p";
+            category = "arr";
+          };
           immich = {
             enable = true;
             auto-proxy = true;

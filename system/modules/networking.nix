@@ -30,6 +30,9 @@
       port = lib.mkOption { type = port; };
       interface = lib.mkOption { type = str; };
     };
+    i2p = {
+      port = lib.mkOption { type = port; };
+    };
   };
 
   config =
@@ -77,6 +80,9 @@
               subnet = mkSubnet cfg.wireguard.network cfg.wireguard.prefix_length;
               port = 51820;
               interface = "wg0";
+            };
+            i2p = {
+              port = 7777;
             };
           };
 
@@ -157,6 +163,16 @@
                 sourcePort = cfg.wireguard.port;
                 destination = "${cfg.server.ip}:${lib.toString cfg.wireguard.port}";
                 proto = "udp";
+              }
+              {
+                sourcePort = cfg.i2p.port;
+                destination = "${cfg.server.ip}:${lib.toString cfg.i2p.port}";
+                proto = "udp";
+              }
+              {
+                sourcePort = cfg.i2p.port;
+                destination = "${cfg.server.ip}:${lib.toString cfg.i2p.port}";
+                proto = "tcp";
               }
             ];
           };
