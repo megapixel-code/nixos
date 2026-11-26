@@ -74,7 +74,7 @@ in
         };
 
         engines = lib.mapAttrsToList (name: value: { inherit name; } // value) {
-          # "duckduckgo".disabled = true;
+          "brave".disabled = true;
           # "duckduckgo".weight = 0.5;
           # "duckduckgo".weight = 2;
         };
