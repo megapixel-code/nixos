@@ -17,6 +17,12 @@
       module_printing.enable = lib.mkEnableOption "enable printing";
       module_powersave = {
         enable = lib.mkEnableOption "enable powersave";
+        hard_drives = lib.mkOption {
+          type = lib.types.nullOr (lib.types.listOf lib.types.str);
+          default = null;
+          example = [ "sd[a-z]" ];
+          description = "masks to rotational hard drive devices (https://wiki.nixos.org/wiki/Power_Management)";
+        };
         cpu_type = lib.mkOption {
           type = lib.types.enum [
             "intel"
@@ -86,6 +92,7 @@
         module_printing.enable = select main;
         module_powersave = {
           enable = select all;
+          hard_drives = lib.mkIf (select (router ++ server)) [ "sd[a-z]" ];
           cpu_type = if (select (nixos-school ++ nixos-main ++ router ++ server)) then "intel" else null;
           gpu_type = if (select nixos-main) then "nvidia" else null;
         };

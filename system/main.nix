@@ -88,7 +88,20 @@
     (lib.mkIf config.home-manager.users.${user}.my.module_powersave.enable {
       powerManagement.enable = true;
 
-      # TODO: udev rules for hard drives : https://wiki.nixos.org/wiki/Power_Management
+      services.udev.extraRules =
+        let
+          mkRule =
+            device_mask:
+            lib.concatStringsSep ", " [
+              ''ACTION=="add|change"''
+              ''SUBSYSTEM=="block"''
+              ''KERNEL=="${device_mask}"''
+              ''ATTR{queue/rotational}=="1"''
+              ''RUN+="${pkgs.hdparm}/bin/hdparm -B 90 -S 41 /dev/%k"''
+            ];
+          masks = config.home-manager.users.${user}.my.module_powersave.hard_drives;
+        in
+        lib.mkIf (masks != null) (lib.concatStringsSep "\n" (lib.map (mask: mkRule mask) masks));
 
       hardware = {
         # When enabled other devices can connect faster to us, however
