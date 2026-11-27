@@ -9,6 +9,18 @@
     my.home-lab = {
       enable = lib.mkEnableOption "enable home-lab";
       baseDomain = lib.mkOption { type = lib.types.str; };
+      paths =
+        let
+          mkPathOpt = opt_name: {
+            ${opt_name} = {
+              path = lib.mkOption { type = lib.types.path; };
+              mode = lib.mkOption { type = lib.types.str; };
+              user = lib.mkOption { type = lib.types.str; };
+              group = lib.mkOption { type = lib.types.str; };
+            };
+          };
+        in
+        mkPathOpt "movies" // mkPathOpt "series" // mkPathOpt "downloads";
     };
   };
 
@@ -31,6 +43,9 @@
           fail2ban = {
             enable = true;
           };
+          arr_stack = {
+            enable = true;
+          };
 
           nextcloud = {
             enable = true;
@@ -43,18 +58,6 @@
             auto-proxy = true;
             prefix = "password";
             category = "services";
-          };
-          arr = {
-            enable = true;
-            auto-proxy = false;
-            prefix = "arr";
-            category = "arr";
-          };
-          i2p = {
-            enable = true;
-            auto-proxy = true;
-            prefix = "i2p";
-            category = "arr";
           };
           immich = {
             enable = true;
@@ -80,7 +83,46 @@
             prefix = "dns";
             category = "search";
           };
+
+          paths =
+            let
+              base_dir = "/data";
+              arr_group_id = 6969;
+            in
+            {
+              movies = {
+                path = "${base_dir}/media/movies";
+                mode = "0770";
+                user = "${user}";
+                group = lib.toString arr_group_id;
+              };
+              series = {
+                path = "${base_dir}/media/series";
+                mode = "0770";
+                user = "${user}";
+                group = lib.toString arr_group_id;
+              };
+              downloads = {
+                path = "${base_dir}/media/downloads";
+                mode = "0770";
+                user = "${user}";
+                group = lib.toString arr_group_id;
+              };
+              # TODO: add paths with other services
+            };
         };
+
+        # ensure dirs are present on the machine
+        systemd.tmpfiles.settings."home-lab-paths" = lib.mapAttrs' (
+          name: value:
+          lib.nameValuePair "${value.path}" {
+            d = {
+              mode = value.mode;
+              user = value.user;
+              group = value.group;
+            };
+          }
+        ) cfg.paths;
 
         sops.secrets."duckdns/token" = { };
         sops.templates."acme.env" = {
